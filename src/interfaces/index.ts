@@ -5,3 +5,11 @@ export declare interface IUser {
   gender?: number;
   dob?: Date;
 }
+
+export declare interface IPlaces {
+  id: number;
+  name: string;
+  pos_x: number;
+  pos_y: number;
+  category_id: number;
+}
