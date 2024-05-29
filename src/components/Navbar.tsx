@@ -1,10 +1,14 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const navRef = useRef<HTMLUListElement>(null);
+
   return (
     <nav className="bg-cus-blue w-full h-[10vh] flex justify-between items-center px-8 text-white font-semibold">
-      <p>CUS</p>
-      <ul className="flex items-center gap-8">
+      <Link to={"/"}>CUS</Link>
+
+      <ul className="hidden lg:flex items-center gap-8">
         <li>Direktori</li>
         <li>Komunitas</li>
         <li>Forum</li>
