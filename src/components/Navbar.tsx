@@ -6,7 +6,10 @@ const Navbar = () => {
       <Link to={"/"}>CUS</Link>
 
       <ul className="hidden lg:flex items-center gap-8">
-        <li>Direktori</li>
+        <Link
+          to={"/direktori"}>
+            Direktori
+        </Link>
         <li>Komunitas</li>
         <li>Forum</li>
         <Link
