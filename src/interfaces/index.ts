@@ -13,3 +13,11 @@ export declare interface IPlaces {
   pos_y: number;
   category_id: number;
 }
+
+export declare interface CardProps{
+  image: string;
+  title: string;
+  price: string;
+  address: string;
+  tags: string[];
+}
