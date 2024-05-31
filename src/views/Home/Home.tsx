@@ -2,13 +2,13 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import SearchBar from "./components/SearchBar";
 import { useEffect, useState } from "react";
 import { getMarkersByCategoryId } from "./utilities";
-import { IPlaces } from "../../interfaces";
+import { IPlace } from "../../interfaces";
 import { getAllPlaces } from "../../utilities";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
-  const [allPlaces, setAllPlaces] = useState<IPlaces[] | null>([]);
-  const [markers, setMarkers] = useState<IPlaces[] | null>([]);
+  const [allPlaces, setAllPlaces] = useState<IPlace[] | null>([]);
+  const [markers, setMarkers] = useState<IPlace[] | null>([]);
 
   useEffect(() => {
     getAllPlaces().then((data) => {

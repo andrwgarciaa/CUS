@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { IPlaces } from "../../../interfaces";
+import { IPlace } from "../../../interfaces";
 import { ISearchBarProps } from "../interfaces";
 import MapFilter from "./MapFilter";
 import SearchResult from "./SearchResult";
 
 const SearchBar = (props: ISearchBarProps) => {
-  const [filteredPlaces, setFilteredPlaces] = useState<IPlaces[]>([]);
+  const [filteredPlaces, setFilteredPlaces] = useState<IPlace[]>([]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value;

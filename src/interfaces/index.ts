@@ -6,10 +6,14 @@ export declare interface IUser {
   dob?: Date;
 }
 
-export declare interface IPlaces {
+export declare interface IPlace {
   id: number;
   name: string;
   pos_x: number;
   pos_y: number;
+  price_min: number;
+  price_max: number;
+  rating: number;
+  address: string;
   category_id: number;
 }
