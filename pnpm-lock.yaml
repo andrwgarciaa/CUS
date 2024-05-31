@@ -17,6 +17,12 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.43.4
         version: 2.43.4
+      '@types/bcryptjs':
+        specifier: ^2.4.6
+        version: 2.4.6
+      bcryptjs:
+        specifier: ^2.4.3
+        version: 2.4.3
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -521,6 +527,9 @@ packages:
   '@types/babel__traverse@7.20.5':
     resolution: {integrity: sha512-WXCyOcRtH37HAUkpXhUduaxdm82b4GSlyTqajXviN4EfiuPgNYR109xMCKvpl6zPIpua0DGlMEDCq+g8EdoheQ==}
 
+  '@types/bcryptjs@2.4.6':
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
@@ -683,6 +692,9 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -1943,6 +1955,8 @@ snapshots:
     dependencies:
       '@babel/types': 7.24.0
 
+  '@types/bcryptjs@2.4.6': {}
+
   '@types/estree@1.0.5': {}
 
   '@types/geojson@7946.0.14': {}
@@ -2129,6 +2143,8 @@ snapshots:
       postcss-value-parser: 4.2.0
 
   balanced-match@1.0.2: {}
+
+  bcryptjs@2.4.3: {}
 
   binary-extensions@2.3.0: {}
 
