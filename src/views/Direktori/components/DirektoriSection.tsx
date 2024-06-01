@@ -12,6 +12,7 @@ const DirektoriSection: React.FC<ISectionProps> = ({
     price: "Rp 100.000 - 200.000/orang",
     address: "Jl. Jalur Sutera No. 28A, Alam Sutera, Sutera Barat",
     tags: ["asdhajshb", "Tag", "Tag", "+2"],
+    rating: "4.5",
   };
 
   return (
