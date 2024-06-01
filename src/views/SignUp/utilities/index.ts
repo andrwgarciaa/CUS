@@ -1,24 +1,32 @@
 import { IUser } from "../../../interfaces";
 import { supabase } from "../../../utilities/supabaseClient";
+import bcrypt from "bcryptjs";
+
+export const encryptPassword = async (password: string) => {
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  return hashedPassword;
+};
 
 export const signUp = async (dto: IUser) => {
-  if (
-    dto.name === "" ||
-    dto.email === "" ||
-    dto.password === "" ||
-    dto.dob === new Date() ||
-    dto.gender === 0
-  ) {
+  if (dto.email === "" || dto.password === "") {
     alert("Please fill in all the fields");
     throw new Error("Please fill in all the fields");
   } else {
-    const data = await supabase.from("User").insert({
-      name: dto.name,
-      email: dto.email,
-      password: dto.password,
-      date_of_birth: dto.dob,
-      gender: dto.gender,
-    });
+    const encrypted = await encryptPassword(dto.password);
+
+    const { data, error } = await supabase
+      .from("User")
+      .insert({
+        email: dto.email,
+        password: encrypted,
+      })
+      .select("id");
+    if (error) {
+      console.log(error.message);
+      alert("Sign up failed");
+      throw error;
+    }
 
     return data;
   }
