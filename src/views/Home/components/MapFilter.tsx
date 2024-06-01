@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { getPlaceCategories } from "../utilities";
 import { IHomeProps } from "../interfaces";
+import { getAllPlaceCategories } from "../../../utilities";
 
 const MapFilter = (props: IHomeProps) => {
   const filterRef = useRef<HTMLDivElement>(null);
   const [placeCategories, setPlaceCategories] = useState<any[] | null>([]);
 
   const getFilter = async () => {
-    const data = await getPlaceCategories();
+    const data = await getAllPlaceCategories();
     setPlaceCategories(data.data);
   };
 
