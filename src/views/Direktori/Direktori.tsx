@@ -30,6 +30,7 @@ const Direktori = () => {
         {allPlaces?.map((place) => (
           <DirektoriSection
             key={place.id}
+            categoryId={place.id}
             category={place.category}
             simplified={place.category_simplified}
           />

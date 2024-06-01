@@ -3,6 +3,7 @@ import { CardProps } from "../../../interfaces";
 import { ISectionProps } from "../interfaces";
 
 const DirektoriSection: React.FC<ISectionProps> = ({
+  categoryId,
   category,
   simplified,
 }) => {

@@ -21,6 +21,7 @@ export default function Home() {
       setMarkers(data.data);
     });
   }, [selectedCategory]);
+  
   return (
     <div className="relative">
       <SearchBar
