@@ -1,7 +1,7 @@
 import DirektoriCard from "../../../components/DirektoriCard";
 import { CardProps } from "../../../interfaces";
 import { ISectionProps } from "../interfaces";
-
+import {Link} from 'react-router-dom'
 const DirektoriSection: React.FC<ISectionProps> = ({
   categoryId,
   category,
@@ -20,9 +20,9 @@ const DirektoriSection: React.FC<ISectionProps> = ({
     <section className="mb-8">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">{simplified}</h1>
-        <a className="underline hover:underline" href="#">
+        <Link className="underline hover:underline" to= {`/direktori/lihat-semua/${categoryId}`}>
           Lihat semua
-        </a>
+        </Link>
       </div>
       <div className="flex overflow-x-auto space-x-4 hide-scrollbar">
         {Array.from({ length: 10 }, (_, i) => (
