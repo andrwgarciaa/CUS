@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IPlaces } from "../../../../interfaces";
+import { IPlace } from "../../../../interfaces";
 import { getDirektoriDetailById } from "./utilities";
 
 const DirektoriDetail = () => {
-  const [placeData, setPlaceData] = useState<IPlaces | null>();
+  const [placeData, setPlaceData] = useState<IPlace | null>();
   const id = useParams().id;
 
   const getPlaceData = async (id: string | undefined) => {
