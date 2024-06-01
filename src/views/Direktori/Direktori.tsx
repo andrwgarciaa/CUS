@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { IPlaceCategory } from "../../interfaces";
+import "../Direktori/interfaces/index.ts";
 import { getAllPlaceCategories } from "../../utilities";
 import DirektoriSection from "./components/DirektoriSection";
 

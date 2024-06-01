@@ -30,4 +30,5 @@ export declare interface CardProps {
   price: string;
   address: string;
   tags: string[];
+  rating: string;
 }
