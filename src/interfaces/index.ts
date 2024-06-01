@@ -18,7 +18,13 @@ export declare interface IPlace {
   category_id: number;
 }
 
-export declare interface CardProps{
+export declare interface IPlaceCategory {
+  id: number;
+  category: string;
+  category_simplified: string;
+}
+
+export declare interface CardProps {
   image: string;
   title: string;
   price: string;
