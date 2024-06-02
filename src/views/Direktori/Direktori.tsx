@@ -15,10 +15,10 @@ const Direktori = () => {
   return (
     <div>
       <div className="container mx-auto mt-10 px-4">
-        <header className="mb-8 flex items-center">
+        <header className="mb-20 flex items-center">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold mb-2">Direktori Tempat</h1>
-            <p className="deskripsi max-w-2xl break-words text-justify">
+            <h1 className="text-3xl font-bold mb-2">Direktori Tempat</h1>
+            <p className="deskripsi max-w-3xl break-words text-justify">
               Menjelajah ke tempat-tempat seperti restoran, kafe, mal,
               supermarket, taman, hingga bengkel memberikan pengalaman yang
               beragam, seperti menikmati kuliner lezat hingga berbelanja semua

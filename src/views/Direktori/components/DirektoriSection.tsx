@@ -1,19 +1,19 @@
 import DirektoriCard from "../../../components/DirektoriCard";
-import { CardProps } from "../../../interfaces";
+import {  IPlace } from "../../../interfaces";
 import { ISectionProps } from "../interfaces";
 import {Link} from 'react-router-dom'
 const DirektoriSection: React.FC<ISectionProps> = ({
   categoryId,
-  category,
   simplified,
 }) => {
-  const sampleCardData: CardProps = {
+  const sampleCardData: IPlace = {
+    id: 0,
     image: "https://via.placeholder.com/150",
-    title: "Kayu - Kayu",
-    price: "Rp 100.000 - 200.000/orang",
+    name: "Kayu - Kayu",
+    price_min: 100000,
+    price_max: 200000,
     address: "Jl. Jalur Sutera No. 28A, Alam Sutera, Sutera Barat",
-    tags: ["asdhajshb", "Tag", "Tag", "+2"],
-    rating: "4.5",
+    rating: 4.5,
   };
 
   return (
@@ -24,7 +24,7 @@ const DirektoriSection: React.FC<ISectionProps> = ({
           Lihat semua
         </Link>
       </div>
-      <div className="flex overflow-x-auto space-x-4 hide-scrollbar">
+      <div className="flex overflow-x-auto space-x-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400">
         {Array.from({ length: 10 }, (_, i) => (
           <DirektoriCard key={i} {...sampleCardData} />
         ))}
