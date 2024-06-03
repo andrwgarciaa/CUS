@@ -10,7 +10,11 @@ export const signIn = async (dto: IUser) => {
     .limit(1)
     .single();
 
-  const matched = await compare(dto.password, data.data.password);
+  // workaround because of possibly undefined password on interface
+  const matched = await compare(
+    dto.password ? dto.password : "",
+    data.data.password
+  );
 
   return matched ? data : null;
 };

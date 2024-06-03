@@ -5,7 +5,7 @@ import { getDirektoriDetailById } from "./utilities";
 
 const DirektoriDetail = () => {
   const [placeData, setPlaceData] = useState<IPlace | null>();
-  const id = useParams().id;
+  const { id } = useParams();
 
   const getPlaceData = async (id: string | undefined) => {
     const data = await getDirektoriDetailById(id);

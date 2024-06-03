@@ -11,6 +11,9 @@ import DirektoriDetail from "./views/Direktori/views/DirektoriDetail/DirektoriDe
 import LihatSemua from "./views/Direktori/views/LihatSemua/LihatSemua.tsx";
 import Profil from "./views/Profil/Profil.tsx";
 import { SessionProvider } from "./contexts/SessionContext.tsx";
+import Forum from "./views/Forum/Forum.tsx";
+import AddPost from "./views/Forum/views/AddPost/AddPost.tsx";
+import DetailForum from "./views/Forum/DetailForum/DetailForum.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -22,6 +25,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/direktori" element={<Direktori />} />
           <Route path="/direktori/detail/:id" element={<DirektoriDetail />} />
           <Route path="/direktori/lihat-semua/:id" element={<LihatSemua />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/forum/add-post" element={<AddPost />} />
+          <Route path="/forum/detail/:id" element={<DetailForum />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profil" element={<Profil />} />
