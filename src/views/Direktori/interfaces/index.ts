@@ -1,5 +1,5 @@
 export interface ISectionProps {
-  categoryId: string | undefined;
+  categoryId: number;
   category: string;
   simplified: string;
 }

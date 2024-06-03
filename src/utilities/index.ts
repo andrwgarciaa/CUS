@@ -24,7 +24,7 @@ export const getAllPlaces = async () => {
   return data;
 };
 
-export const getAllPlacesByCategoryId = async (id: string | undefined) => {
+export const getAllPlacesByCategoryId = async (id: number) => {
   const data = await supabase.from("Place").select("*").eq("category_id", id);
 
   return data;
