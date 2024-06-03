@@ -8,6 +8,16 @@ export const checkUser = () => {
   return null;
 };
 
+export const getUserDataById = async (id: string | undefined) => {
+  const data = await supabase
+    .from("User")
+    .select("id, name, email, date_of_birth, avatar_url")
+    .eq("id", id)
+    .single();
+
+  return data;
+};
+
 export const getAllPlaces = async () => {
   const data = await supabase.from("Place").select("*");
 
