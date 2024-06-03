@@ -30,7 +30,7 @@ const Navbar = () => {
 
       <ul className="hidden lg:flex items-center gap-8">
         <Link to={"/direktori"}>Direktori</Link>
-        <li>Komunitas</li>
+        <li>Komunitas & Aktivitas</li>
         <Link to={"/forum"}>Forum</Link>
         {isLoggedIn ? (
           // <Link to={"/profil"}>
@@ -44,7 +44,7 @@ const Navbar = () => {
           // </Link>
           <Link
             to={"/signin"}
-            className="bg-cus-orange border border-none rounded-lg px-6 py-2"
+            className="bg-cus-orange text-white border border-cus-orange hover:bg-cus-blue hover:text-cus-orange hover:border-cus-orange rounded-lg px-6 py-2"
           >
             Sign In
           </Link>

@@ -34,9 +34,8 @@ const PostCard = (props: IPost) => {
           <span className="font-semibold">{author?.name}</span>
         </span>
       </div>
-      <div className="flex justify-between items-center mt-4">
-        <span>{props.upvote} upvotes</span>
-        <span>{props.downvote} downvotes</span>
+      <div className="flex justify-end items-center mt-4">
+          <span>{props.upvote} upvotes | {props.downvote} downvotes</span>
       </div>
     </div>
   );

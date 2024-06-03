@@ -97,7 +97,7 @@ const DetailForum = () => {
         <p>{post?.body}</p>
         <div className="flex gap-4 mt-4">
           <div>
-            {post?.upvote} upvotes {post?.downvote} downvotes
+            {post?.upvote} upvotes | {post?.downvote} downvotes
           </div>
           <div>
             {formattedTime} • {formattedDate}
@@ -107,14 +107,14 @@ const DetailForum = () => {
       <form className="w-3/4 " onSubmit={handleAddComment}>
         <input
           ref={newCommentRef}
-          className="w-full p-4 border rounded-lg"
+          className="w-full p-4 border rounded-lg mb-3"
           type="text"
           name="comment"
           id="comment"
           placeholder="Tambahkan komentar..."
           onInput={(e) => setNewComment((e.target as HTMLInputElement).value)}
         />
-        <input type="submit" value="Add" />
+        <input type="submit" className="border border-cus-orange bg-cus-orange text-white hover:cursor-pointer hover:bg-white hover:text-cus-orange w-30 rounded-lg p-2" value="Tambahkan" />
       </form>
       {comments?.map((comment) => (
         <CommentCard key={comment.id} {...comment} />

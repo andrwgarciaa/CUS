@@ -46,7 +46,7 @@ const CommentCard = (props: IComment) => {
         <p className="mt-4">{props.body}</p>
         <div className="flex gap-4 mt-4">
           <div>
-            {props.upvote} upvotes {props.downvote} downvotes
+            {props.upvote} upvotes | {props.downvote} downvotes
           </div>
           <div>
             {formattedTime} • {formattedDate}
