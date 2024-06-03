@@ -11,3 +11,10 @@ export declare interface ISearchBarProps extends IHomeProps {
 export declare interface ISearchResultProps {
   places: IPlace[];
 }
+
+export declare interface IHomeMap {
+  id: number;
+  name: string;
+  pos_x: number;
+  pos_y: number;
+}
