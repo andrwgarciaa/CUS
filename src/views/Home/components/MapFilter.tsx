@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { IHomeProps } from "../interfaces";
 import { getAllPlaceCategories } from "../../../utilities";
+import { IPlaceCategory } from "../../../interfaces";
 
 const MapFilter = (props: IHomeProps) => {
   const filterRef = useRef<HTMLDivElement>(null);
-  const [placeCategories, setPlaceCategories] = useState<any[] | null>([]);
+  const [selectedFilter, setSelectedFilter] = useState<number>(0);
+  const [placeCategories, setPlaceCategories] = useState<
+    IPlaceCategory[] | null
+  >([]);
 
   const getFilter = async () => {
     const data = await getAllPlaceCategories();
@@ -13,6 +17,7 @@ const MapFilter = (props: IHomeProps) => {
 
   const handleSelectCategory = (id: number) => {
     props.setSelectedCategory(id);
+    setSelectedFilter(id);
   };
 
   const handleArrow = (direction: string) => () => {
@@ -38,8 +43,12 @@ const MapFilter = (props: IHomeProps) => {
       <div ref={filterRef} className="flex items-center gap-2 overflow-x-auto">
         {placeCategories?.map((place) => (
           <span
-            key={place.category}
-            className="px-5 py-3 bg-white rounded-2xl shadow-lg hover:cursor-pointer transition-all"
+            key={place.id}
+            className={`px-5 py-3  rounded-2xl shadow-lg hover:cursor-pointer transition-all ${
+              selectedFilter === place.id
+                ? "bg-cus-blue text-white"
+                : "bg-white"
+            }`}
             onClick={() => handleSelectCategory(place.id)}
           >
             {place.category}

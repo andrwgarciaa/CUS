@@ -18,6 +18,7 @@ export const signUp = async (dto: IUser) => {
     const { data, error } = await supabase
       .from("User")
       .insert({
+        name: dto.email.split("@")[0] + Math.floor(Math.random() * 1000),
         email: dto.email,
         password: encrypted,
       })

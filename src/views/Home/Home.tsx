@@ -2,15 +2,20 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import SearchBar from "./components/SearchBar";
 import { useEffect, useState } from "react";
 import { getMarkersByCategoryId } from "./utilities";
-import { IPlace } from "../../interfaces";
-import { getAllPlaces } from "../../utilities";
+import { IPlace, IUser } from "../../interfaces";
+import { checkUser, getAllPlaces } from "../../utilities";
+import { IHomeMap } from "./interfaces";
+import { Link } from "react-router-dom";
 
 export default function Home() {
+  const [loggedIn, setLoggedIn] = useState<IUser>();
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [allPlaces, setAllPlaces] = useState<IPlace[] | null>([]);
-  const [markers, setMarkers] = useState<IPlace[] | null>([]);
+  const [markers, setMarkers] = useState<IHomeMap[] | null>([]);
 
   useEffect(() => {
+    setLoggedIn(checkUser());
+
     getAllPlaces().then((data) => {
       setAllPlaces(data.data);
     });
@@ -21,7 +26,7 @@ export default function Home() {
       setMarkers(data.data);
     });
   }, [selectedCategory]);
-  
+
   return (
     <div className="relative">
       <SearchBar
@@ -39,7 +44,16 @@ export default function Home() {
         />
         {markers?.map((marker) => (
           <Marker key={marker.id} position={[marker.pos_x, marker.pos_y]}>
-            <Popup>{marker.name}</Popup>
+            <Popup>
+              {marker.name}
+              <br />
+              <Link
+                to={`/direktori/detail/${marker.id}`}
+                className="underline underline-offset-2"
+              >
+                see detail
+              </Link>
+            </Popup>
           </Marker>
         ))}
       </MapContainer>

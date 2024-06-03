@@ -1,9 +1,11 @@
 export declare interface IUser {
+  id?: string;
   name?: string;
   email: string;
   password: string;
-  gender?: number;
-  dob?: Date;
+  gender?: string;
+  date_of_birth?: Date;
+  avatar_url?: string;
 }
 
 export declare interface IPlace {
@@ -24,4 +26,11 @@ export declare interface IPlaceCategory {
   category: string;
   category_simplified: string;
   description: string;
+}
+
+export declare interface ISessionContext {
+  user: IUser | null;
+  isLoggedIn: boolean;
+  setSession: (keepLoggedIn: boolean, user: IUser) => void;
+  removeSession: () => void;
 }
