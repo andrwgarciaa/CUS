@@ -10,6 +10,7 @@ const Forum = () => {
   const [filter, setFilter] = useState<string>("1");
 
   const fetchPosts = async (filter: string) => {
+    console.log(filter);
     const data = await getAllPosts();
     if (filter === "1") {
       data.data?.sort((a: IPost, b: IPost) => {
@@ -22,7 +23,6 @@ const Forum = () => {
         return b.upvote - a.upvote;
       });
     }
-    console.log(data.data);
     setPosts(data.data);
   };
 
@@ -31,7 +31,7 @@ const Forum = () => {
   }, [filter]);
 
   return (
-    <div className="p-4">
+    <div className="p-16">
       <h1 className="text-3xl">Forum</h1>
       <div className="flex justify-between items-center">
         <div>
