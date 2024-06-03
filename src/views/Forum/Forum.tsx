@@ -10,7 +10,6 @@ const Forum = () => {
   const [filter, setFilter] = useState<string>("1");
 
   const fetchPosts = async (filter: string) => {
-    console.log(filter);
     const data = await getAllPosts();
     if (filter === "1") {
       data.data?.sort((a: IPost, b: IPost) => {
@@ -31,21 +30,25 @@ const Forum = () => {
   }, [filter]);
 
   return (
-    <div className="p-16">
-      <h1 className="text-3xl">Forum</h1>
+    <div className="p-4">
+      <h1 className="text-3xl font-bold">Forum</h1>
       <div className="flex justify-between items-center">
         <div>
           <span>Urutkan dari: </span>
-          <select value={1} onChange={(e) => setFilter(e.target.value)}>
+          <select
+            className="hover:cursor-pointer"
+            value={1}
+            onChange={(e) => setFilter(e.target.value)}
+          >
             <option value={1}>Terbaru</option>
             <option value={2}>Terpopuler</option>
           </select>
         </div>
         <Link
           to={"/forum/add-post"}
-          className="border rounded-lg p-2 bg-cus-blue text-white"
+          className="border rounded-lg p-2 bg-white text-cus-orange border-cus-orange hover:bg-cus-orange hover:text-white"
         >
-          Add new post
+          Tambahkan Post Baru
         </Link>
       </div>
       <div className="flex flex-col gap-2 mt-4">

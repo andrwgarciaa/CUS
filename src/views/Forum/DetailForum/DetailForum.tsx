@@ -180,7 +180,7 @@ const DetailForum = () => {
       <form className="w-3/4 relative" onSubmit={handleAddComment}>
         <input
           ref={newCommentRef}
-          className="w-full p-4 border rounded-lg"
+          className="w-full p-4 border rounded-lg mb-3 pr-32 word-wrap break-words"
           type="text"
           name="comment"
           id="comment"
@@ -189,8 +189,8 @@ const DetailForum = () => {
         />
         <input
           type="submit"
-          value="&#43;"
-          className="absolute right-4 top-4 border-gray-300 border rounded-lg w-8 h-8 text-lg hover:cursor-pointer hover:bg-cus-blue hover:text-white"
+          className="absolute right-2 top-2 border border-cus-orange bg-cus-orange text-white hover:cursor-pointer hover:bg-white hover:text-cus-orange w-30 rounded-lg p-2"
+          value="Tambahkan"
         />
       </form>
       {comments?.map((comment) => (
