@@ -10,7 +10,8 @@ const Navbar = () => {
           to={"/direktori"}>
             Direktori
         </Link>
-        <li>Komunitas</li>
+        <Link to={"/komunitas"}>
+          Komunitas & Aktivitas</Link>
         <li>Forum</li>
         <Link
           to={"/signin"}

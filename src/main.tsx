@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar.tsx";
 import Home from "./views/Home/Home.tsx";
 import Direktori from "./views/Direktori/Direktori.tsx";
 import DirektoriDetail from "./views/Direktori/views/DirektoriDetail/DirektoriDetail.tsx";
+import Komunitas from "./views/Komunitas/Komunitas.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/direktori" element={<Direktori />} />
+        <Route path="/Komunitas" element={<Komunitas />} />
         <Route path="/direktori/detail/:id" element={<DirektoriDetail />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
