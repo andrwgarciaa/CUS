@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../../interfaces";
 import { signIn } from "./utilities";
+import { SessionContext } from "../../contexts/SessionContext";
 
 const Login: React.FC = () => {
+  const session = useContext(SessionContext);
+  const navigate = useNavigate();
   const [dto, setDto] = useState<IUser>({
     email: "",
     password: "",
@@ -15,7 +18,9 @@ const Login: React.FC = () => {
     const data = await signIn(dto);
     if (data) {
       alert("Sign in successful!");
-    }
+      session.setSession(keepLoggedIn, data.data);
+      navigate("/");
+    } else alert("Sign in failed.");
   };
 
   return (

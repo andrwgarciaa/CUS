@@ -13,11 +13,12 @@ export const signUp = async (dto: IUser) => {
     alert("Please fill in all the fields");
     throw new Error("Please fill in all the fields");
   } else {
-    const encrypted = await encryptPassword(dto.password);
+    const encrypted = await encryptPassword(dto.password as string);
 
     const { data, error } = await supabase
       .from("User")
       .insert({
+        name: dto.email.split("@")[0] + Math.floor(Math.random() * 1000),
         email: dto.email,
         password: encrypted,
       })
