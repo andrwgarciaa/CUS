@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "./utilities/index";
 import { IUser } from "../../interfaces";
 import PasswordRuleWarning from "./components/PasswordRuleWarning";
 
 const SignUp: React.FC = () => {
-  const [dto, setDto] = useState<IUser>({
-    email: "",
-    password: "",
-  });
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordRule, setPasswordRule] = useState({
     length: false,
     upper: false,
@@ -19,30 +18,46 @@ const SignUp: React.FC = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    const dto: IUser = {
+      email,
+      password,
+    };
 
-    if (dto.password !== passwordConfirmation) {
-      alert("Password do not match");
-    } else {
+    if (
+      passwordRule.length &&
+      passwordRule.upper &&
+      passwordRule.number &&
+      passwordRule.match
+    ) {
       const data = await signUp(dto);
-      if (data) alert("Sign up successful");
+      if (data) {
+        alert("Sign up successful");
+        navigate("/signin");
+      }
+    } else {
+      alert("Password do not match");
     }
   };
 
   const checkPassword = () => {
     setPasswordRule({
-      length: dto.password.length >= 8 || passwordConfirmation.length >= 8,
+      length: password.length >= 8 || passwordConfirmation.length >= 8,
       upper:
-        dto.password.match(/[A-Z]/) !== null ||
+        password.match(/[A-Z]/) !== null ||
         passwordConfirmation.match(/[A-Z]/) !== null,
       number:
-        dto.password.match(/[0-9]/) !== null ||
+        password.match(/[0-9]/) !== null ||
         passwordConfirmation.match(/[0-9]/) !== null,
       match:
-        dto.password === passwordConfirmation &&
-        dto.password !== "" &&
+        password === passwordConfirmation &&
+        password !== "" &&
         passwordConfirmation !== "",
     });
   };
+
+  useEffect(() => {
+    checkPassword();
+  }, [password, passwordConfirmation]);
 
   return (
     <div className="flex justify-between w-full h-[90vh]">
@@ -63,11 +78,7 @@ const SignUp: React.FC = () => {
                   placeholder=" "
                   className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                   onInput={(e) =>
-                    setDto((prev) => {
-                      const temp = prev;
-                      temp.email = (e.target as HTMLInputElement).value;
-                      return temp;
-                    })
+                    setEmail((e.target as HTMLInputElement).value)
                   }
                 />
                 <label
@@ -88,14 +99,7 @@ const SignUp: React.FC = () => {
                   placeholder=" "
                   className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                   onInput={(e) =>
-                    setDto((prev) => {
-                      const temp = prev;
-                      const passwordInput = (e.target as HTMLInputElement)
-                        .value;
-                      temp.password = passwordInput;
-                      checkPassword();
-                      return temp;
-                    })
+                    setPassword((e.target as HTMLInputElement).value)
                   }
                 />
                 <label
@@ -116,9 +120,9 @@ const SignUp: React.FC = () => {
                   placeholder=" "
                   className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                   onInput={(e) => {
-                    const passwordInput = (e.target as HTMLInputElement).value;
-                    setPasswordConfirmation(passwordInput);
-                    checkPassword();
+                    setPasswordConfirmation(
+                      (e.target as HTMLInputElement).value
+                    );
                   }}
                 />
                 <label
@@ -130,10 +134,10 @@ const SignUp: React.FC = () => {
               </div>
             </div>
           </div>
-          {dto.password.length > 0 || passwordConfirmation.length > 0 ? (
+          {password || passwordConfirmation ? (
             <div>
               {Object.entries(passwordRule).map(([key, value]) => (
-                <PasswordRuleWarning type={key} filled={value} />
+                <PasswordRuleWarning key={key} type={key} filled={value} />
               ))}
             </div>
           ) : null}

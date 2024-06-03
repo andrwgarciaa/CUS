@@ -1,5 +1,13 @@
 import { supabase } from "./supabaseClient";
 
+export const checkUser = () => {
+  const user = localStorage.getItem("user") ?? sessionStorage.getItem("user");
+  if (user) {
+    return JSON.parse(user);
+  }
+  return null;
+};
+
 export const getAllPlaces = async () => {
   const data = await supabase.from("Place").select("*");
 
@@ -7,10 +15,10 @@ export const getAllPlaces = async () => {
 };
 
 export const getAllPlacesByCategoryId = async (id: string | undefined) => {
-  const data = await supabase.from("Place").select("*").eq("category_id", id)
+  const data = await supabase.from("Place").select("*").eq("category_id", id);
 
   return data;
-}
+};
 
 export const getAllPlaceCategories = async () => {
   const data = await supabase.from("PlaceCategories").select("*");
@@ -19,11 +27,16 @@ export const getAllPlaceCategories = async () => {
 };
 
 export const getPlaceCategoryById = async (id: string | undefined) => {
-  const data = await supabase.from("PlaceCategories").select("*").eq("id", id).limit(1).single();
+  const data = await supabase
+    .from("PlaceCategories")
+    .select("*")
+    .eq("id", id)
+    .limit(1)
+    .single();
 
   return data;
-}
- 
+};
+
 export const truncateString = (str: string, num: number): string => {
   if (str.length <= num) {
     return str;
