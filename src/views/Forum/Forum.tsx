@@ -22,7 +22,6 @@ const Forum = () => {
         return b.upvote - a.upvote;
       });
     }
-    console.log(data.data);
     setPosts(data.data);
   };
 
@@ -36,7 +35,11 @@ const Forum = () => {
       <div className="flex justify-between items-center">
         <div>
           <span>Urutkan dari: </span>
-          <select className="hover:cursor-pointer" value={1} onChange={(e) => setFilter(e.target.value)}>
+          <select
+            className="hover:cursor-pointer"
+            value={1}
+            onChange={(e) => setFilter(e.target.value)}
+          >
             <option value={1}>Terbaru</option>
             <option value={2}>Terpopuler</option>
           </select>

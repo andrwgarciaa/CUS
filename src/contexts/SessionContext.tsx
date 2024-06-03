@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { ISessionContext, IUser } from "../interfaces";
 
 export const SessionContext = createContext<ISessionContext>({
@@ -31,6 +31,14 @@ export const SessionProvider = ({
     localStorage.removeItem("user");
     setIsLoggedIn(false);
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user") ?? sessionStorage.getItem("user");
+    if (user) {
+      setUser(JSON.parse(user));
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <SessionContext.Provider

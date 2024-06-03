@@ -7,6 +7,7 @@ import { SessionContext } from "../../contexts/SessionContext";
 const Login: React.FC = () => {
   const session = useContext(SessionContext);
   const navigate = useNavigate();
+  const passwordRef = React.createRef<HTMLInputElement>();
   const [dto, setDto] = useState<IUser>({
     email: "",
     password: "",
@@ -20,7 +21,13 @@ const Login: React.FC = () => {
       alert("Sign in successful!");
       session.setSession(keepLoggedIn, data.data);
       navigate("/");
-    } else alert("Sign in failed.");
+    } else {
+      alert("Sign in failed.");
+      if (passwordRef.current) {
+        passwordRef.current.value = "";
+        passwordRef.current.focus();
+      }
+    }
   };
 
   return (
@@ -62,6 +69,7 @@ const Login: React.FC = () => {
             <div>
               <div className="relative">
                 <input
+                  ref={passwordRef}
                   type="password"
                   id="password"
                   placeholder=" "
