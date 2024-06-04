@@ -12,7 +12,9 @@ const Profil = () => {
 
   return (
     <div>
-      <img src={user?.avatar_url} alt={user?.name} />
+      <div className="p-4">
+        <img className="w-30 h-30" src={user?.avatar_url} alt={user?.name} />
+      </div>
       <h1>{user?.name}</h1>
       <h1>{user?.email}</h1>
     </div>
