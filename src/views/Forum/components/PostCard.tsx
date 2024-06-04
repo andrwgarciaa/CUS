@@ -1,30 +1,52 @@
-import { useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { IUser } from "../../../interfaces";
 import { IPost, IVote } from "../interfaces";
 import { getUserDataById } from "../../../utilities";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   addVote,
   checkVoteStatus,
+  deletePost,
+  getCommentsByPostId,
   getFormattedDateAndTime,
   removeVote,
   swapVote,
 } from "../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
 
-const PostCard = (props: IPost) => {
+const PostCard = ({
+  props,
+  setRefresh,
+}: {
+  props: IPost;
+  setRefresh: Dispatch<SetStateAction<boolean>>;
+}) => {
   const session = useContext(SessionContext);
+  const navigate = useNavigate();
   const [author, setAuthor] = useState<IUser | null>();
   const [formattedDate, setFormattedDate] = useState<string>("");
   const [upvote, setUpvote] = useState<number>(props.upvote);
   const [downvote, setDownvote] = useState<number>(props.downvote);
+  const [comments, setComments] = useState<number>(props.comments ?? 0);
   const [isVoted, setIsVoted] = useState<string>("");
+  const [showSettings, setShowSettings] = useState<boolean>(false);
 
   const date = new Date(props.updated_at ? props.updated_at : props.created_at);
 
   const fetchAuthor = async () => {
     const data = await getUserDataById(props.user_id);
     setAuthor(data.data);
+  };
+
+  const fetchCommentsCount = async () => {
+    const data = await getCommentsByPostId(props.id);
+    if (data.data) setComments(data.data.length);
   };
 
   const checkVote = async () => {
@@ -43,7 +65,7 @@ const PostCard = (props: IPost) => {
     };
     if (isVoted) {
       if (isVoted === type) {
-        const data = await removeVote(dto, "Post", props.id);
+        const data = await removeVote(dto, "Post");
         if (data.dataPost && data.dataVote) {
           if (type === "upvote") {
             setUpvote(upvote - 1);
@@ -54,7 +76,7 @@ const PostCard = (props: IPost) => {
           }
         }
       } else {
-        const data = await swapVote(dto, isVoted, "Post", props.id);
+        const data = await swapVote(dto, isVoted, "Post");
         if (data.removeData.dataPost && data.removeData.dataVote) {
           if (isVoted === "upvote") {
             setUpvote(upvote - 1);
@@ -68,7 +90,7 @@ const PostCard = (props: IPost) => {
         }
       }
     } else {
-      const data = await addVote(dto, "Post", props.id);
+      const data = await addVote(dto, "Post");
       if (data.dataPost && data.dataVote) {
         if (type === "upvote") {
           setUpvote(upvote + 1);
@@ -81,9 +103,24 @@ const PostCard = (props: IPost) => {
     }
   };
 
+  const handlePostSettings = () => {
+    setShowSettings(!showSettings);
+  };
+
+  const handleDeletePost = async () => {
+    const data = await deletePost(props.id);
+    if (data.status === 204) {
+      alert("Post berhasil dihapus");
+      setRefresh((prev) => !prev);
+    } else {
+      alert("Post gagal dihapus");
+    }
+  };
+
   useEffect(() => {
     fetchAuthor();
     checkVote();
+    fetchCommentsCount();
     const { formattedDate } = getFormattedDateAndTime(date);
     setFormattedDate(formattedDate);
   }, []);
@@ -94,9 +131,27 @@ const PostCard = (props: IPost) => {
         {props.title}
       </Link>
       <p>{props.body}</p>
-      <span className="absolute right-4 top-4 font-bold hover:cursor-pointer">
+      <span
+        className="absolute right-4 top-4 font-bold hover:cursor-pointer"
+        onClick={handlePostSettings}
+      >
         ...
       </span>
+      {showSettings && (
+        <div className="absolute w-32 right-4 top-12 bg-white border rounded-lg p-4 flex flex-col gap-1 z-10 text-center">
+          {session.user?.id === props.user_id && (
+            <>
+              <Link to={`/forum/edit/${props.id}`}>Sunting</Link>
+              <p className="hover:cursor-pointer" onClick={handleDeletePost}>
+                Hapus
+              </p>
+            </>
+          )}
+          <p className="hover:cursor-pointer" onClick={() => {}}>
+            Laporkan
+          </p>
+        </div>
+      )}
       <div className="flex items-center gap-12 mt-12">
         <div className="flex gap-4">
           <span
@@ -115,6 +170,12 @@ const PostCard = (props: IPost) => {
           >
             {downvote} &darr;
           </span>
+          <Link
+            to={`/forum/detail/${props.id}`}
+            className="hover:cursor-pointer"
+          >
+            {comments} &#128488;
+          </Link>
         </div>
         <span>
           {formattedDate} oleh{" "}

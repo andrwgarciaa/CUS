@@ -1,16 +1,28 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { addPost, editPost, getPostById } from "../../utilities";
 import { IPost } from "../../interfaces";
 import { SessionContext } from "../../../../contexts/SessionContext";
-import { addPost } from "../../utilities";
-import { useNavigate } from "react-router-dom";
 
-const AddPost = () => {
-  const navigate = useNavigate();
+const EditPost = () => {
   const session = useContext(SessionContext);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [post, setPost] = useState<IPost | null>(null);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const handleAddPost = async (e: any) => {
+  const fetchPost = async () => {
+    const data = await getPostById(id);
+
+    setPost(data.data);
+    setTitle(data.data.title);
+    setBody(data.data.body);
+  };
+  useEffect(() => {
+    fetchPost();
+  }, []);
+  const handleEditPost = async (e: any) => {
     e.preventDefault();
 
     if (!session.user) {
@@ -22,25 +34,27 @@ const AddPost = () => {
       return;
     }
     const dto: IPost = {
+      id: post?.id,
       title,
       body,
       user_id: session.user?.id,
-      created_at: new Date(),
-      upvote: 0,
-      downvote: 0,
+      created_at: post?.created_at ? new Date(post.created_at) : new Date(),
+      updated_at: new Date(),
+      upvote: post?.upvote ?? 0,
+      downvote: post?.downvote ?? 0,
     };
-    const data = await addPost(dto);
+    const data = await editPost(dto);
 
-    if (data.status == 201) {
-      alert("Post added successfully!");
+    if (data.status == 204) {
+      alert("Berhasil menyunting post!");
       navigate("/forum");
-    } else alert("Post failed to add.");
+    } else alert("Gagal menyunting post.");
   };
 
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold">Tambahkan Post Baru</h1>
-      <form className="mt-4 flex flex-col gap-4" onSubmit={handleAddPost}>
+      <h1 className="text-3xl font-bold">Sunting Post</h1>
+      <form className="mt-4 flex flex-col gap-4" onSubmit={handleEditPost}>
         <div className="mx-auto w-full">
           <div>
             <div className="relative">
@@ -48,6 +62,7 @@ const AddPost = () => {
                 type="text"
                 id="title"
                 placeholder=" "
+                defaultValue={post?.title}
                 className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                 onInput={(e) => setTitle((e.target as HTMLInputElement).value)}
               />
@@ -66,6 +81,7 @@ const AddPost = () => {
               <textarea
                 id="body"
                 placeholder=" "
+                defaultValue={post?.body}
                 className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                 onInput={(e) => setBody((e.target as HTMLInputElement).value)}
               />
@@ -82,11 +98,11 @@ const AddPost = () => {
         <input
           type="submit"
           className="border border-cus-orange bg-cus-orange w-20 rounded-lg py-1 text-white hover:border-cus-orange hover:bg-white hover:text-cus-orange hover:cursor-pointer"
-          value={"Post"}
+          value={"Sunting"}
         />
       </form>
     </div>
   );
 };
 
-export default AddPost;
+export default EditPost;

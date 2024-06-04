@@ -76,7 +76,9 @@ const DetailForum = () => {
 
   const checkVote = async (postId: string | undefined) => {
     const data = await checkVoteStatus(session.user, postId, "Post");
+    console.log("1");
     if (data.data && data.data?.length > 0) {
+      console.log("2");
       const vote = data.data[0].type ?? 0;
       setIsVoted(vote === 1 ? "upvote" : "downvote");
     }
@@ -90,7 +92,7 @@ const DetailForum = () => {
     };
     if (isVoted) {
       if (isVoted === type) {
-        const data = await removeVote(dto, "Post", post?.id);
+        const data = await removeVote(dto, "Post");
         if (data.dataPost && data.dataVote) {
           if (type === "upvote") {
             setUpvote(upvote - 1);
@@ -101,7 +103,7 @@ const DetailForum = () => {
           }
         }
       } else {
-        const data = await swapVote(dto, isVoted, "Post", post?.id);
+        const data = await swapVote(dto, isVoted, "Post");
         if (data.removeData.dataPost && data.removeData.dataVote) {
           if (isVoted === "upvote") {
             setUpvote(upvote - 1);
@@ -115,7 +117,7 @@ const DetailForum = () => {
         }
       }
     } else {
-      const data = await addVote(dto, "Post", post?.id);
+      const data = await addVote(dto, "Post");
       console.log(data);
       if (data.dataPost && data.dataVote) {
         if (type === "upvote") {

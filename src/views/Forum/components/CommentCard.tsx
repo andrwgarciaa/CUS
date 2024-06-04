@@ -52,7 +52,7 @@ const CommentCard = (props: IComment) => {
     };
     if (isVoted) {
       if (isVoted === type) {
-        const data = await removeVote(dto, "Comment", props.id);
+        const data = await removeVote(dto, "Comment");
         if (data.dataPost && data.dataVote) {
           if (type === "upvote") {
             setUpvote(upvote - 1);
@@ -63,7 +63,7 @@ const CommentCard = (props: IComment) => {
           }
         }
       } else {
-        const data = await swapVote(dto, isVoted, "Comment", props.id);
+        const data = await swapVote(dto, isVoted, "Comment");
         if (data.removeData.dataPost && data.removeData.dataVote) {
           if (isVoted === "upvote") {
             setUpvote(upvote - 1);
@@ -77,7 +77,7 @@ const CommentCard = (props: IComment) => {
         }
       }
     } else {
-      const data = await addVote(dto, "Comment", props.id);
+      const data = await addVote(dto, "Comment");
       console.log(data);
       if (data.dataPost && data.dataVote) {
         if (type === "upvote") {
