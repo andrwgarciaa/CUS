@@ -118,7 +118,9 @@ const PostCard = (props: IPost) => {
         </div>
         <span>
           {formattedDate} oleh{" "}
-          <span className="font-semibold">{author?.name}</span>
+          <Link to={`/profil/${author?.name}`} className="font-semibold">
+            {author?.name}
+          </Link>
         </span>
       </div>
     </div>

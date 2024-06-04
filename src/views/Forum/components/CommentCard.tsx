@@ -10,6 +10,7 @@ import {
 } from "../utilities";
 import { getUserDataById } from "../../../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
+import { Link } from "react-router-dom";
 
 const CommentCard = (props: IComment) => {
   const session = useContext(SessionContext);
@@ -101,13 +102,18 @@ const CommentCard = (props: IComment) => {
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-screen">
       <div className="relative border rounded-lg p-4 mt-8 w-3/4">
-        <div className="flex gap-2 items-center">
-          <img
-            className="w-8 h-8 border rounded-full"
-            src={author?.avatar_url}
-            alt={author?.name}
-          />
-          <span>{author?.name}</span>
+        <div>
+          <Link
+            to={`/profil/${author?.name}`}
+            className="flex gap-2 items-center w-max"
+          >
+            <img
+              className="w-8 h-8 border rounded-full"
+              src={author?.avatar_url}
+              alt={author?.name}
+            />
+            <span>{author?.name}</span>
+          </Link>
           <span className="absolute right-4 top-4 font-bold hover:cursor-pointer">
             ...
           </span>

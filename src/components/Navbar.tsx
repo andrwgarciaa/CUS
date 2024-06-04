@@ -52,7 +52,7 @@ const Navbar = () => {
       </ul>
       {profileClicked ? (
         <div className="z-[10000] bg-cus-blue w-48 h-max absolute top-24 right-0 flex flex-col items-center gap-4 p-4 rounded-lg shadow-lg transition-all">
-          <Link to={"/profil"}>Profil</Link>
+          <Link to={`/profil/${user?.name}`}>Profil</Link>
           <span className="hover:cursor-pointer" onClick={handleSignOut}>
             Sign Out
           </span>

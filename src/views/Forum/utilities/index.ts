@@ -20,8 +20,7 @@ export const getCommentsByPostId = async (id: string | undefined) => {
     .from("Comment")
     .select("*")
     .eq("post_id", id)
-    .order("updated_at", { ascending: true, nullsFirst: true })
-    .order("created_at", { ascending: true });
+    .order("created_at", { ascending: false });
 
   return data;
 };

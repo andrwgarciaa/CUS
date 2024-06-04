@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/forum/detail/:id" element={<DetailForum />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/profil" element={<Profil />} />
+          <Route path="/profil/:name" element={<Profil />} />
         </Routes>
       </Router>
     </SessionProvider>
