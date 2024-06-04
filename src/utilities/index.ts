@@ -11,7 +11,9 @@ export const checkUser = () => {
 export const getUserDataById = async (id: string | undefined) => {
   const data = await supabase
     .from("User")
-    .select("id, name, email, date_of_birth, avatar_url")
+    .select(
+      "id, name, email, date_of_birth, avatar_url, gender_id, description"
+    )
     .eq("id", id)
     .single();
 

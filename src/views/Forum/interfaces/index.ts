@@ -7,6 +7,7 @@ export declare interface IPost {
   upvote: number;
   downvote: number;
   user_id: string | undefined;
+  comments?: number;
 }
 
 export declare interface IComment {

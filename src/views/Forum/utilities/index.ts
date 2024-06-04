@@ -20,8 +20,7 @@ export const getCommentsByPostId = async (id: string | undefined) => {
     .from("Comment")
     .select("*")
     .eq("post_id", id)
-    .order("updated_at", { ascending: true, nullsFirst: true })
-    .order("created_at", { ascending: true });
+    .order("created_at", { ascending: false });
 
   return data;
 };
@@ -32,8 +31,40 @@ export const addPost = async (dto: IPost) => {
   return data;
 };
 
+export const editPost = async (dto: IPost) => {
+  const data = await supabase
+    .from("Post")
+    .update(dto)
+    .eq("id", dto.id)
+    .single();
+
+  return data;
+};
+
+export const deletePost = async (id: string | undefined) => {
+  const data = await supabase.from("Post").delete().eq("id", id);
+
+  return data;
+};
+
 export const addComment = async (dto: IComment) => {
   const data = await supabase.from("Comment").insert(dto);
+
+  return data;
+};
+
+export const editComment = async (dto: IComment) => {
+  const data = await supabase
+    .from("Comment")
+    .update(dto)
+    .eq("id", dto.id)
+    .single();
+
+  return data;
+};
+
+export const deleteComment = async (id: string | undefined) => {
+  const data = await supabase.from("Comment").delete().eq("id", id);
 
   return data;
 };
@@ -52,11 +83,7 @@ export const checkVoteStatus = async (
   return data;
 };
 
-export const addVote = async (
-  dto: IVote,
-  element: "Post" | "Comment",
-  id: string | undefined
-) => {
+export const addVote = async (dto: IVote, element: "Post" | "Comment") => {
   let dataPost;
   const dataVote = await supabase.from("Vote").insert({
     ...dto,
@@ -82,11 +109,7 @@ export const addVote = async (
   return { dataVote, dataPost };
 };
 
-export const removeVote = async (
-  dto: IVote,
-  element: "Post" | "Comment",
-  id: string | undefined
-) => {
+export const removeVote = async (dto: IVote, element: "Post" | "Comment") => {
   let dataPost;
   const dataVote = await supabase
     .from("Vote")
@@ -118,20 +141,19 @@ export const removeVote = async (
 export const swapVote = async (
   dto: IVote,
   initialVote: string,
-  element: "Post" | "Comment",
-  id: string | undefined
+  element: "Post" | "Comment"
 ) => {
   let removeData, addData;
   if (initialVote === "upvote") {
     dto.type = initialVote;
-    removeData = await removeVote(dto, element, id);
+    removeData = await removeVote(dto, element);
     dto.type = "downvote";
-    addData = await addVote(dto, element, id);
+    addData = await addVote(dto, element);
   } else {
     dto.type = initialVote;
-    removeData = await removeVote(dto, element, id);
+    removeData = await removeVote(dto, element);
     dto.type = "upvote";
-    addData = await addVote(dto, element, id);
+    addData = await addVote(dto, element);
   }
 
   return { removeData, addData };

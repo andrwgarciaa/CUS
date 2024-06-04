@@ -4,6 +4,7 @@ export declare interface IUser {
   email: string;
   password?: string | undefined;
   gender?: string;
+  description?: string;
   date_of_birth?: Date;
   avatar_url?: string;
 }

@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { IPost } from "../../interfaces";
 import { SessionContext } from "../../../../contexts/SessionContext";
 import { addPost } from "../../utilities";
+import { useNavigate } from "react-router-dom";
 
 const AddPost = () => {
+  const navigate = useNavigate();
   const session = useContext(SessionContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -11,6 +13,15 @@ const AddPost = () => {
   const handleAddPost = async (e: any) => {
     e.preventDefault();
 
+    if (!session.user) {
+      alert("You need to login first!");
+      return;
+    }
+
+    if (title === "" || body === "") {
+      alert("Judul dan isi tidak boleh kosong!");
+      return;
+    }
     const dto: IPost = {
       title,
       body,
@@ -21,8 +32,10 @@ const AddPost = () => {
     };
     const data = await addPost(dto);
 
-    if (data.status == 201) alert("Post added successfully!");
-    else alert("Post failed to add.");
+    if (data.status == 201) {
+      alert("Post added successfully!");
+      navigate("/forum");
+    } else alert("Post failed to add.");
   };
 
   return (
@@ -67,7 +80,11 @@ const AddPost = () => {
           </div>
         </div>
 
-        <input type="submit" className="border border-cus-orange bg-cus-orange w-20 rounded-lg py-1 text-white hover:border-cus-orange hover:bg-white hover:text-cus-orange hover:cursor-pointer" value={"Post"} />
+        <input
+          type="submit"
+          className="border border-cus-orange bg-cus-orange w-20 rounded-lg py-1 text-white hover:border-cus-orange hover:bg-white hover:text-cus-orange hover:cursor-pointer"
+          value={"Post"}
+        />
       </form>
     </div>
   );

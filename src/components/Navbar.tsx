@@ -17,6 +17,13 @@ const Navbar = () => {
     navigation("/signin");
   };
 
+  const handleProfil = () => {
+    // force refresh to own profile
+    if (location.pathname !== `/profil/${user?.name}`) {
+      window.location.href = `/profil/${user?.name}`;
+    }
+  };
+
   useEffect(() => {
     setIsLoggedIn(session.isLoggedIn);
     if (session.isLoggedIn) {
@@ -33,7 +40,6 @@ const Navbar = () => {
         <li>Komunitas & Aktivitas</li>
         <Link to={"/forum"}>Forum</Link>
         {isLoggedIn ? (
-          // <Link to={"/profil"}>
           <img
             className="w-12 h-12 rounded-full hover:cursor-pointer"
             src={user?.avatar_url}
@@ -41,7 +47,6 @@ const Navbar = () => {
             onClick={() => setProfileClicked(!profileClicked)}
           />
         ) : (
-          // </Link>
           <Link
             to={"/signin"}
             className="bg-cus-orange text-white border border-cus-orange hover:bg-cus-blue hover:text-cus-orange hover:border-cus-orange rounded-lg px-6 py-2"
@@ -52,7 +57,9 @@ const Navbar = () => {
       </ul>
       {profileClicked ? (
         <div className="z-[10000] bg-cus-blue w-48 h-max absolute top-24 right-0 flex flex-col items-center gap-4 p-4 rounded-lg shadow-lg transition-all">
-          <Link to={"/profil"}>Profil</Link>
+          <Link to={`/profil/${user?.name}`} onClick={handleProfil}>
+            Profil
+          </Link>
           <span className="hover:cursor-pointer" onClick={handleSignOut}>
             Sign Out
           </span>
