@@ -19,9 +19,7 @@ const EditPost = () => {
     setTitle(data.data.title);
     setBody(data.data.body);
   };
-  useEffect(() => {
-    fetchPost();
-  }, []);
+
   const handleEditPost = async (e: any) => {
     e.preventDefault();
 
@@ -33,6 +31,12 @@ const EditPost = () => {
       alert("Judul dan isi tidak boleh kosong!");
       return;
     }
+
+    if (title === post?.title && body === post?.body) {
+      alert("Tidak ada perubahan yang dilakukan.");
+      return;
+    }
+
     const dto: IPost = {
       id: post?.id,
       title,
@@ -50,6 +54,10 @@ const EditPost = () => {
       navigate("/forum");
     } else alert("Gagal menyunting post.");
   };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
 
   return (
     <div className="p-4">
@@ -98,7 +106,7 @@ const EditPost = () => {
         <input
           type="submit"
           className="border border-cus-orange bg-cus-orange w-20 rounded-lg py-1 text-white hover:border-cus-orange hover:bg-white hover:text-cus-orange hover:cursor-pointer"
-          value={"Sunting"}
+          value={"Simpan"}
         />
       </form>
     </div>

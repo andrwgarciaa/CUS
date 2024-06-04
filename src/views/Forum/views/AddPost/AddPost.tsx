@@ -17,6 +17,7 @@ const AddPost = () => {
       alert("You need to login first!");
       return;
     }
+
     if (title === "" || body === "") {
       alert("Judul dan isi tidak boleh kosong!");
       return;

@@ -53,6 +53,22 @@ export const addComment = async (dto: IComment) => {
   return data;
 };
 
+export const editComment = async (dto: IComment) => {
+  const data = await supabase
+    .from("Comment")
+    .update(dto)
+    .eq("id", dto.id)
+    .single();
+
+  return data;
+};
+
+export const deleteComment = async (id: string | undefined) => {
+  const data = await supabase.from("Comment").delete().eq("id", id);
+
+  return data;
+};
+
 export const checkVoteStatus = async (
   user: IUser | null,
   id: string | undefined,

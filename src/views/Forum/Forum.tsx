@@ -89,7 +89,7 @@ const Forum = () => {
       </div>
       <div className="flex flex-col gap-2 mt-4">
         {posts?.map((post) => (
-          <PostCard key={post.id} props={post} setRefresh={setRefresh} />
+          <PostCard key={post.id} post={post} setRefresh={setRefresh} />
         ))}
       </div>
     </div>
