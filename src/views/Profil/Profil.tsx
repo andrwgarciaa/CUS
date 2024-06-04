@@ -29,12 +29,16 @@ const Profil = () => {
 
   return (
     <div>
-      <img src={user?.avatar_url} alt={user?.name} />
-      <h1>{user?.name}</h1>
-      <p>{user?.email}</p>
+      <div className="flex pt-20 pb-10 px-60">
+        <img style={{ width: "20%", objectFit: "cover", borderRadius: "50%" }} src={user?.avatar_url} alt={user?.name} />
+        <div className="px-40">
+          <h1 className="text-4xl font-bold mb-10">{user?.name} | {user?.age ? user.age : "?"}</h1>
+          <p>User terlalu malas untuk membuat deskripsi</p>
+        </div>
+      </div>
+      {/* <p>{user?.email}</p> */}
       <p>upvote: {user?.votes.totalUpvote}</p>
       {/* age return 0 kalo user belom masukin tanggal lahir, contoh yang udah ada tanggal lahirnya di andrew886 */}
-      <p>age: {user?.age ? user.age : "?"}</p>
     </div>
   );
 };
