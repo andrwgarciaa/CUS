@@ -14,9 +14,6 @@ export const getUserByName = async (name: string | undefined) => {
   const postsCount = await getPostCountByUser(userId);
   const commentsCount = await getCommentCountByUser(userId);
   const votes = await getTotalVotesOnUser(userId);
-  const age = data.data.date_of_birth
-    ? new Date().getFullYear() - new Date(data.data.date_of_birth).getFullYear()
-    : 0;
 
   statistik = {
     totalPost: postsCount,
@@ -27,7 +24,7 @@ export const getUserByName = async (name: string | undefined) => {
     totalActivitiesJoined: 0,
   };
 
-  dto = { ...data.data, statistik, age };
+  dto = { ...data.data, statistik };
 
   return dto;
 };

@@ -9,13 +9,14 @@ import {
   getPostById,
   removeVote,
   swapVote,
-} from "../utilities";
+} from "../../utilities";
 import { useContext, useEffect, useRef, useState } from "react";
-import { IComment, IPost, IVote } from "../interfaces";
-import { IUser } from "../../../interfaces";
-import { getUserDataById } from "../../../utilities";
-import CommentCard from "../components/CommentCard";
-import { SessionContext } from "../../../contexts/SessionContext";
+import { IComment, IPost, IVote } from "../../interfaces";
+import { IUser } from "../../../../interfaces";
+import { getUserDataById } from "../../../../utilities";
+import CommentCard from "../../components/CommentCard";
+import { SessionContext } from "../../../../contexts/SessionContext";
+import { AVATAR_URL } from "../../../../constants";
 
 const DetailForum = () => {
   const session = useContext(SessionContext);
@@ -172,7 +173,7 @@ const DetailForum = () => {
           >
             <img
               className="w-8 h-8 border rounded-full"
-              src={author?.avatar_url}
+              src={AVATAR_URL + (author?.has_photo ? author?.id : "blank")}
               alt={author?.name}
             />
             <span>{author?.name}</span>

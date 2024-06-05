@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
@@ -13,7 +13,7 @@ import Profil from "./views/Profil/Profil.tsx";
 import { SessionProvider } from "./contexts/SessionContext.tsx";
 import Forum from "./views/Forum/Forum.tsx";
 import AddPost from "./views/Forum/views/AddPost/AddPost.tsx";
-import DetailForum from "./views/Forum/DetailForum/DetailForum.tsx";
+import DetailForum from "./views/Forum/views/DetailForum/DetailForum.tsx";
 import EditPost from "./views/Forum/views/EditPost/EditPost.tsx";
 import EditProfil from "./views/Profil/views/EditProfil/EditProfil.tsx";
 import PageNotFound from "./views/PageNotFound/PageNotFound.tsx";

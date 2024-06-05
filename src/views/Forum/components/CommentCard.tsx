@@ -19,6 +19,7 @@ import {
 import { getUserDataById } from "../../../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
 import { Link } from "react-router-dom";
+import { AVATAR_URL } from "../../../constants";
 
 const CommentCard = ({
   comment,
@@ -50,6 +51,7 @@ const CommentCard = ({
     if (comment.user_id) {
       const data = await getUserDataById(comment.user_id);
       setAuthor(data.data);
+      console.log(data.data);
     }
   };
 
@@ -62,6 +64,11 @@ const CommentCard = ({
   };
 
   const handleVote = async (type: "upvote" | "downvote") => {
+    if (!session.user) {
+      alert("Anda harus masuk terlebih dahulu.");
+      return;
+    }
+
     const dto: IVote = {
       user_id: session.user?.id,
       comment_id: comment.id,
@@ -169,7 +176,7 @@ const CommentCard = ({
           >
             <img
               className="w-8 h-8 border rounded-full"
-              src={author?.avatar_url}
+              src={AVATAR_URL + (author?.has_photo ? author?.id : "blank")}
               alt={author?.name}
             />
             <span>{author?.name}</span>

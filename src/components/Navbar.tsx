@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../interfaces";
 import { SessionContext } from "../contexts/SessionContext";
+import { AVATAR_URL } from "../constants";
 
 const Navbar = () => {
   const navigation = useNavigate();
@@ -19,7 +20,10 @@ const Navbar = () => {
 
   const handleProfil = () => {
     // force refresh to own profile
-    if (location.pathname !== `/profil/${user?.name}`) {
+    if (
+      location.pathname.includes(`/profil/`) &&
+      !(location.pathname === `/profil/${session.user?.name}`)
+    ) {
       window.location.href = `/profil/${user?.name}`;
     }
   };
@@ -29,7 +33,7 @@ const Navbar = () => {
     if (session.isLoggedIn) {
       setUser(session.user);
     }
-  }, [session.isLoggedIn]);
+  }, [session.isLoggedIn, session.user]);
 
   return (
     <nav className="bg-cus-blue w-full h-[10vh] flex justify-between items-center px-8 text-white font-semibold">
@@ -41,8 +45,8 @@ const Navbar = () => {
         <Link to={"/forum"}>Forum</Link>
         {isLoggedIn ? (
           <img
-            className="w-12 h-12 rounded-full hover:cursor-pointer"
-            src={user?.avatar_url}
+            className="w-12 h-12 rounded-full hover:cursor-pointer object-cover"
+            src={AVATAR_URL + (user?.has_photo ? user?.id : "blank")}
             alt={user?.name}
             onClick={() => setProfileClicked(!profileClicked)}
           />

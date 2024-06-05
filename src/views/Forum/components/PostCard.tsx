@@ -8,7 +8,7 @@ import {
 import { IUser } from "../../../interfaces";
 import { IPost, IVote } from "../interfaces";
 import { getUserDataById } from "../../../utilities";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   addVote,
   checkVoteStatus,
@@ -57,6 +57,11 @@ const PostCard = ({
   };
 
   const handleVote = async (type: "upvote" | "downvote") => {
+    if (!session.user) {
+      alert("Anda harus masuk terlebih dahulu");
+      return;
+    }
+
     const dto: IVote = {
       user_id: session.user?.id,
       post_id: post.id,

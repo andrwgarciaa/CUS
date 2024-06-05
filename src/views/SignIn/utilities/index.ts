@@ -7,7 +7,6 @@ export const signIn = async (dto: IUser) => {
     .from("User")
     .select("*")
     .eq("email", dto.email)
-    .limit(1)
     .single();
 
   // workaround because of possibly undefined password on interface
