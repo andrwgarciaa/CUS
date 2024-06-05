@@ -3,10 +3,12 @@ export declare interface IUser {
   name?: string;
   email: string;
   password?: string | undefined;
-  gender?: string;
+  gender_id?: number;
   description?: string;
   date_of_birth?: Date;
-  avatar_url?: string;
+  has_photo?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export declare interface IPlace {

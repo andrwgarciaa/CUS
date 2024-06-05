@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react";
-import { IUser } from "../../interfaces";
 import { SessionContext } from "../../contexts/SessionContext";
 import { Link, useParams } from "react-router-dom";
 import { getUserByName } from "./utilities";
-import { IProfil, IStatistik, IStatistikType } from "./interfaces";
+import { IProfil, IStatistikType } from "./interfaces";
 import StatistikCard from "./components/StatistikCard";
+import { AVATAR_URL } from "../../constants";
 
 const Profil = () => {
   const { name } = useParams();
@@ -36,20 +36,31 @@ const Profil = () => {
       <div className="flex flex-col justify-center items-start w-3/5 gap-16">
         <div className="flex justify-center items-center gap-16">
           <img
-            className="w-1/4 h-1/4 border rounded-full"
-            src={user?.avatar_url}
+            className="w-56 h-56 border rounded-full object-cover"
+            src={AVATAR_URL + (user?.has_photo ? user?.id : "blank")}
             alt={user?.name}
           />
+
           <div className="flex flex-col w-full">
-            <h1 className="text-4xl font-bold mb-10">
-              {user?.name} | {user?.age ? user.age : "?"}
+            <h1 className="text-4xl font-bold">
+              {user?.name} &#10072;{" "}
+              {user?.gender_id === 1 ? (
+                <span className="text-blue-500">&#9794;</span>
+              ) : 2 ? (
+                <span className="text-pink-500">&#9792;</span>
+              ) : (
+                <span>?</span>
+              )}
             </h1>
+            <h2 className="mb-10">
+              &#127874; {user?.date_of_birth?.toString()}
+            </h2>
             {user?.description ? (
               <blockquote className="text-xl italic font-medium text-left">
                 <p className="max-w-full">"{user.description}"</p>
               </blockquote>
             ) : (
-              <p>User terlalu malas untuk membuat deskripsi</p>
+              <p>Pengguna terlalu malas untuk membuat deskripsi</p>
             )}
             {session.isLoggedIn && session.user?.id === user?.id && (
               <Link
@@ -62,7 +73,7 @@ const Profil = () => {
           </div>
         </div>
         <div className="w-full">
-          <h2 className="text-3xl font-bold">Statistik</h2>
+          <h2 className="text-3xl font-bold">Statistik pengguna</h2>
           <div className="grid grid-cols-3 gap-4 mt-4">
             {Array.from(Object.keys(statistik)).map((key) => (
               <StatistikCard
