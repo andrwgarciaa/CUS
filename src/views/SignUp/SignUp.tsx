@@ -31,11 +31,11 @@ const SignUp: React.FC = () => {
     ) {
       const data = await signUp(dto);
       if (data) {
-        alert("Sign up successful");
+        alert("Sign up berhasil!");
         navigate("/signin");
       }
     } else {
-      alert("Password do not match");
+      alert("Password tidak sama");
     }
   };
 
@@ -65,7 +65,7 @@ const SignUp: React.FC = () => {
         <div className="w-3/5">
           <h1 className="text-4xl font-bold mb-2">Sign up</h1>
           <p className="text-gray-400">
-            Sign up and be a part of CUS community.
+            Sign up dan jadi bagian dari komunitas CUS.
           </p>
         </div>
         <form className="flex flex-col gap-4 w-3/5" onSubmit={handleSignUp}>
@@ -129,7 +129,7 @@ const SignUp: React.FC = () => {
                   htmlFor="passwordConfirmation"
                   className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
                 >
-                  Confirm Password
+                  Konfirmasi Password
                 </label>
               </div>
             </div>
@@ -148,7 +148,7 @@ const SignUp: React.FC = () => {
             Sign Up
           </button>
           <div className="">
-            <span className="text-gray-400">Already have an account? </span>
+            <span className="text-gray-400">Sudah punya akun? </span>
             <Link
               to="/signin"
               className="text-[#367aff] underline underline-offset-4 font-medium "

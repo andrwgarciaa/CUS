@@ -46,14 +46,16 @@ const Profil = () => {
               {user?.name} &#10072;{" "}
               {user?.gender_id === 1 ? (
                 <span className="text-blue-500">&#9794;</span>
-              ) : 2 ? (
+              ) : user?.gender_id === 2 ? (
                 <span className="text-pink-500">&#9792;</span>
               ) : (
                 <span>?</span>
               )}
             </h1>
             <h2 className="mb-10">
-              &#127874; {user?.date_of_birth?.toString()}
+              &#127874;{" "}
+              {user?.date_of_birth?.toString() ??
+                "Tanggal lahir tidak diketahui"}
             </h2>
             {user?.description ? (
               <blockquote className="text-xl italic font-medium text-left">

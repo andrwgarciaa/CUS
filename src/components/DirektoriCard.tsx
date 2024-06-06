@@ -13,6 +13,7 @@ const DirektoriCard: React.FC<IPlace> = (props: IPlace) => {
 
     setImages(data?.data);
   };
+
   useEffect(() => {
     fetchImages();
   }, []);

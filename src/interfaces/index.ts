@@ -13,7 +13,7 @@ export declare interface IUser {
 }
 
 export declare interface IPlace {
-  id: number;
+  id?: number;
   name: string;
   pos_x?: number;
   pos_y?: number;
@@ -30,6 +30,7 @@ export declare interface IPlaceCategory {
   category: string;
   category_simplified: string;
   description: string;
+  has_photo: boolean;
 }
 
 export declare interface ISessionContext {

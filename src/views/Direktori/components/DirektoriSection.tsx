@@ -11,7 +11,7 @@ const DirektoriSection: React.FC<ISectionProps> = ({
   const [data, setData] = useState<IPlace[] | null>([]);
 
   const fetchData = async () => {
-    const placeData = await getAllPlacesByCategoryId(categoryId);
+    const placeData = await getAllPlacesByCategoryId(categoryId.toString());
     setData(placeData.data);
   };
 

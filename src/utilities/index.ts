@@ -1,6 +1,6 @@
 import { IUser } from "../interfaces";
 import { supabase } from "./supabaseClient";
-import { hashSync, compareSync } from "bcryptjs";
+import { compareSync } from "bcryptjs";
 
 export const getUserDataById = async (id: string | undefined) => {
   const data = await supabase.from("User").select("*").eq("id", id).single();
@@ -12,8 +12,8 @@ export const checkAdmin = (dto: IUser | null) => {
   if (!dto?.isAdmin) {
     return null;
   }
-  const data = compareSync(dto.isAdmin, import.meta.env.VITE_ADMIN_SECRET);
-  console.log(dto.isAdmin, import.meta.env.VITE_ADMIN_SECRET);
+
+  const data = compareSync(import.meta.env.VITE_ADMIN_SECRET, dto.isAdmin);
 
   return data;
 };
@@ -31,7 +31,10 @@ export const getAllPlacesByCategoryId = async (id: string | undefined) => {
 };
 
 export const getAllPlaceCategories = async () => {
-  const data = await supabase.from("PlaceCategories").select("*");
+  const data = await supabase
+    .from("PlaceCategories")
+    .select("*")
+    .order("id", { ascending: true });
 
   return data;
 };

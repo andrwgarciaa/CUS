@@ -4,6 +4,9 @@ export const AVATAR_URL =
 export const PLACE_URL =
   "https://yfikufdntxmmcnnkzrqp.supabase.co/storage/v1/object/public/Place/";
 
+export const PLACE_CATEGORY_URL =
+  "https://yfikufdntxmmcnnkzrqp.supabase.co/storage/v1/object/public/Place/Categories/";
+
 export const STATISTIK_NAME: { [key: string]: string } = {
   totalPost: "Forum dibuat",
   totalComment: "Komentar diberikan",
