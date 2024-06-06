@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../interfaces";
 import { SessionContext } from "../contexts/SessionContext";
 import { AVATAR_URL } from "../constants";
+import { checkAdmin } from "../utilities";
 
 const Navbar = () => {
   const navigation = useNavigate();
   const session = useContext(SessionContext);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<IUser | null>();
   const [profileClicked, setProfileClicked] = useState(false);
@@ -32,6 +34,7 @@ const Navbar = () => {
     setIsLoggedIn(session.isLoggedIn);
     if (session.isLoggedIn) {
       setUser(session.user);
+      setIsAdmin(checkAdmin(session.user));
     }
   }, [session.isLoggedIn, session.user]);
 
@@ -41,7 +44,7 @@ const Navbar = () => {
 
       <ul className="hidden lg:flex items-center gap-8">
         <Link to={"/direktori"}>Direktori</Link>
-        <li>Komunitas & Aktivitas</li>
+        <Link to={"/komunitas&aktivitas"}>Komunitas & Aktivitas</Link>
         <Link to={"/forum"}>Forum</Link>
         {isLoggedIn ? (
           <img
@@ -64,6 +67,7 @@ const Navbar = () => {
           <Link to={`/profil/${user?.name}`} onClick={handleProfil}>
             Profil
           </Link>
+          {isAdmin ? <Link to={"/admin"}>Admin</Link> : null}
           <span className="hover:cursor-pointer" onClick={handleSignOut}>
             Sign Out
           </span>

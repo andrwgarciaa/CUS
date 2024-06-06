@@ -3,8 +3,10 @@ import { supabase } from "../../../utilities/supabaseClient";
 import bcrypt from "bcryptjs";
 
 export const encryptPassword = async (password: string) => {
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  const hashedPassword = await bcrypt.hash(
+    password,
+    Number(import.meta.env.VITE_SIGN_UP_SALT)
+  );
   return hashedPassword;
 };
 
