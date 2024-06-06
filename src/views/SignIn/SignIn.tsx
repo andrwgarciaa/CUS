@@ -17,9 +17,10 @@ const Login: React.FC = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = await signIn(dto);
+
     if (data) {
       alert("Sign in successful!");
-      session.setSession(keepLoggedIn, data.data);
+      session.setSession(keepLoggedIn, data);
       navigate("/");
     } else {
       alert("Sign in failed.");

@@ -1,8 +1,9 @@
 import { IUser } from "../../../interfaces";
 import { supabase } from "../../../utilities/supabaseClient";
-import { compare } from "bcryptjs";
+import { hash, compare } from "bcryptjs";
 
 export const signIn = async (dto: IUser) => {
+  let isAdmin = "";
   const data = await supabase
     .from("User")
     .select("*")
@@ -15,5 +16,25 @@ export const signIn = async (dto: IUser) => {
     data.data.password
   );
 
-  return matched ? data : null;
+  if (matched) {
+    const checkAdmin = await checkUserAdmin(data.data.id);
+
+    if (checkAdmin.status === 200) {
+      isAdmin = await hash(
+        import.meta.env.VITE_ADMIN_SECRET,
+        Number(import.meta.env.VITE_ADMIN_SALT)
+      );
+    }
+  }
+  return matched ? { ...data.data, isAdmin } : null;
+};
+
+const checkUserAdmin = async (id: string | undefined) => {
+  const data = await supabase
+    .from("Admin")
+    .select("*")
+    .eq("user_id", id)
+    .single();
+
+  return data;
 };

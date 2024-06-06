@@ -1,15 +1,19 @@
+import { IUser } from "../interfaces";
 import { supabase } from "./supabaseClient";
-
-export const checkUser = () => {
-  const user = localStorage.getItem("user") ?? sessionStorage.getItem("user");
-  if (user) {
-    return JSON.parse(user);
-  }
-  return null;
-};
+import { hashSync, compareSync } from "bcryptjs";
 
 export const getUserDataById = async (id: string | undefined) => {
   const data = await supabase.from("User").select("*").eq("id", id).single();
+
+  return data;
+};
+
+export const checkAdmin = (dto: IUser | null) => {
+  if (!dto?.isAdmin) {
+    return null;
+  }
+  const data = compareSync(dto.isAdmin, import.meta.env.VITE_ADMIN_SECRET);
+  console.log(dto.isAdmin, import.meta.env.VITE_ADMIN_SECRET);
 
   return data;
 };
@@ -20,7 +24,7 @@ export const getAllPlaces = async () => {
   return data;
 };
 
-export const getAllPlacesByCategoryId = async (id: number) => {
+export const getAllPlacesByCategoryId = async (id: string | undefined) => {
   const data = await supabase.from("Place").select("*").eq("category_id", id);
 
   return data;

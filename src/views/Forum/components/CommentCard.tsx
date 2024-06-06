@@ -175,7 +175,7 @@ const CommentCard = ({
             className="flex gap-2 items-center w-max"
           >
             <img
-              className="w-8 h-8 border rounded-full"
+              className="w-8 h-8 border rounded-full object-cover"
               src={AVATAR_URL + (author?.has_photo ? author?.id : "blank")}
               alt={author?.name}
             />

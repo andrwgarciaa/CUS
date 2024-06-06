@@ -1,8 +1,22 @@
 import { Link } from "react-router-dom";
-import { IPlace } from "../interfaces";
+import { IPlace, IStorageImage } from "../interfaces";
 import { truncateString } from "../utilities";
+import { PLACE_URL } from "../constants";
+import { useEffect, useState } from "react";
+import { getImagesByPlaceId } from "../views/Direktori/utilities";
 
 const DirektoriCard: React.FC<IPlace> = (props: IPlace) => {
+  const [images, setImages] = useState<IStorageImage[] | null>();
+
+  const fetchImages = async () => {
+    const data = await getImagesByPlaceId(props.id.toString());
+
+    setImages(data?.data);
+  };
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
   return (
     <Link
       to={`/direktori/detail/${props.id}`}
@@ -10,7 +24,7 @@ const DirektoriCard: React.FC<IPlace> = (props: IPlace) => {
     >
       <img
         className="w-full h-48 object-cover"
-        src={props.image}
+        src={images ? images[0].signedUrl : PLACE_URL + "blank"}
         alt={props.name}
       />
       <div className="p-4">

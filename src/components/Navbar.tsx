@@ -3,10 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../interfaces";
 import { SessionContext } from "../contexts/SessionContext";
 import { AVATAR_URL } from "../constants";
+import { compare } from "bcryptjs";
+import { checkAdmin } from "../utilities";
 
 const Navbar = () => {
   const navigation = useNavigate();
   const session = useContext(SessionContext);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<IUser | null>();
   const [profileClicked, setProfileClicked] = useState(false);
@@ -32,6 +35,9 @@ const Navbar = () => {
     setIsLoggedIn(session.isLoggedIn);
     if (session.isLoggedIn) {
       setUser(session.user);
+      const data = checkAdmin(session.user);
+      console.log(data);
+      console.log(session.user);
     }
   }, [session.isLoggedIn, session.user]);
 
@@ -64,6 +70,7 @@ const Navbar = () => {
           <Link to={`/profil/${user?.name}`} onClick={handleProfil}>
             Profil
           </Link>
+          {isAdmin ? <Link to={"/admin"}>Admin</Link> : null}
           <span className="hover:cursor-pointer" onClick={handleSignOut}>
             Sign Out
           </span>

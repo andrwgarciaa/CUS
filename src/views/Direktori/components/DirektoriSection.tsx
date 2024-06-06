@@ -38,7 +38,7 @@ const DirektoriSection: React.FC<ISectionProps> = ({
             name={place.name}
             price_min={place.price_min}
             price_max={place.price_max}
-            image={place.image}
+            has_photo={place.has_photo}
             address={place.address}
             rating={place.rating}
           />
