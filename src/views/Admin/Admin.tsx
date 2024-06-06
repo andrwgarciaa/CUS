@@ -22,14 +22,6 @@ const Admin = () => {
     setOpenModal(modal);
   };
 
-  const handleAddDirektori = async (direktori: string) => {
-    console.log(direktori);
-  };
-
-  const handleAddKomunitasAktivitas = async (direktori: string) => {
-    console.log(direktori);
-  };
-
   useEffect(() => {
     setIsLoggedIn(session.isLoggedIn);
     if (session.isLoggedIn) {

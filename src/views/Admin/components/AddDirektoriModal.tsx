@@ -11,6 +11,7 @@ const AddDirektoriModal = (props: any) => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
   const [rating, setRating] = useState("");
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
@@ -28,9 +29,7 @@ const AddDirektoriModal = (props: any) => {
         "Pilih kategori",
         ...data.data.map((category) => category.category),
       ]);
-      console.log(data.data);
     }
-    console.log(categoryList);
   };
 
   const handleAddDirektori = async (e: any) => {
@@ -39,15 +38,7 @@ const AddDirektoriModal = (props: any) => {
       return;
     }
 
-    if (
-      !name ||
-      !address ||
-      !rating ||
-      !priceMin ||
-      !priceMax ||
-      !posX ||
-      !posY
-    ) {
+    if (!name || !address || !rating || !posX || !posY) {
       alert("Data tidak boleh kosong");
       return;
     }
@@ -56,6 +47,7 @@ const AddDirektoriModal = (props: any) => {
     const dto: IPlace = {
       name,
       address,
+      phone,
       rating: parseFloat(rating),
       price_min: priceMin,
       price_max: priceMax,
@@ -69,6 +61,7 @@ const AddDirektoriModal = (props: any) => {
     if (data.status === 201) {
       setName("");
       setAddress("");
+      setPhone("");
       setRating("");
       setPriceMin(0);
       setPriceMax(0);
@@ -136,6 +129,25 @@ const AddDirektoriModal = (props: any) => {
                 className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
               >
                 Alamat tempat
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="mx-auto w-full">
+          <div>
+            <div className="relative">
+              <input
+                type="phone"
+                id="phone"
+                placeholder=" "
+                className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+                onInput={(e) => setPhone((e.target as HTMLInputElement).value)}
+              />
+              <label
+                htmlFor="phone"
+                className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
+              >
+                Nomor telepon
               </label>
             </div>
           </div>

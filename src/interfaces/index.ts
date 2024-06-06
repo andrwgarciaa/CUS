@@ -17,10 +17,11 @@ export declare interface IPlace {
   name: string;
   pos_x?: number;
   pos_y?: number;
-  price_min: number;
-  price_max: number;
+  price_min?: number;
+  price_max?: number;
   rating: number;
   address: string;
+  phone?: string;
   category_id?: number;
   has_photo?: boolean;
 }
