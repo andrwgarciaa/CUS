@@ -25,37 +25,27 @@ const LihatSemua = () => {
   }, []);
 
   return (
-    <div style={{ padding: "20px", backgroundColor: "#f8f9fa" }}>
-      <header
-        style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}
-      >
-        <div style={{ flex: 1 }}>
-          <h1
-            style={{
-              fontSize: "75px",
-              fontWeight: "bold",
-              marginBottom: "10px",
-            }}
-          >
-            {placeCategory?.category}
-          </h1>
-          <p style={{ fontSize: "25px", color: "#666", marginBottom: "20px" }}>
-            {placeCategory?.description}
-          </p>
-        </div>
-        <img
-          src="https://via.placeholder.com/150"
-          alt="Direktori Tempat"
-          style={{ width: "35%", height: "40%", objectFit: "cover" }}
-        />
-      </header>
+    <div>
+      <div className="container mx-auto mt-10 px-4">
+        <header className="mb-20 flex items-center">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold mb-2">{placeCategory?.category}</h1>
+            <p className="deskripsi max-w-3xl break-words text-justify">
+              Menjelajah ke tempat-tempat seperti restoran, kafe, mal,
+              supermarket, taman, hingga bengkel memberikan pengalaman yang
+              beragam, seperti menikmati kuliner lezat hingga berbelanja semua
+              kebutuhan anda, bersantai di alam, memperbaiki kendaraan, dan
+              menikmati kopi di suasana yang nyaman.
+            </p>
+          </div>
+          <img
+            src="https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Direktori Tempat"
+            style={{ width: "35%", height: "40%", objectFit: "cover" }}
+          />
+        </header>
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "20px",
-        }}
-      >
+        style={{display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "20px"}}>
         {allPlaces?.map((place) => (
           <DirektoriCard
             key={place.id}
@@ -69,6 +59,7 @@ const LihatSemua = () => {
           />
         ))}
       </div>
+    </div>
     </div>
   );
 };

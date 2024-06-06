@@ -17,6 +17,7 @@ import DetailForum from "./views/Forum/views/DetailForum/DetailForum.tsx";
 import EditPost from "./views/Forum/views/EditPost/EditPost.tsx";
 import EditProfil from "./views/Profil/views/EditProfil/EditProfil.tsx";
 import PageNotFound from "./views/PageNotFound/PageNotFound.tsx";
+import Komunitas from "./views/Komunitas/Komunitas.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/direktori" element={<Direktori />} />
           <Route path="/direktori/detail/:id" element={<DirektoriDetail />} />
           <Route path="/direktori/lihat-semua/:id" element={<LihatSemua />} />
+          <Route path="/komunitas&aktivitas" element={<Komunitas />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/add-post" element={<AddPost />} />
           <Route path="/forum/detail/:id" element={<DetailForum />} />

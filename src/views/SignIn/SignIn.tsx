@@ -18,11 +18,11 @@ const Login: React.FC = () => {
     e.preventDefault();
     const data = await signIn(dto);
     if (data) {
-      alert("Sign in successful!");
+      alert("Sign in berhasil!");
       session.setSession(keepLoggedIn, data.data);
       navigate("/");
     } else {
-      alert("Sign in failed.");
+      alert("Sign in gagal.");
       if (passwordRef.current) {
         passwordRef.current.value = "";
         passwordRef.current.focus();
@@ -36,7 +36,7 @@ const Login: React.FC = () => {
         <div className="w-3/5">
           <h1 className="text-4xl font-bold mb-2">Sign in</h1>
           <p className="text-gray-400">
-            Sign in to continue using the features of CUS.
+            Sign in untuk menggunakan semua fitur dari CUS.
           </p>
         </div>
         <form className="flex flex-col gap-4 w-3/5" onSubmit={handleSignIn}>
@@ -103,7 +103,7 @@ const Login: React.FC = () => {
               onInput={() => setKeepLoggedIn((prev) => !prev)}
             />
             <label htmlFor="keepLoggedIn" className="text-gray-400">
-              Keep me logged in
+              Biarkan saya tetap masuk
             </label>
           </div>
           <button
@@ -113,12 +113,12 @@ const Login: React.FC = () => {
             Sign In
           </button>
           <div className="">
-            <span className="text-gray-400">Need an account? </span>
+            <span className="text-gray-400">Tidak punya akun? </span>
             <Link
               to="/signup"
               className="text-[#367aff] underline underline-offset-4 font-medium "
             >
-              Create one
+              Buat akun
             </Link>
           </div>
         </form>
