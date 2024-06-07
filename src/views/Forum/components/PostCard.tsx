@@ -19,6 +19,7 @@ import {
   swapVote,
 } from "../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
+import CommentIcon from "../../../components/CommentIcon";
 
 const PostCard = ({
   post,
@@ -161,8 +162,20 @@ const PostCard = ({
           </p>
         </div>
       )}
-      <div className="flex items-center gap-12 mt-12">
-        <div className="flex gap-4">
+      <div className="flex justify-between items-center w-full gap-12 mt-12">
+        <span>
+          {formattedDate} oleh{" "}
+          <Link to={`/profil/${author?.name}`} className="font-semibold">
+            {author?.name}
+          </Link>
+        </span>
+        <div className="flex gap-2">
+          <Link
+            to={`/forum/detail/${post.id}`}
+            className="hover:cursor-pointer flex items-center gap-1 mr-6"
+          >
+            <p>{comments}</p> <CommentIcon />
+          </Link>
           <span
             className={`hover:cursor-pointer ${
               isVoted === "upvote" && "text-green-500"
@@ -179,19 +192,7 @@ const PostCard = ({
           >
             {downvote} &darr;
           </span>
-          <Link
-            to={`/forum/detail/${post.id}`}
-            className="hover:cursor-pointer"
-          >
-            {comments} &#128488;
-          </Link>
         </div>
-        <span>
-          {formattedDate} oleh{" "}
-          <Link to={`/profil/${author?.name}`} className="font-semibold">
-            {author?.name}
-          </Link>
-        </span>
       </div>
     </div>
   );

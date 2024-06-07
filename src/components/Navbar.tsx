@@ -39,7 +39,7 @@ const Navbar = () => {
   }, [session.isLoggedIn, session.user]);
 
   return (
-    <nav className="bg-cus-blue w-full h-[10vh] flex justify-between items-center px-8 text-white font-semibold">
+    <nav className="z-[1000000] bg-cus-blue w-full h-[10vh] flex justify-between items-center px-8 text-white font-semibold">
       <Link to={"/"}>CUS</Link>
 
       <ul className="hidden lg:flex items-center gap-8">
