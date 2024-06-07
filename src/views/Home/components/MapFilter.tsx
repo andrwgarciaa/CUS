@@ -16,6 +16,11 @@ const MapFilter = (props: IHomeProps) => {
   };
 
   const handleSelectCategory = (id: number) => {
+    if (id === selectedFilter) {
+      props.setSelectedCategory(0);
+      setSelectedFilter(0);
+      return;
+    }
     props.setSelectedCategory(id);
     setSelectedFilter(id);
   };

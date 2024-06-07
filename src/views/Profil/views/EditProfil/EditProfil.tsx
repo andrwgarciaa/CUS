@@ -84,8 +84,13 @@ const EditProfil = () => {
     <>
       {session && session.user?.id === user?.id ? (
         <div className="w-screen h-[90vh] flex justify-center items-center">
+          <img
+            src="/broadway.png"
+            alt="background"
+            className="absolute w-full h-full top-0 left-0 object-cover -z-50"
+          />
           <form
-            className="flex flex-col gap-4 w-1/3 top-1/2 left-1/2 bg-white border rounded-xl p-12"
+            className="z-10 flex flex-col gap-4 w-1/3 top-1/2 left-1/2 bg-white border rounded-3xl p-12"
             onSubmit={handleEditProfil}
           >
             <h1 className="text-3xl text-center font-semibold">Edit profil</h1>
@@ -171,7 +176,10 @@ const EditProfil = () => {
                     type="date"
                     id="date"
                     placeholder=" "
-                    // defaultValue={user?.date_of_birth?.toDateString()}
+                    defaultValue={
+                      user?.date_of_birth &&
+                      new Date(user?.date_of_birth).toISOString().split("T")[0]
+                    }
                     className="p-3 pb-2 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                     onInput={(e) =>
                       setDate(new Date((e.target as HTMLInputElement).value))

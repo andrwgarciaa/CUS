@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { IPost } from "./interfaces";
 import { getAllPosts, getCommentsByPostId } from "./utilities";
 import PostCard from "./components/PostCard";
+import LoadingWithMessage from "../../components/LoadingWithMessage";
 
 const Forum = () => {
   const [posts, setPosts] = useState<IPost[] | null>([]);
   const [filter, setFilter] = useState<string>("1");
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchPosts = async (filter: string) => {
     const data = await getAllPosts();
@@ -58,6 +60,7 @@ const Forum = () => {
       }
     }
     setPosts(filtered);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -87,11 +90,15 @@ const Forum = () => {
           Tambahkan Post Baru
         </Link>
       </div>
-      <div className="flex flex-col gap-2 mt-4">
-        {posts?.map((post) => (
-          <PostCard key={post.id} post={post} setRefresh={setRefresh} />
-        ))}
-      </div>
+      {!loading ? (
+        <div className="flex flex-col gap-2 mt-4">
+          {posts?.map((post) => (
+            <PostCard key={post.id} post={post} setRefresh={setRefresh} />
+          ))}
+        </div>
+      ) : (
+        <LoadingWithMessage />
+      )}
     </div>
   );
 };
