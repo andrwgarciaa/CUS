@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import { IPlaceCategory } from "../../interfaces";
 import { getAllPlaceCategories } from "../../utilities";
 import DirektoriSection from "./components/DirektoriSection";
+import LoadingWithMessage from "../../components/LoadingWithMessage";
 
 const Direktori = () => {
   const [allPlaces, setAllPlaces] = useState<IPlaceCategory[] | null>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
     getAllPlaceCategories().then((data) => {
       setAllPlaces(data.data);
+      setLoading(false);
     });
   }, []);
 
@@ -32,14 +36,20 @@ const Direktori = () => {
             style={{ width: "35%", height: "40%", objectFit: "cover" }}
           />
         </header>
-        {allPlaces?.map((place) => (
-          <DirektoriSection
-            key={place.id}
-            categoryId={place.id}
-            category={place.category}
-            simplified={place.category_simplified}
-          />
-        ))}
+        {!loading ? (
+          <>
+            {allPlaces?.map((place) => (
+              <DirektoriSection
+                key={place.id}
+                categoryId={place.id}
+                category={place.category}
+                simplified={place.category_simplified}
+              />
+            ))}
+          </>
+        ) : (
+          <LoadingWithMessage />
+        )}
       </div>
     </div>
   );

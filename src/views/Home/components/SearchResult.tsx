@@ -3,12 +3,16 @@ import { ISearchResultProps } from "../interfaces";
 
 const SearchResult = (props: ISearchResultProps) => {
   return (
-    <ul className="absolute top-10 w-1/3">
+    <ul
+      className={
+        "absolute top-12 w-1/3 h-[280px] rounded-2xl bg-white overflow-y-auto"
+      }
+    >
       {props.places.map((place) => (
         <Link to={`direktori/detail/${place.id}`}>
           <li
             key={place.id}
-            className="border border-black bg-white p-3 w-full"
+            className="hover:bg-gray-100 rounded-2xl cursor-pointer bg-white p-3 w-full h-14"
           >
             {place.name}
           </li>

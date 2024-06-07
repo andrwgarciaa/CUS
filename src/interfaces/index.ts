@@ -46,4 +46,3 @@ export declare interface IStorageImage {
   path: string | null;
   signedUrl: string;
 }
-
