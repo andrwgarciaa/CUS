@@ -12,8 +12,8 @@ export const encryptPassword = async (password: string) => {
 
 export const signUp = async (dto: IUser) => {
   if (dto.email === "" || dto.password === "") {
-    alert("Please fill in all the fields");
-    throw new Error("Please fill in all the fields");
+    alert("Mohon isi semua data yang masih kosong");
+    throw new Error("Mohon isi semua data yang masih kosong");
   } else {
     const encrypted = await encryptPassword(dto.password as string);
 
@@ -27,7 +27,7 @@ export const signUp = async (dto: IUser) => {
       .select("id");
     if (error) {
       console.log(error.message);
-      alert("Sign up failed");
+      alert("Daftar akun gagal");
       throw error;
     }
 
