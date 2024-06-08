@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
@@ -13,8 +13,12 @@ import Profil from "./views/Profil/Profil.tsx";
 import { SessionProvider } from "./contexts/SessionContext.tsx";
 import Forum from "./views/Forum/Forum.tsx";
 import AddPost from "./views/Forum/views/AddPost/AddPost.tsx";
-import DetailForum from "./views/Forum/DetailForum/DetailForum.tsx";
+import DetailForum from "./views/Forum/views/DetailForum/DetailForum.tsx";
+import EditPost from "./views/Forum/views/EditPost/EditPost.tsx";
+import EditProfil from "./views/Profil/views/EditProfil/EditProfil.tsx";
+import PageNotFound from "./views/PageNotFound/PageNotFound.tsx";
 import Komunitas from "./views/Komunitas/Komunitas.tsx";
+import Admin from "./views/Admin/Admin.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -30,9 +34,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/add-post" element={<AddPost />} />
           <Route path="/forum/detail/:id" element={<DetailForum />} />
+          <Route path="/forum/edit/:id" element={<EditPost />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/profil" element={<Profil />} />
+          <Route path="/profil/:name" element={<Profil />} />
+          <Route path="/profil/:name/edit" element={<EditProfil />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </SessionProvider>

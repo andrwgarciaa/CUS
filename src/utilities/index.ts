@@ -1,19 +1,19 @@
+import { IUser } from "../interfaces";
 import { supabase } from "./supabaseClient";
-
-export const checkUser = () => {
-  const user = localStorage.getItem("user") ?? sessionStorage.getItem("user");
-  if (user) {
-    return JSON.parse(user);
-  }
-  return null;
-};
+import { compareSync } from "bcryptjs";
 
 export const getUserDataById = async (id: string | undefined) => {
-  const data = await supabase
-    .from("User")
-    .select("id, name, email, date_of_birth, avatar_url")
-    .eq("id", id)
-    .single();
+  const data = await supabase.from("User").select("*").eq("id", id).single();
+
+  return data;
+};
+
+export const checkAdmin = (dto: IUser | null) => {
+  if (!dto?.isAdmin) {
+    return null;
+  }
+
+  const data = compareSync(import.meta.env.VITE_ADMIN_SECRET, dto.isAdmin);
 
   return data;
 };
@@ -31,7 +31,10 @@ export const getAllPlacesByCategoryId = async (id: string | undefined) => {
 };
 
 export const getAllPlaceCategories = async () => {
-  const data = await supabase.from("PlaceCategories").select("*");
+  const data = await supabase
+    .from("PlaceCategories")
+    .select("*")
+    .order("id", { ascending: true });
 
   return data;
 };

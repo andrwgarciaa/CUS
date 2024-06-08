@@ -25,6 +25,7 @@ const SearchBar = (props: ISearchBarProps) => {
         placeholder="Cari..."
         className="p-3 w-1/3 rounded-2xl shadow-lg"
         onInput={handleSearch}
+        onBlur={() => setFilteredPlaces([])}
       />
       {filteredPlaces?.length > 0 ? (
         <SearchResult places={filteredPlaces} />

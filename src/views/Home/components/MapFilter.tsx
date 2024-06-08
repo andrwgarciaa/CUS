@@ -16,6 +16,11 @@ const MapFilter = (props: IHomeProps) => {
   };
 
   const handleSelectCategory = (id: number) => {
+    if (id === selectedFilter) {
+      props.setSelectedCategory(0);
+      setSelectedFilter(0);
+      return;
+    }
     props.setSelectedCategory(id);
     setSelectedFilter(id);
   };
@@ -36,7 +41,7 @@ const MapFilter = (props: IHomeProps) => {
     <div className="w-2/3 flex gap-4">
       <span
         onClick={handleArrow("LEFT")}
-        className="py-3 px-5 rounded-full bg-white hover:cursor-pointer"
+        className="py-3 px-5 rounded-full bg-white hover:cursor-pointer font-bold"
       >
         &lt;
       </span>
@@ -57,7 +62,7 @@ const MapFilter = (props: IHomeProps) => {
       </div>
       <span
         onClick={handleArrow("RIGHT")}
-        className="py-3 px-5 rounded-full bg-white hover:cursor-pointer"
+        className="py-3 px-5 rounded-full bg-white hover:cursor-pointer font-bold"
       >
         &gt;
       </span>

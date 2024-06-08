@@ -2,20 +2,17 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import SearchBar from "./components/SearchBar";
 import { useEffect, useState } from "react";
 import { getMarkersByCategoryId } from "./utilities";
-import { IPlace, IUser } from "../../interfaces";
-import { checkUser, getAllPlaces } from "../../utilities";
+import { IPlace } from "../../interfaces";
+import { getAllPlaces } from "../../utilities";
 import { IHomeMap } from "./interfaces";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [loggedIn, setLoggedIn] = useState<IUser>();
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [allPlaces, setAllPlaces] = useState<IPlace[] | null>([]);
   const [markers, setMarkers] = useState<IHomeMap[] | null>([]);
 
   useEffect(() => {
-    setLoggedIn(checkUser());
-
     getAllPlaces().then((data) => {
       setAllPlaces(data.data);
     });

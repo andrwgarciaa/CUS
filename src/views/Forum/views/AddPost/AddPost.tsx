@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { IPost } from "../../interfaces";
 import { SessionContext } from "../../../../contexts/SessionContext";
 import { addPost } from "../../utilities";
+import { useNavigate } from "react-router-dom";
 
 const AddPost = () => {
+  const navigate = useNavigate();
   const session = useContext(SessionContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -11,6 +13,15 @@ const AddPost = () => {
   const handleAddPost = async (e: any) => {
     e.preventDefault();
 
+    if (!session.user) {
+      alert("You need to login first!");
+      return;
+    }
+
+    if (title === "" || body === "") {
+      alert("Judul dan isi tidak boleh kosong!");
+      return;
+    }
     const dto: IPost = {
       title,
       body,
@@ -21,13 +32,15 @@ const AddPost = () => {
     };
     const data = await addPost(dto);
 
-    if (data.status == 201) alert("Post added successfully!");
-    else alert("Post failed to add.");
+    if (data.status == 201) {
+      alert("Post added successfully!");
+      navigate("/forum");
+    } else alert("Post failed to add.");
   };
 
   return (
     <div className="p-4">
-      <h1 className="text-3xl">Add Post</h1>
+      <h1 className="text-3xl font-bold">Tambahkan Post Baru</h1>
       <form className="mt-4 flex flex-col gap-4" onSubmit={handleAddPost}>
         <div className="mx-auto w-full">
           <div>
@@ -43,7 +56,7 @@ const AddPost = () => {
                 htmlFor="title"
                 className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
               >
-                Title
+                Judul
               </label>
             </div>
           </div>
@@ -61,13 +74,17 @@ const AddPost = () => {
                 htmlFor="body"
                 className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
               >
-                Body
+                Isi
               </label>
             </div>
           </div>
         </div>
 
-        <input type="submit" value={"Submit"} />
+        <input
+          type="submit"
+          className="border border-cus-orange bg-cus-orange w-20 rounded-lg py-1 text-white hover:border-cus-orange hover:bg-white hover:text-cus-orange hover:cursor-pointer"
+          value={"Post"}
+        />
       </form>
     </div>
   );

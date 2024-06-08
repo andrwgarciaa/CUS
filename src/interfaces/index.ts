@@ -3,22 +3,27 @@ export declare interface IUser {
   name?: string;
   email: string;
   password?: string | undefined;
-  gender?: string;
+  gender_id?: number;
+  description?: string;
   date_of_birth?: Date;
-  avatar_url?: string;
+  has_photo?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+  isAdmin?: string;
 }
 
 export declare interface IPlace {
-  id: number;
+  id?: number;
   name: string;
   pos_x?: number;
   pos_y?: number;
-  price_min: number;
-  price_max: number;
+  price_min?: number;
+  price_max?: number;
   rating: number;
   address: string;
+  phone?: string;
   category_id?: number;
-  image?: string;
+  has_photo?: boolean;
 }
 
 export declare interface IPlaceCategory {
@@ -26,6 +31,7 @@ export declare interface IPlaceCategory {
   category: string;
   category_simplified: string;
   description: string;
+  has_photo: boolean;
 }
 
 export declare interface ISessionContext {
@@ -33,4 +39,10 @@ export declare interface ISessionContext {
   isLoggedIn: boolean;
   setSession: (keepLoggedIn: boolean, user: IUser) => void;
   removeSession: () => void;
+}
+
+export declare interface IStorageImage {
+  error: string | null;
+  path: string | null;
+  signedUrl: string;
 }
