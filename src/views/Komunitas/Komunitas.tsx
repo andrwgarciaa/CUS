@@ -33,7 +33,7 @@ const SectionKomu: React.FC<SectionProps> = ({title}) => {
     quote: "Bersatu kita runtuh, bersama kita wibu",
     category:"18+",
     member: 1000000,
-    tags: ["Game", "Film", "HD", "Wibu", "+69"],
+    tags: ["Game", "Film", "HD", "Wibu"],
   };
 
   return(
