@@ -1,29 +1,61 @@
-import React from 'react'
+import DirektoriKomuCard from "./components/DirektoriKomuCard";
+import { CardKomuProps } from "./interfaces";
 
 const Komunitas = () => {
   return (
-    <div>
-      <div className="container mx-auto mt-10 px-4">
-        <header className="mb-20 flex items-center">
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold mb-2">Komunitas & Aktivitas</h1>
-            <p className="deskripsi max-w-3xl break-words text-justify">
-              Menjelajah ke tempat-tempat seperti restoran, kafe, mal,
-              supermarket, taman, hingga bengkel memberikan pengalaman yang
-              beragam, seperti menikmati kuliner lezat hingga berbelanja semua
-              kebutuhan anda, bersantai di alam, memperbaiki kendaraan, dan
-              menikmati kopi di suasana yang nyaman.
-            </p>
-          </div>
-          <img
-            src="https://images.pexels.com/photos/2962035/pexels-photo-2962035.jpeg"
-            alt="Komunitas & Aktivitas"
-            style={{ width: "35%", height: "40%", objectFit: "cover" }}
-          />
-        </header>
-      </div>
+    <div className="container mx-auto mt-10 px-4">
+      <header className="mb-20 flex items-center">
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold mb-2">Komunitas & Aktivitas</h1>
+          <p className="deskripsi max-w-3xl break-words text-justify">
+            Tidak ada yang lebih kuat dari komunitas yang solid. Bersama-sama,
+            kita bisa mencapai lebih banyak, saling mendukung, dan tumbuh
+            bersama. Mari kita terlibat dalam berbagai aktivitas yang membangun,
+            menginspirasi, dan memberikan dampak positif. Bersama, kita bisa
+            membuat perbedaan!
+          </p>
+        </div>
+        <img
+          src="https://images.pexels.com/photos/2962035/pexels-photo-2962035.jpeg"
+          alt="Direktori Tempat"
+          style={{ width: "35%", height: "40%", objectFit: "cover" }}
+        />
+      </header>
+      <SectionKomu title="Cari Komunitas" />
+      <SectionKomu title="Cari Aktivitas" />
     </div>
-  )
+  );
+};
+
+interface SectionProps {
+  title: string;
 }
 
-export default Komunitas
+const SectionKomu: React.FC<SectionProps> = ({ title }) => {
+  const sampleCardData: CardKomuProps = {
+    image: "https://via.placeholder.com/150",
+    title: "Wibu Sehat bersama",
+    quote: "Bersatu kita runtuh, bersama kita wibu",
+    age: "14",
+    category: "sports",
+    member: "100",
+  };
+
+  return (
+    <section className="mb-8">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">{title}</h1>
+        <a className="underline hover:underline" href="#">
+          Lihat semua
+        </a>
+      </div>
+      <div className="flex overflow-x-auto space-x-4 hide-scrollbar">
+        {Array.from({ length: 10 }, (_, i) => (
+          <DirektoriKomuCard key={i} {...sampleCardData} />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default Komunitas;

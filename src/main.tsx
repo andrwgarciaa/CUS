@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/direktori" element={<Direktori />} />
           <Route path="/direktori/detail/:id" element={<DirektoriDetail />} />
           <Route path="/direktori/lihat-semua/:id" element={<LihatSemua />} />
-          <Route path="/komunitas&aktivitas" element={<Komunitas />} />
+          <Route path="/komunitas-aktivitas" element={<Komunitas />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/add-post" element={<AddPost />} />
           <Route path="/forum/detail/:id" element={<DetailForum />} />

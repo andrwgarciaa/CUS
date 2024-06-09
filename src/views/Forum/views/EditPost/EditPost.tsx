@@ -25,7 +25,7 @@ const EditPost = () => {
     e.preventDefault();
 
     if (!session.user) {
-      alert("You need to login first!");
+      alert("Anda harus masuk terlebih dahulu!");
       return;
     }
     if (title === "" || body === "") {

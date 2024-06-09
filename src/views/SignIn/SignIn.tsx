@@ -19,11 +19,11 @@ const Login: React.FC = () => {
     const data = await signIn(dto);
 
     if (data) {
-      alert("Sign in successful!");
+      alert("Login berhasil!");
       session.setSession(keepLoggedIn, data);
       navigate("/");
     } else {
-      alert("Sign in gagal.");
+      alert("Login gagal.");
       if (passwordRef.current) {
         passwordRef.current.value = "";
         passwordRef.current.focus();
@@ -35,9 +35,9 @@ const Login: React.FC = () => {
     <div className="flex justify-between w-full h-[90vh]">
       <div className="flex flex-col items-center justify-center gap-8 w-2/5">
         <div className="w-3/5">
-          <h1 className="text-4xl font-bold mb-2">Sign in</h1>
+          <h1 className="text-4xl font-bold mb-2">Login</h1>
           <p className="text-gray-400">
-            Sign in untuk menggunakan semua fitur dari CUS.
+            Masukkan email dan kata sandi untuk menggunakan semua fitur dari CUS.
           </p>
         </div>
         <form className="flex flex-col gap-4 w-3/5" onSubmit={handleSignIn}>
@@ -90,7 +90,7 @@ const Login: React.FC = () => {
                   htmlFor="password"
                   className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
                 >
-                  Password
+                  Kata Sandi
                 </label>
               </div>
             </div>
@@ -111,7 +111,7 @@ const Login: React.FC = () => {
             className="w-full border rounded-lg bg-[#367aff] text-white p-3 hover:bg-[#1e4aff] transition-all"
             type="submit"
           >
-            Sign In
+            Masuk
           </button>
           <div className="">
             <span className="text-gray-400">Tidak punya akun? </span>
