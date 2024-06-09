@@ -44,7 +44,7 @@ const Navbar = () => {
 
       <ul className="hidden lg:flex items-center gap-8">
         <Link to={"/direktori"}>Direktori</Link>
-        <Link to={"/komunitas&aktivitas"}>Komunitas & Aktivitas</Link>
+        <Link to={"/komunitas-aktivitas"}>Komunitas & Aktivitas</Link>
         <Link to={"/forum"}>Forum</Link>
         {isLoggedIn ? (
           <img
