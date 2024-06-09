@@ -4,6 +4,8 @@ import { hash, compare } from "bcryptjs";
 
 export const signIn = async (dto: IUser) => {
   let isAdmin = "";
+  dto.email = dto.email.toLowerCase();
+
   const data = await supabase
     .from("User")
     .select("*")

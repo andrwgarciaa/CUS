@@ -15,6 +15,7 @@ export const signUp = async (dto: IUser) => {
     alert("Mohon isi semua data yang masih kosong");
     throw new Error("Mohon isi semua data yang masih kosong");
   } else {
+    dto.email = dto.email.toLowerCase();
     const encrypted = await encryptPassword(dto.password as string);
 
     const { data, error } = await supabase

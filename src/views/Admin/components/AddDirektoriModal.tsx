@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
-import { IPlace, IPlaceCategory } from "../../../interfaces";
+import { IPlace } from "../../../interfaces";
 import { addPlace } from "../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
-import { getAllPlaceCategories } from "../../../utilities";
+import { getAllPlaceCategories } from "../../Direktori/utilities";
 
 const AddDirektoriModal = (props: any) => {
   const session = useContext(SessionContext);
@@ -310,12 +310,12 @@ const AddDirektoriModal = (props: any) => {
           </div>
         </div>
         <div className="flex gap-2 w-full">
-          <button
+          <input
+            type="button"
+            value={"Batal"}
             className="bg-white w-full text-cus-blue rounded-lg p-2 hover:cursor-pointer hover:bg-cus-blue hover:text-white border border-cus-blue"
             onClick={props.onClose}
-          >
-            Batal
-          </button>
+          />
           <input
             type="submit"
             className="bg-white w-full text-cus-orange rounded-lg p-2 hover:cursor-pointer hover:bg-cus-orange hover:text-white border border-cus-orange"

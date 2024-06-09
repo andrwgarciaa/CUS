@@ -1,5 +1,6 @@
 import { IUser } from "../../../interfaces";
 import { supabase } from "../../../utilities/supabaseClient";
+import { checkArchiveByUserId } from "../../Arsip/utilities";
 import { IComment, IPost, IVote } from "../interfaces";
 
 // filtering done on client side since the data is still relatively small
@@ -157,6 +158,41 @@ export const swapVote = async (
   }
 
   return { removeData, addData };
+};
+
+export const archivePost = async (
+  userId: string | undefined,
+  postId: string | undefined
+) => {
+  const data = await supabase.from("Favorite").insert({
+    user_id: userId,
+    post_id: postId,
+  });
+
+  return data;
+};
+
+export const unarchivePost = async (
+  userId: string | undefined,
+  postId: string | undefined
+) => {
+  const data = await supabase
+    .from("Favorite")
+    .delete()
+    .eq("user_id", userId)
+    .eq("post_id", postId);
+
+  return data;
+};
+
+export const checkArchiveStatus = async (
+  userId: string | undefined,
+  postId: string | undefined
+) => {
+  const data = await checkArchiveByUserId(userId);
+  const archived = data.data?.filter((item) => item.post_id === postId);
+
+  return archived ? archived?.length > 0 : false;
 };
 
 export const getFormattedDateAndTime = (date: Date) => {

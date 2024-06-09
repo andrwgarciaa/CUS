@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { IPlaceCategory } from "../../interfaces";
-import { getAllPlaceCategories } from "../../utilities";
+import { ICategory } from "../../interfaces";
+import { getAllPlaceCategories } from "./utilities";
 import DirektoriSection from "./components/DirektoriSection";
 import LoadingWithMessage from "../../components/LoadingWithMessage";
 
 const Direktori = () => {
-  const [allPlaces, setAllPlaces] = useState<IPlaceCategory[] | null>([]);
+  const [allPlaces, setAllPlaces] = useState<ICategory[] | null>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

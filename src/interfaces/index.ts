@@ -26,12 +26,22 @@ export declare interface IPlace {
   has_photo?: boolean;
 }
 
-export declare interface IPlaceCategory {
+export declare interface ICategory {
   id: number;
   category: string;
   category_simplified: string;
   description: string;
   has_photo: boolean;
+  category_type: number;
+}
+
+export declare interface ICommunityActivity {
+  id?: string;
+  name: string;
+  description: string;
+  category: string;
+  has_photo: boolean;
+  member_count: number;
 }
 
 export declare interface ISessionContext {
