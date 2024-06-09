@@ -19,6 +19,7 @@ import EditProfil from "./views/Profil/views/EditProfil/EditProfil.tsx";
 import PageNotFound from "./views/PageNotFound/PageNotFound.tsx";
 import Komunitas from "./views/Komunitas/Komunitas.tsx";
 import Admin from "./views/Admin/Admin.tsx";
+import Arsip from "./views/Arsip/Arsip.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/forum/add-post" element={<AddPost />} />
           <Route path="/forum/detail/:id" element={<DetailForum />} />
           <Route path="/forum/edit/:id" element={<EditPost />} />
+          <Route path="/arsip" element={<Arsip />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profil/:name" element={<Profil />} />

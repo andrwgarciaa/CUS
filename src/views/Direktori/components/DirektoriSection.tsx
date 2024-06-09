@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DirektoriCard from "../../../components/DirektoriCard";
 import { IPlace } from "../../../interfaces";
-import { getAllPlacesByCategoryId } from "../../../utilities";
+import { getAllPlacesByCategoryId } from "../../Direktori/utilities";
 import { ISectionProps } from "../interfaces";
 import { Link } from "react-router-dom";
 const DirektoriSection: React.FC<ISectionProps> = ({

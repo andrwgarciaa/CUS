@@ -1,14 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IPlace, IStorageImage } from "../../../../interfaces";
-import { getDirektoriDetailById } from "./utilities";
+import {
+  archiveDirektori,
+  checkArchiveStatus,
+  getDirektoriDetailById,
+  unarchiveDirektori,
+} from "./utilities";
 import { PLACE_URL } from "../../../../constants";
 import LoadingWithMessage from "../../../../components/LoadingWithMessage";
+import { SessionContext } from "../../../../contexts/SessionContext";
 
 const DirektoriDetail = () => {
+  const session = useContext(SessionContext);
   const { id } = useParams();
   const [placeData, setPlaceData] = useState<IPlace | null>();
   const [images, setImages] = useState<IStorageImage[] | null>();
+  const [isArchived, setIsArchived] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   const getPlaceData = async (id: string | undefined) => {
@@ -19,9 +27,33 @@ const DirektoriDetail = () => {
     setLoading(false);
   };
 
+  const handleArchiveDirektori = async () => {
+    if (isArchived) {
+      const data = await unarchiveDirektori(session.user?.id, placeData?.id);
+      if (data.status === 204) {
+        setIsArchived(false);
+      } else {
+        alert("Post gagal dihapus dari arsip");
+      }
+    } else {
+      const data = await archiveDirektori(session.user?.id, placeData?.id);
+      if (data.status === 201) {
+        setIsArchived(true);
+      } else {
+        alert("Post gagal diarsipkan");
+      }
+    }
+  };
+
+  const checkArchive = async () => {
+    const data = await checkArchiveStatus(session.user?.id, placeData?.id);
+    if (data) setIsArchived(true);
+  };
   useEffect(() => {
     getPlaceData(id);
+    checkArchive();
   }, []);
+
   return (
     <>
       {!loading ? (
@@ -51,19 +83,21 @@ const DirektoriDetail = () => {
                   <strong>Phone:</strong> {placeData?.phone ?? "-"}
                 </p>
               </div>
-              <button
-                style={{
-                  backgroundColor: "#f87171",
-                  color: "#fff",
-                  padding: "10px 20px",
-                  border: "none",
-                  borderRadius: "5px",
-                  alignSelf: "flex-start",
-                  justifySelf: "flex-end",
-                }}
-              >
-                Arsip
-              </button>
+              {isArchived ? (
+                <button
+                  onClick={handleArchiveDirektori}
+                  className="w-max px-4 py-2 rounded-lg text-white bg-cus-orange border-cus-orange border-2 hover:bg-white hover:text-black hover:border-cus-blue transition-all"
+                >
+                  Telah diarsipkan
+                </button>
+              ) : (
+                <button
+                  onClick={handleArchiveDirektori}
+                  className="w-max px-4 py-2 rounded-lg border-cus-blue border-2 hover:bg-cus-orange hover:text-white hover:border-cus-orange transition-all"
+                >
+                  Arsipkan
+                </button>
+              )}
             </div>
             <img
               className="w-fit max-h-[20em] rounded-lg  object-cover"

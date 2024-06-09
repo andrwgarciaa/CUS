@@ -67,6 +67,7 @@ const Navbar = () => {
           <Link to={`/profil/${user?.name}`} onClick={handleProfil}>
             Profil
           </Link>
+          <Link to={"/arsip"}>Arsip</Link>
           {isAdmin ? <Link to={"/admin"}>Admin</Link> : null}
           <span className="hover:cursor-pointer" onClick={handleSignOut}>
             Sign Out

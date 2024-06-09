@@ -1,4 +1,4 @@
-import DirektoriKomuCard from "./Components/DirektoriKomuCard";
+import DirektoriKomuCard from "./components/DirektoriKomuCard";
 import { CardKomuProps } from "./interfaces";
 
 const Komunitas = () => {

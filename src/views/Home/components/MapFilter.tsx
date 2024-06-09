@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { IHomeProps } from "../interfaces";
-import { getAllPlaceCategories } from "../../../utilities";
-import { IPlaceCategory } from "../../../interfaces";
+import { getAllPlaceCategories } from "../../Direktori/utilities";
+import { ICategory } from "../../../interfaces";
 
 const MapFilter = (props: IHomeProps) => {
   const filterRef = useRef<HTMLDivElement>(null);
   const [selectedFilter, setSelectedFilter] = useState<number>(0);
-  const [placeCategories, setPlaceCategories] = useState<
-    IPlaceCategory[] | null
-  >([]);
+  const [placeCategories, setPlaceCategories] = useState<ICategory[] | null>(
+    []
+  );
 
   const getFilter = async () => {
     const data = await getAllPlaceCategories();

@@ -11,15 +11,19 @@ import { getUserDataById } from "../../../utilities";
 import { Link } from "react-router-dom";
 import {
   addVote,
+  archivePost,
+  checkArchiveStatus,
   checkVoteStatus,
   deletePost,
   getCommentsByPostId,
   getFormattedDateAndTime,
   removeVote,
   swapVote,
+  unarchivePost,
 } from "../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
 import CommentIcon from "../../../components/CommentIcon";
+import ArchiveIcon from "../../../components/ArchiveIcon";
 
 const PostCard = ({
   post,
@@ -35,6 +39,7 @@ const PostCard = ({
   const [downvote, setDownvote] = useState<number>(post.downvote);
   const [comments, setComments] = useState<number>(post.comments ?? 0);
   const [isVoted, setIsVoted] = useState<string>("");
+  const [isArchived, setIsArchived] = useState<boolean>(false);
   const [showSettings, setShowSettings] = useState<boolean>(false);
 
   const date = new Date(post.updated_at ? post.updated_at : post.created_at);
@@ -122,9 +127,35 @@ const PostCard = ({
     }
   };
 
+  const handleArchivePost = async () => {
+    if (isArchived) {
+      const data = await unarchivePost(session.user?.id, post.id);
+      if (data.status === 204) {
+        setIsArchived(false);
+      } else {
+        alert("Post gagal dihapus dari arsip");
+      }
+    } else {
+      const data = await archivePost(session.user?.id, post.id);
+      if (data.status === 201) {
+        setIsArchived(true);
+      } else {
+        alert("Post gagal diarsipkan");
+      }
+    }
+
+    setShowSettings(false);
+  };
+
+  const checkArchive = async () => {
+    const data = await checkArchiveStatus(session.user?.id, post.id);
+    if (data) setIsArchived(true);
+  };
+
   useEffect(() => {
     fetchAuthor();
     checkVote();
+    checkArchive();
     fetchCommentsCount();
     const { formattedDate } = getFormattedDateAndTime(date);
     setFormattedDate(formattedDate);
@@ -146,7 +177,9 @@ const PostCard = ({
         <div className="absolute w-32 right-4 top-12 bg-white border rounded-lg p-4 flex flex-col gap-1 z-10 text-center">
           {session.user && session.user?.id === post.user_id && (
             <>
-              <Link to={`/forum/edit/${post.id}`}>Sunting</Link>
+              <Link className="" to={`/forum/edit/${post.id}`}>
+                Sunting
+              </Link>
               <p className="hover:cursor-pointer" onClick={handleDeletePost}>
                 Hapus
               </p>
@@ -172,7 +205,7 @@ const PostCard = ({
         <div className="flex gap-2">
           <Link
             to={`/forum/detail/${post.id}`}
-            className="hover:cursor-pointer flex items-center gap-1 mr-6"
+            className="hover:cursor-pointer flex items-center gap-1 mr-3"
           >
             <p>{comments}</p> <CommentIcon />
           </Link>
@@ -191,6 +224,12 @@ const PostCard = ({
             onClick={() => handleVote("downvote")}
           >
             {downvote} &darr;
+          </span>
+          <span
+            className="flex items-center ml-3 hover:cursor-pointer"
+            onClick={handleArchivePost}
+          >
+            <ArchiveIcon archived={isArchived} />
           </span>
         </div>
       </div>

@@ -15,6 +15,7 @@ export const signUp = async (dto: IUser) => {
     alert("Please fill in all the fields");
     throw new Error("Please fill in all the fields");
   } else {
+    dto.email = dto.email.toLowerCase();
     const encrypted = await encryptPassword(dto.password as string);
 
     const { data, error } = await supabase

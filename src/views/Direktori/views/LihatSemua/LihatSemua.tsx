@@ -3,16 +3,16 @@ import { useParams } from "react-router-dom";
 import {
   getAllPlacesByCategoryId,
   getPlaceCategoryById,
-} from "../../../../utilities";
+} from "../../utilities";
 import DirektoriCard from "../../../../components/DirektoriCard";
-import { IPlace, IPlaceCategory } from "../../../../interfaces";
+import { IPlace, ICategory } from "../../../../interfaces";
 import { PLACE_CATEGORY_URL, PLACE_URL } from "../../../../constants";
 import LoadingWithMessage from "../../../../components/LoadingWithMessage";
 
 const LihatSemua = () => {
   const { id } = useParams<{ id: string }>();
   const [allPlaces, setAllPlaces] = useState<IPlace[] | null>([]);
-  const [placeCategory, setPlaceCategory] = useState<IPlaceCategory | null>();
+  const [placeCategory, setPlaceCategory] = useState<ICategory | null>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchData = async () => {

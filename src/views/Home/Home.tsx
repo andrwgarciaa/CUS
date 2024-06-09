@@ -3,7 +3,7 @@ import SearchBar from "./components/SearchBar";
 import { useEffect, useState } from "react";
 import { getMarkersByCategoryId } from "./utilities";
 import { IPlace } from "../../interfaces";
-import { getAllPlaces } from "../../utilities";
+import { getAllPlaces } from "../Direktori/utilities";
 import { IHomeMap } from "./interfaces";
 import { Link } from "react-router-dom";
 
