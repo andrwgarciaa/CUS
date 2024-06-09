@@ -3,6 +3,6 @@ export declare interface CardKomuProps {
   title: string;
   quote: string;
   category: string;
-  member: number;
-  rating: number;
+  age: string;
+  member: string;
 }

@@ -14,7 +14,7 @@ const AddPost = () => {
     e.preventDefault();
 
     if (!session.user) {
-      alert("You need to login first!");
+      alert("Anda harus masuk terlebih dahulu!");
       return;
     }
 
@@ -33,9 +33,9 @@ const AddPost = () => {
     const data = await addPost(dto);
 
     if (data.status == 201) {
-      alert("Post added successfully!");
+      alert("Post berhasil dibuat!");
       navigate("/forum");
-    } else alert("Post failed to add.");
+    } else alert("Post gagal dibuat.");
   };
 
   return (

@@ -44,7 +44,7 @@ const Navbar = () => {
 
       <ul className="hidden lg:flex items-center gap-8">
         <Link to={"/direktori"}>Direktori</Link>
-        <Link to={"/komunitas"}>Komunitas</Link>
+        <Link to={"/komunitas-aktivitas"}>Komunitas & Aktivitas</Link>
         <Link to={"/forum"}>Forum</Link>
         {isLoggedIn ? (
           <img
@@ -58,7 +58,7 @@ const Navbar = () => {
             to={"/signin"}
             className="bg-cus-orange text-white border border-cus-orange hover:bg-cus-blue hover:text-cus-orange hover:border-cus-orange rounded-lg px-6 py-2"
           >
-            Sign In
+            Masuk
           </Link>
         )}
       </ul>
@@ -70,7 +70,7 @@ const Navbar = () => {
           <Link to={"/arsip"}>Arsip</Link>
           {isAdmin ? <Link to={"/admin"}>Admin</Link> : null}
           <span className="hover:cursor-pointer" onClick={handleSignOut}>
-            Sign Out
+            Keluar Akun
           </span>
         </div>
       ) : null}

@@ -5,9 +5,9 @@ const DirektoriKomuCard: React.FC<CardKomuProps> = ({
   image,
   title,
   quote,
+  age,
   category,
-  member,
-  rating,
+  member
 }) => {
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden w-65 flex-shrink-0 mb-2">
@@ -17,17 +17,19 @@ const DirektoriKomuCard: React.FC<CardKomuProps> = ({
           <h3 className="text-xl font-semibold mb-4 mr-4 truncate">
             {truncateString(title, 40)}
           </h3>
-          <div className="flex w-fit items-center bg-green-500 rounded-2xl px-2 py-1 h-8">
-            <span className="text-white">{rating}★</span>
-          </div>
         </div>
-        <p className="text-gray-600 truncate mb-1">
-          {member.toLocaleString()} Orang telah bergabung
-        </p>
-        <p className="text-gray-600 truncate mb-1 italic">
-          {truncateString(quote, 40)}
-        </p>
-        <div className="mt-2 flex space-x-2"></div>
+          <p className="text-gray-600 truncate mb-1">
+            {member.toLocaleString()} Orang telah bergabung
+          </p>
+          <p className="text-gray-600 truncate mb-1 italic">
+            {truncateString(quote, 40)}
+          </p>
+        <div className="flex">
+            <span className="text-white bg-blue-500 rounded-2xl flex w-fit items-center px-2 py-1 h-8">{age}+</span>
+            <div className="px-2">
+              <span className="text-white bg-gray-400 rounded-2xl flex w-fit items-center px-2 py-1 h-8">{category}</span>
+            </div>
+        </div>
       </div>
     </div>
   );

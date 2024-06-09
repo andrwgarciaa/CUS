@@ -62,7 +62,7 @@ const DetailForum = () => {
     e.preventDefault();
 
     if (!session.user) {
-      alert("You need to login first!");
+      alert("Anda harus masuk terlebih dahulu!");
       return;
     }
 
@@ -76,11 +76,11 @@ const DetailForum = () => {
     };
     const data = await addComment(dto);
     if (data.status === 201) {
-      alert("Comment added successfully!");
+      alert("Komen berhasil dibuat!");
       if (newCommentRef.current) newCommentRef.current.value = "";
       setRefreshComment((prev) => !prev);
     } else {
-      alert("Comment failed to add.");
+      alert("Komen gagal dibuat.");
     }
   };
 

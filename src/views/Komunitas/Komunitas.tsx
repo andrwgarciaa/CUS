@@ -6,7 +6,7 @@ const Komunitas = () => {
     <div className="container mx-auto mt-10 px-4">
       <header className="mb-20 flex items-center">
         <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-2">Komunitas</h1>
+          <h1 className="text-3xl font-bold mb-2">Komunitas & Aktivitas</h1>
           <p className="deskripsi max-w-3xl break-words text-justify">
             Tidak ada yang lebih kuat dari komunitas yang solid. Bersama-sama,
             kita bisa mencapai lebih banyak, saling mendukung, dan tumbuh
@@ -36,9 +36,9 @@ const SectionKomu: React.FC<SectionProps> = ({ title }) => {
     image: "https://via.placeholder.com/150",
     title: "Wibu Sehat bersama",
     quote: "Bersatu kita runtuh, bersama kita wibu",
-    category: "18+",
-    member: 1000000,
-    rating: 4.0,
+    age: "14",
+    category: "sports",
+    member: "100",
   };
 
   return (
