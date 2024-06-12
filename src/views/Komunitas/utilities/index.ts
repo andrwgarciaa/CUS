@@ -1,22 +1,22 @@
 import { supabase } from "../../../utilities/supabaseClient";
 
-export const getAllKomunitasAktivitas = async () => {
+export const getAllCommunityActivity = async () => {
   const komunitas = await supabase
-    .from("KomunitasAktivitas")
+    .from("CommunityActivity")
     .select("*")
     .eq("type_id", 2);
 
   const aktivitas = await supabase
-    .from("KomunitasAktivitas")
+    .from("CommunityActivity")
     .select("*")
     .eq("type_id", 3);
 
   return { komunitas, aktivitas };
 };
 
-export const getKomunitasAktivitasById = async (id: string) => {
+export const getCommunityActivityById = async (id: string | undefined) => {
   const data = await supabase
-    .from("KomunitasAktivitas")
+    .from("CommunityActivity")
     .select("*")
     .eq("id", id)
     .single();
@@ -24,16 +24,18 @@ export const getKomunitasAktivitasById = async (id: string) => {
   return data;
 };
 
-export const getKomunitasAktivitasByCategory = async (category: string) => {
+export const getCommunityActivityByTypeId = async (
+  typeId: string | undefined
+) => {
   const data = await supabase
-    .from("KomunitasAktivitas")
+    .from("CommunityActivity")
     .select("*")
-    .eq("category", category);
+    .eq("type_id", typeId);
 
   return data;
 };
 
-export const getAllKomunitasAktivitasCategories = async () => {
+export const getAllCommunityActivityCategories = async () => {
   const komunitas = await supabase
     .from("Category")
     .select("*")
@@ -47,4 +49,22 @@ export const getAllKomunitasAktivitasCategories = async () => {
     .order("id", { ascending: true });
 
   return { komunitas, aktivitas };
+};
+
+export const getCommunityActivityCategoryById = async (
+  id: string | undefined
+) => {
+  const data = await supabase
+    .from("CommunityActivity")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  const category = await supabase
+    .from("Category")
+    .select("*")
+    .eq("id", data.data.category_id)
+    .single();
+
+  return category;
 };

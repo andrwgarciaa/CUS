@@ -1,8 +1,11 @@
-export declare interface CardKomuProps {
-  image: string;
-  title: string;
-  quote: string;
-  category: string;
-  age: string;
-  member: string;
+export declare interface ICommunityActivity {
+  id?: string;
+  name: string;
+  motto: string;
+  description: string;
+  type_id: number;
+  category_id: number;
+  member_count?: number;
+  slot_count?: number;
+  has_photo: boolean;
 }

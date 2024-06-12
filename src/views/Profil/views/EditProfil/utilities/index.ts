@@ -16,7 +16,6 @@ export const uploadProfilePhoto = async (
   file: File,
   userId: string | undefined
 ) => {
-  const data = await supabase.storage.from("Profile").upload(`${userId}`, file);
-  console.log(data);
+  const data = await supabase.storage.from("Profile").update(`${userId}`, file);
   return data;
 };

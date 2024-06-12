@@ -29,7 +29,7 @@ const Profil = () => {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [session.user]);
 
   return (
     <div className="flex justify-center items-center w-screen h-[90vh]">

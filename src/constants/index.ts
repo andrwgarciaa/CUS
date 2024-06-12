@@ -7,6 +7,9 @@ export const PLACE_URL =
 export const PLACE_CATEGORY_URL =
   "https://yfikufdntxmmcnnkzrqp.supabase.co/storage/v1/object/public/Place/Categories/";
 
+export const COMMUNITY_ACTIVITY_URL =
+  "https://yfikufdntxmmcnnkzrqp.supabase.co/storage/v1/object/public/CommunityActivity/";
+
 export const STATISTIK_NAME: { [key: string]: string } = {
   totalPost: "Forum dibuat",
   totalComment: "Komentar diberikan",

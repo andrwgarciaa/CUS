@@ -24,7 +24,7 @@ const DirektoriSection: React.FC<ISectionProps> = ({
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">{simplified}</h1>
         <Link
-          className="underline hover:underline"
+          className="underline "
           to={`/direktori/lihat-semua/${categoryId}`}
         >
           Lihat semua
