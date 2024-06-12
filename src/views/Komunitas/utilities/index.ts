@@ -24,11 +24,13 @@ export const getCommunityActivityById = async (id: string | undefined) => {
   return data;
 };
 
-export const getCommunityActivityByCategory = async (category: string) => {
+export const getCommunityActivityByTypeId = async (
+  typeId: string | undefined
+) => {
   const data = await supabase
     .from("CommunityActivity")
     .select("*")
-    .eq("category", category);
+    .eq("type_id", typeId);
 
   return data;
 };

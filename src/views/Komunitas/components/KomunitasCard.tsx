@@ -37,7 +37,9 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
           {truncateString(item.motto, 40)}
         </p>
         <p className="text-gray-600 truncate mb-1">
-          {item.member_count?.toString()} Orang telah bergabung
+          {item.member_count
+            ? `${item.member_count?.toString()} orang telah bergabung`
+            : `Tersisa ${item.slot_count?.toString()} slot`}
         </p>
         <div className="flex">
           <div className="px-2">
