@@ -32,7 +32,6 @@ const EditProfil = () => {
         const date = new Date(data.date_of_birth);
         setDate(date);
       }
-      console.log(data);
     }
   };
 
@@ -42,6 +41,7 @@ const EditProfil = () => {
     if (user) {
       if (image) {
         newPhoto = await uploadProfilePhoto(image, user.id);
+
         if (!newPhoto) {
           alert("Gagal memperbarui foto profil.");
           return;

@@ -9,7 +9,7 @@ import { IPlace, ICategory } from "../../../../interfaces";
 import { PLACE_CATEGORY_URL, PLACE_URL } from "../../../../constants";
 import LoadingWithMessage from "../../../../components/LoadingWithMessage";
 
-const LihatSemua = () => {
+const LihatSemuaDirektori = () => {
   const { id } = useParams<{ id: string }>();
   const [allPlaces, setAllPlaces] = useState<IPlace[] | null>([]);
   const [placeCategory, setPlaceCategory] = useState<ICategory | null>();
@@ -80,4 +80,4 @@ const LihatSemua = () => {
   );
 };
 
-export default LihatSemua;
+export default LihatSemuaDirektori;

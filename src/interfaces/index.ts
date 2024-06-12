@@ -35,15 +35,6 @@ export declare interface ICategory {
   category_type: number;
 }
 
-export declare interface ICommunityActivity {
-  id?: string;
-  name: string;
-  description: string;
-  category: string;
-  has_photo: boolean;
-  member_count: number;
-}
-
 export declare interface ISessionContext {
   user: IUser | null;
   isLoggedIn: boolean;

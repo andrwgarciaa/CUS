@@ -1,7 +1,24 @@
-import DirektoriKomuCard from "./components/DirektoriKomuCard";
-import { CardKomuProps } from "./interfaces";
+import { useState, useEffect } from "react";
+import KomunitasSection from "./components/KomunitasSection";
+import { ICommunityActivity } from "./interfaces";
+import { getAllCommunityActivity } from "./utilities";
 
 const Komunitas = () => {
+  const [komunitas, setKomunitas] = useState<ICommunityActivity[] | null>([]);
+  const [aktivitas, setAktivitas] = useState<ICommunityActivity[] | null>([]);
+
+  const fetchData = async () => {
+    const data = await getAllCommunityActivity();
+    if (data) {
+      setKomunitas(data.komunitas.data);
+      setAktivitas(data.aktivitas.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="container mx-auto mt-10 px-4">
       <header className="mb-20 flex items-center">
@@ -21,40 +38,9 @@ const Komunitas = () => {
           style={{ width: "35%", height: "40%", objectFit: "cover" }}
         />
       </header>
-      <SectionKomu title="Cari Komunitas" />
-      <SectionKomu title="Cari Aktivitas" />
+      <KomunitasSection title="Cari Komunitas" data={komunitas} />
+      <KomunitasSection title="Cari Aktivitas" data={aktivitas} />
     </div>
-  );
-};
-
-interface SectionProps {
-  title: string;
-}
-
-const SectionKomu: React.FC<SectionProps> = ({ title }) => {
-  const sampleCardData: CardKomuProps = {
-    image: "https://via.placeholder.com/150",
-    title: "Wibu Sehat bersama",
-    quote: "Bersatu kita runtuh, bersama kita wibu",
-    age: "14",
-    category: "sports",
-    member: "100",
-  };
-
-  return (
-    <section className="mb-8">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <a className="underline hover:underline" href="#">
-          Lihat semua
-        </a>
-      </div>
-      <div className="flex overflow-x-auto space-x-4 hide-scrollbar">
-        {Array.from({ length: 10 }, (_, i) => (
-          <DirektoriKomuCard key={i} {...sampleCardData} />
-        ))}
-      </div>
-    </section>
   );
 };
 
