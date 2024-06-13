@@ -32,16 +32,7 @@ const DirektoriSection: React.FC<ISectionProps> = ({
       </div>
       <div className="flex overflow-x-auto space-x-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400">
         {data?.map((place) => (
-          <DirektoriCard
-            key={place.id}
-            id={place.id}
-            name={place.name}
-            price_min={place.price_min}
-            price_max={place.price_max}
-            has_photo={place.has_photo}
-            address={place.address}
-            rating={place.rating}
-          />
+          <DirektoriCard key={place.id} props={place} />
         ))}
       </div>
     </section>

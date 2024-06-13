@@ -4,10 +4,14 @@ import { getArchiveByType } from "../utilities";
 import ForumArsipCard from "./ForumArsipCard";
 import DirektoriArsipCard from "./DirektoriArsipCard";
 import KomunitasArsipCard from "./KomunitasArsipCard";
+import DirektoriCard from "../../../components/DirektoriCard";
+import KomunitasCard from "../../Komunitas/components/KomunitasCard";
+import PostCard from "../../Forum/components/PostCard";
 
 const ArsipSection = (props: any) => {
   const session = useContext(SessionContext);
   const [data, setData] = useState<any[] | null>([]);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const fetchData = async (userId: string | undefined, type: string) => {
     const forumData = await getArchiveByType(userId, type);
@@ -19,17 +23,24 @@ const ArsipSection = (props: any) => {
   }, [session.user]);
 
   return (
-    <div className="border rounded-lg p-4 h-max flex-1">
+    <div className="p-4 h-max flex-1">
       <p className="text-3xl mb-4">{props.type}</p>
-      <hr className="m-4" />
-      <div className="flex flex-col gap-4 overflow-y-auto max-h-[70vh]">
+      <div
+        className={`flex ${
+          props.type === "Forum" ? "flex-col" : ""
+        } gap-4 overflow-auto max-h-[70vh]`}
+      >
         {data?.map((item: any) => {
           if (props.type === "Forum") {
-            return <ForumArsipCard key={item.id} forum={item} />;
+            return (
+              <div className="max-w-1/2">
+                <PostCard key={item.id} post={item} setRefresh={setRefresh} />
+              </div>
+            );
           } else if (props.type === "Direktori") {
-            return <DirektoriArsipCard key={item.id} place={item} />;
+            return <DirektoriCard key={item.id} props={item} />;
           } else {
-            return <KomunitasArsipCard key={item.id} komunitas={item} />;
+            return <KomunitasCard key={item.id} item={item} />;
           }
         })}
       </div>

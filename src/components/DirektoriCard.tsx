@@ -3,16 +3,16 @@ import { IPlace, IStorageImage } from "../interfaces";
 import { truncateString } from "../utilities";
 import { PLACE_URL } from "../constants";
 import { useEffect, useState } from "react";
-import { getImagesByPlaceId } from "../views/Direktori/utilities";
+import { getDirektoriImagesByPlaceId } from "../views/Direktori/utilities";
 import Spinner from "./Spinner";
 
-const DirektoriCard: React.FC<IPlace> = (props: IPlace) => {
+const DirektoriCard = ({ props }: { props: IPlace }) => {
   const [images, setImages] = useState<IStorageImage[] | null>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchImages = async () => {
     if (props.id) {
-      const data = await getImagesByPlaceId(props.id.toString());
+      const data = await getDirektoriImagesByPlaceId(props.id.toString());
       setImages(data?.data);
       setLoading(false);
     }

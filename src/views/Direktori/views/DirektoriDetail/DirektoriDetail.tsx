@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { IPlace, IStorageImage } from "../../../../interfaces";
 import {
   archiveDirektori,
-  checkArchiveStatus,
+  checkDirektoriArchiveStatus,
   getDirektoriDetailById,
   unarchiveDirektori,
 } from "./utilities";
@@ -21,7 +21,6 @@ const DirektoriDetail = () => {
 
   const getPlaceData = async (id: string | undefined) => {
     const data = await getDirektoriDetailById(id);
-    console.log("Fetched place data:", data);
     setPlaceData(data.data);
     setImages(data.images?.data);
     setLoading(false);
@@ -46,13 +45,17 @@ const DirektoriDetail = () => {
   };
 
   const checkArchive = async () => {
-    const data = await checkArchiveStatus(session.user?.id, placeData?.id);
+    const data = await checkDirektoriArchiveStatus(
+      session.user?.id,
+      placeData?.id
+    );
     if (data) setIsArchived(true);
   };
+
   useEffect(() => {
     getPlaceData(id);
     checkArchive();
-  }, []);
+  }, [placeData?.id]);
 
   return (
     <>
@@ -74,9 +77,9 @@ const DirektoriDetail = () => {
                 )}
                 <p className="text-lg flex gap-2">
                   <strong>Rating:</strong>{" "}
-                  <div className="flex w-fit items-center bg-green-500 rounded-2xl px-2 py-1 h-8">
+                  <span className="flex w-fit items-center bg-green-500 rounded-2xl px-2 py-1 h-8">
                     <span className="text-white">{placeData?.rating}★</span>
-                  </div>
+                  </span>
                 </p>
 
                 <p className="text-lg">

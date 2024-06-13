@@ -34,7 +34,7 @@ export const getPlaceCategoryById = async (id: string | undefined) => {
   return data;
 };
 
-export const getImagesByPlaceId = async (id: string | undefined) => {
+export const getDirektoriImagesByPlaceId = async (id: string | undefined) => {
   const imagePaths = await (await supabase.storage.from("Place").list(id)).data;
 
   if (imagePaths && imagePaths?.length > 0) {
@@ -44,4 +44,13 @@ export const getImagesByPlaceId = async (id: string | undefined) => {
     );
     return data;
   }
+};
+
+export const getDirektoriCategoryCount = async () => {
+  const data = await supabase
+    .from("Category")
+    .select("*")
+    .eq("category_type", 1);
+
+  return data.data?.length;
 };

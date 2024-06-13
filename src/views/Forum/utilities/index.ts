@@ -185,7 +185,7 @@ export const unarchivePost = async (
   return data;
 };
 
-export const checkArchiveStatus = async (
+export const checkPostArchiveStatus = async (
   userId: string | undefined,
   postId: string | undefined
 ) => {

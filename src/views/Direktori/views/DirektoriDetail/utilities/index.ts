@@ -1,13 +1,13 @@
 import { IPlace } from "../../../../../interfaces";
 import { supabase } from "../../../../../utilities/supabaseClient";
 import { checkArchiveByUserId } from "../../../../Arsip/utilities";
-import { getImagesByPlaceId } from "../../../utilities";
+import { getDirektoriImagesByPlaceId } from "../../../utilities";
 
 export const getDirektoriDetailById = async (id: string | undefined) => {
   const response = await supabase.from("Place").select("*").eq("id", id);
   const data: IPlace | null = response.data ? response.data[0] : null;
 
-  const images = await getImagesByPlaceId(id);
+  const images = await getDirektoriImagesByPlaceId(id);
   return { data, images };
 };
 
@@ -36,12 +36,11 @@ export const unarchiveDirektori = async (
   return data;
 };
 
-export const checkArchiveStatus = async (
+export const checkDirektoriArchiveStatus = async (
   userId: string | undefined,
   placeId: number | undefined
 ) => {
   const data = await checkArchiveByUserId(userId);
   const archived = data.data?.filter((item) => item.place_id === placeId);
-
   return archived ? archived?.length > 0 : false;
 };

@@ -5,7 +5,7 @@ export declare interface ICommunityActivity {
   description: string;
   type_id: number;
   category_id: number;
-  member_count?: number;
-  slot_count?: number;
-  has_photo: boolean;
+  member_count?: number | null;
+  slot_count?: number | null;
+  has_photo?: boolean;
 }

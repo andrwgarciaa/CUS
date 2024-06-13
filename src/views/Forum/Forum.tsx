@@ -74,7 +74,7 @@ const Forum = () => {
         <div>
           <span>Urutkan dari: </span>
           <select
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer border rounded-lg p-2 bg-white border-cus-orange"
             defaultValue={1}
             onChange={(e) => setFilter(e.target.value)}
           >
