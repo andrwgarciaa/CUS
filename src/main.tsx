@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
@@ -28,35 +28,37 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <SessionProvider>
       <Router>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/direktori" element={<Direktori />} />
-          <Route path="/direktori/detail/:id" element={<DirektoriDetail />} />
-          <Route
-            path="/direktori/lihat-semua/:id"
-            element={<LihatSemuaDirektori />}
-          />
-          <Route path="/komunitas-aktivitas" element={<Komunitas />} />
-          <Route
-            path="/komunitas-aktivitas/detail/:id"
-            element={<KomunitasDetail />}
-          />
-          <Route
-            path="/komunitas-aktivitas/lihat-semua/:id"
-            element={<LihatSemuaKomunitas />}
-          />
-          <Route path="/forum" element={<Forum />} />
-          <Route path="/forum/add-post" element={<AddPost />} />
-          <Route path="/forum/detail/:id" element={<DetailForum />} />
-          <Route path="/forum/edit/:id" element={<EditPost />} />
-          <Route path="/arsip" element={<Arsip />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/profil/:name" element={<Profil />} />
-          <Route path="/profil/:name/edit" element={<EditProfil />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/direktori" element={<Direktori />} />
+            <Route path="/direktori/detail/:id" element={<DirektoriDetail />} />
+            <Route
+              path="/direktori/lihat-semua/:id"
+              element={<LihatSemuaDirektori />}
+            />
+            <Route path="/komunitas-aktivitas" element={<Komunitas />} />
+            <Route
+              path="/komunitas-aktivitas/detail/:id"
+              element={<KomunitasDetail />}
+            />
+            <Route
+              path="/komunitas-aktivitas/lihat-semua/:id"
+              element={<LihatSemuaKomunitas />}
+            />
+            <Route path="/forum" element={<Forum />} />
+            <Route path="/forum/add-post" element={<AddPost />} />
+            <Route path="/forum/detail/:id" element={<DetailForum />} />
+            <Route path="/forum/edit/:id" element={<EditPost />} />
+            <Route path="/arsip" element={<Arsip />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/profil/:name" element={<Profil />} />
+            <Route path="/profil/:name/edit" element={<EditProfil />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
       </Router>
     </SessionProvider>
   </React.StrictMode>

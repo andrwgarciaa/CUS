@@ -50,7 +50,7 @@ const Admin = () => {
               }}
               className="w-fit border rounded-lg p-2 mt-8 bg-white text-cus-blue border-cus-blue hover:bg-cus-blue hover:text-white"
             >
-              Tambah data komunitas
+              Tambah data komunitas/aktivitas
             </button>
           </div>
           <div className="flex justify-center items-center">

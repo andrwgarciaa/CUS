@@ -68,3 +68,21 @@ export const getCommunityActivityCategoryById = async (
 
   return category;
 };
+
+export const getCommunityActivityImagesByPlaceId = async (
+  id: string | undefined
+) => {
+  const imagePaths = await (
+    await supabase.storage.from("CommunityActivity").list(id)
+  ).data;
+
+  if (imagePaths && imagePaths?.length > 0) {
+    const data = await supabase.storage
+      .from("CommunityActivity")
+      .createSignedUrls(
+        imagePaths.map((image) => `${id}/${image.name}`),
+        60
+      );
+    return data;
+  }
+};

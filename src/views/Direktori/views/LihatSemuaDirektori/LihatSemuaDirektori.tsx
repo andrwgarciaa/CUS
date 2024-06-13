@@ -60,16 +60,7 @@ const LihatSemuaDirektori = () => {
             }}
           >
             {allPlaces?.map((place) => (
-              <DirektoriCard
-                key={place.id}
-                id={place.id}
-                has_photo={place.has_photo}
-                name={place.name}
-                price_min={place.price_min}
-                price_max={place.price_max}
-                address={place.address}
-                rating={place.rating}
-              />
+              <DirektoriCard key={place.id} props={place} />
             ))}
           </div>
         </div>

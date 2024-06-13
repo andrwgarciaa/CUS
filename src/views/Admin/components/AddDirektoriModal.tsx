@@ -1,14 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
-import { IPlace } from "../../../interfaces";
+import { ICategory, IPlace } from "../../../interfaces";
 import { addPlace } from "../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
 import { getAllPlaceCategories } from "../../Direktori/utilities";
 
 const AddDirektoriModal = (props: any) => {
   const session = useContext(SessionContext);
-  const [direktori, setDirektori] = useState("");
-  const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
@@ -17,7 +15,9 @@ const AddDirektoriModal = (props: any) => {
   const [priceMax, setPriceMax] = useState(0);
   const [category, setCategory] = useState(0);
   const [openCategory, setOpenCategory] = useState(false);
-  const [categoryList, setCategoryList] = useState<string[]>([]);
+  const [categoryList, setCategoryList] = useState<
+    { label: string; value: number }[]
+  >([{ label: "Pilih kategori", value: 0 }]);
   const [posX, setPosX] = useState("");
   const [posY, setPosY] = useState("");
   const [images, setImages] = useState<FileList | undefined>();
@@ -26,8 +26,11 @@ const AddDirektoriModal = (props: any) => {
     const data = await getAllPlaceCategories();
     if (data.data) {
       setCategoryList([
-        "Pilih kategori",
-        ...data.data.map((category) => category.category),
+        { label: "Pilih kategori", value: 0 },
+        ...(data.data.map((category: ICategory) => ({
+          label: category.category,
+          value: category.id,
+        })) || []),
       ]);
     }
   };
@@ -69,17 +72,17 @@ const AddDirektoriModal = (props: any) => {
       setPosX("");
       setPosY("");
       setImages(undefined);
-      (document.querySelector("#form") as HTMLFormElement)?.reset();
+      (document.querySelector("#formDirektori") as HTMLFormElement)?.reset();
       props.onClose();
 
       alert("Data berhasil ditambahkan");
     } else alert("Data gagal ditambahkan");
   };
 
-  //   window.addEventListener("click", (e) => {
-  //     if (!(e.target as HTMLElement).classList.contains("option"))
-  //       setOpenCategory(false);
-  //   });
+  window.addEventListener("click", (e) => {
+    if (!(e.target as HTMLElement).classList.contains("option"))
+      setOpenCategory(false);
+  });
 
   useEffect(() => {
     fetchPlaceCategories();
@@ -87,11 +90,11 @@ const AddDirektoriModal = (props: any) => {
 
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose}>
-      <h2 className="m-8 text-4xl font-bold">Tambah Data Direktori</h2>
+      <h2 className="m-2 text-4xl font-bold">Tambah Data Direktori</h2>
       <form
-        id="form"
+        id="formDirektori"
         onSubmit={handleAddDirektori}
-        className="flex flex-col gap-4 w-3/4"
+        className="flex flex-col gap-4 w-3/4 overflow-auto p-4"
       >
         <div className="mx-auto w-full">
           <div>
@@ -218,7 +221,9 @@ const AddDirektoriModal = (props: any) => {
               <input
                 id="category"
                 placeholder=" "
-                value={categoryList[category]}
+                value={
+                  categoryList.filter((x) => x.value === category)[0].label
+                }
                 readOnly
                 onFocus={() => setOpenCategory(true)}
                 onKeyDown={(e) => {
@@ -226,7 +231,7 @@ const AddDirektoriModal = (props: any) => {
                     setOpenCategory(false);
                   }
                 }}
-                className="hover:cursor-default p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+                className="option hover:cursor-default p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
               />
               <label
                 htmlFor="category"
@@ -235,17 +240,17 @@ const AddDirektoriModal = (props: any) => {
                 Kategori
               </label>
               {openCategory ? (
-                <div className="option border border-t-0 rounded-lg mt-1">
-                  {categoryList.map((category, i) => (
+                <div className="option border border-t-0 rounded-lg mt-1 max-h-36 overflow-auto">
+                  {categoryList.map((category) => (
                     <p
-                      key={category}
+                      key={category.value}
                       className="hover:cursor-pointer rounded-lg w-full p-2 bg-white hover:bg-gray-100"
                       onClick={() => {
-                        setCategory(i);
+                        setCategory(category.value);
                         setOpenCategory(false);
                       }}
                     >
-                      {category}
+                      {category.label}
                     </p>
                   ))}
                 </div>

@@ -2,6 +2,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   addComment,
   addVote,
+  archivePost,
+  checkPostArchiveStatus,
   checkVoteStatus,
   deletePost,
   getCommentsByPostId,
@@ -9,6 +11,7 @@ import {
   getPostById,
   removeVote,
   swapVote,
+  unarchivePost,
 } from "../../utilities";
 import { useContext, useEffect, useRef, useState } from "react";
 import { IComment, IPost, IVote } from "../../interfaces";
@@ -17,6 +20,7 @@ import { getUserDataById } from "../../../../utilities";
 import CommentCard from "../../components/CommentCard";
 import { SessionContext } from "../../../../contexts/SessionContext";
 import { AVATAR_URL } from "../../../../constants";
+import ArchiveIcon from "../../../../components/ArchiveIcon";
 
 const DetailForum = () => {
   const session = useContext(SessionContext);
@@ -28,6 +32,7 @@ const DetailForum = () => {
   const [upvote, setUpvote] = useState<number>(0);
   const [downvote, setDownvote] = useState<number>(0);
   const [isVoted, setIsVoted] = useState<string>("");
+  const [isArchived, setIsArchived] = useState<boolean>(false);
   const [newComment, setNewComment] = useState<string>("");
   const [comments, setComments] = useState<IComment[] | null>([]);
   const [formattedDate, setFormattedDate] = useState<string>("");
@@ -86,9 +91,7 @@ const DetailForum = () => {
 
   const checkVote = async (postId: string | undefined) => {
     const data = await checkVoteStatus(session.user, postId, "Post");
-    console.log("1");
     if (data.data && data.data?.length > 0) {
-      console.log("2");
       const vote = data.data[0].type ?? 0;
       setIsVoted(vote === 1 ? "upvote" : "downvote");
     }
@@ -155,9 +158,33 @@ const DetailForum = () => {
     }
   };
 
+  const handleArchivePost = async () => {
+    if (isArchived) {
+      const data = await unarchivePost(session.user?.id, post?.id);
+      if (data.status === 204) {
+        setIsArchived(false);
+      } else {
+        alert("Post gagal dihapus dari arsip");
+      }
+    } else {
+      const data = await archivePost(session.user?.id, post?.id);
+      if (data.status === 201) {
+        setIsArchived(true);
+      } else {
+        alert("Post gagal diarsipkan");
+      }
+    }
+  };
+
+  const checkArchive = async () => {
+    const data = await checkPostArchiveStatus(session.user?.id, post?.id);
+    if (data) setIsArchived(true);
+  };
+
   useEffect(() => {
     fetchPost();
-  }, []);
+    checkArchive();
+  }, [post?.id]);
 
   useEffect(() => {
     fetchComments();
@@ -224,6 +251,12 @@ const DetailForum = () => {
               onClick={() => handleVote("downvote")}
             >
               {downvote} &darr;
+            </span>
+            <span
+              className="flex items-center ml-3 hover:cursor-pointer"
+              onClick={handleArchivePost}
+            >
+              <ArchiveIcon archived={isArchived} />
             </span>
           </div>
           <div>

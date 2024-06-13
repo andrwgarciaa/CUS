@@ -24,9 +24,7 @@ const Modal = ({
         className="modal-close is-large"
         aria-label="close"
         onClick={onClose}
-      >
-        CLOSE
-      </button>
+      ></button>
     </div>
   );
 };

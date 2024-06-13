@@ -2,11 +2,27 @@ import { ICommunityActivity } from "../interfaces/index";
 import { truncateString } from "../../../utilities";
 import { COMMUNITY_ACTIVITY_URL } from "../../../constants";
 import { useEffect, useState } from "react";
-import { getCommunityActivityCategoryById } from "../utilities";
+import {
+  getCommunityActivityCategoryById,
+  getCommunityActivityImagesByPlaceId,
+} from "../utilities";
 import { Link } from "react-router-dom";
+import { IStorageImage } from "../../../interfaces";
 
 const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
   const [categoryName, setCategoryName] = useState<string>();
+  const [images, setImages] = useState<IStorageImage[] | null>();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchImages = async () => {
+    if (item.id) {
+      const data = await getCommunityActivityImagesByPlaceId(
+        item.id.toString()
+      );
+      setImages(data?.data);
+      setLoading(false);
+    }
+  };
 
   const fetchCategoryName = async () => {
     const data = await getCommunityActivityCategoryById(item.id);
@@ -15,6 +31,7 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
 
   useEffect(() => {
     fetchCategoryName();
+    fetchImages();
   }, []);
 
   return (
@@ -24,7 +41,7 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
     >
       <img
         className="w-full h-48 object-cover"
-        src={COMMUNITY_ACTIVITY_URL + (item.has_photo ? item.id : "blank")}
+        src={images ? images[0].signedUrl : COMMUNITY_ACTIVITY_URL + "blank"}
         alt={item.name}
       />
       <div className="p-4">
@@ -42,11 +59,9 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
             : `Tersisa ${item.slot_count?.toString()} slot`}
         </p>
         <div className="flex">
-          <div className="px-2">
-            <span className="text-white bg-gray-400 rounded-2xl flex w-fit items-center px-2 py-1 h-8">
-              {categoryName}
-            </span>
-          </div>
+          <span className="text-white bg-gray-400 rounded-2xl flex w-fit items-center px-2 py-1 h-8">
+            {categoryName}
+          </span>
         </div>
       </div>
     </Link>

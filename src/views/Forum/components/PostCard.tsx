@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import {
   addVote,
   archivePost,
-  checkArchiveStatus,
+  checkPostArchiveStatus,
   checkVoteStatus,
   deletePost,
   getCommentsByPostId,
@@ -143,12 +143,10 @@ const PostCard = ({
         alert("Post gagal diarsipkan");
       }
     }
-
-    setShowSettings(false);
   };
 
   const checkArchive = async () => {
-    const data = await checkArchiveStatus(session.user?.id, post.id);
+    const data = await checkPostArchiveStatus(session.user?.id, post.id);
     if (data) setIsArchived(true);
   };
 
