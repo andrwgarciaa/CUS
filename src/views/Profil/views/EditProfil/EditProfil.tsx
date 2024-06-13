@@ -65,6 +65,7 @@ const EditProfil = () => {
         alert("Profil berhasil diubah!");
         session.setSession(false, data.data);
         navigate("/profil/" + data.data.name);
+        window.location.reload();
       } else {
         alert("Profil gagal diubah.");
       }
@@ -115,7 +116,9 @@ const EditProfil = () => {
                   src={
                     image
                       ? URL.createObjectURL(image)
-                      : AVATAR_URL + (user?.has_photo ? user?.id : "blank")
+                      : `${
+                          AVATAR_URL + (user?.has_photo ? user?.id : "blank")
+                        }?${Date.now()}`
                   }
                   alt="profile photo"
                   className="rounded-full object-cover w-56 h-56"

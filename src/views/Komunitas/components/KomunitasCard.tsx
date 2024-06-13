@@ -8,6 +8,7 @@ import {
 } from "../utilities";
 import { Link } from "react-router-dom";
 import { IStorageImage } from "../../../interfaces";
+import Spinner from "../../../components/Spinner";
 
 const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
   const [categoryName, setCategoryName] = useState<string>();
@@ -39,11 +40,15 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
       to={"/komunitas-aktivitas/detail/" + item.id}
       className="bg-white shadow-md rounded-lg overflow-hidden w-72 h-50 flex-shrink-0 mb-2"
     >
-      <img
-        className="w-full h-48 object-cover"
-        src={images ? images[0].signedUrl : COMMUNITY_ACTIVITY_URL + "blank"}
-        alt={item.name}
-      />
+      {!loading ? (
+        <img
+          className="w-full h-48 object-cover"
+          src={images ? images[0].signedUrl : COMMUNITY_ACTIVITY_URL + "blank"}
+          alt={item.name}
+        />
+      ) : (
+        <Spinner />
+      )}
       <div className="p-4">
         <div className="flex justify-between">
           <h3 className="text-xl font-semibold mr-4 truncate">
