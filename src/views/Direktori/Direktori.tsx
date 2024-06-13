@@ -9,7 +9,6 @@ const Direktori = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoading(true);
     getAllPlaceCategories().then((data) => {
       setAllPlaces(data.data);
       setLoading(false);

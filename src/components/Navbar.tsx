@@ -30,6 +30,11 @@ const Navbar = () => {
     }
   };
 
+  window.addEventListener("click", (e) => {
+    if (!(e.target as HTMLElement).classList.contains("navbar"))
+      setProfileClicked(false);
+  });
+
   useEffect(() => {
     setIsLoggedIn(session.isLoggedIn);
     if (session.isLoggedIn) {
@@ -48,22 +53,24 @@ const Navbar = () => {
         <Link to={"/forum"}>Forum</Link>
         {isLoggedIn ? (
           <img
-            className="w-12 h-12 rounded-full hover:cursor-pointer object-cover"
-            src={AVATAR_URL + (user?.has_photo ? user?.id : "blank")}
+            className="navbar w-12 h-12 rounded-full hover:cursor-pointer object-cover"
+            src={`${
+              AVATAR_URL + (user?.has_photo ? user?.id : "blank")
+            }?${Date.now()}`}
             alt={user?.name}
             onClick={() => setProfileClicked(!profileClicked)}
           />
         ) : (
           <Link
             to={"/signin"}
-            className="bg-cus-orange text-white border border-cus-orange hover:bg-cus-blue hover:text-cus-orange hover:border-cus-orange rounded-lg px-6 py-2"
+            className="navbar bg-cus-orange text-white border border-cus-orange hover:bg-cus-blue hover:text-cus-orange hover:border-cus-orange rounded-lg px-6 py-2"
           >
             Masuk
           </Link>
         )}
       </ul>
       {profileClicked ? (
-        <div className="z-[10000] bg-cus-blue w-48 h-max absolute top-24 right-0 flex flex-col items-center gap-4 p-4 rounded-lg shadow-lg transition-all">
+        <div className="navbar z-[10000] bg-cus-blue w-48 h-max absolute top-24 right-0 flex flex-col items-center gap-4 p-4 rounded-lg shadow-lg transition-all">
           <Link to={`/profil/${user?.name}`} onClick={handleProfil}>
             Profil
           </Link>

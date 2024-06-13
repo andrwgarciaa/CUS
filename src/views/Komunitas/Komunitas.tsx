@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import KomunitasSection from "./components/KomunitasSection";
 import { ICommunityActivity } from "./interfaces";
 import { getAllCommunityActivity } from "./utilities";
+import LoadingWithMessage from "../../components/LoadingWithMessage";
 
 const Komunitas = () => {
   const [komunitas, setKomunitas] = useState<ICommunityActivity[] | null>([]);
   const [aktivitas, setAktivitas] = useState<ICommunityActivity[] | null>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchData = async () => {
     const data = await getAllCommunityActivity();
@@ -13,6 +15,7 @@ const Komunitas = () => {
       setKomunitas(data.komunitas.data);
       setAktivitas(data.aktivitas.data);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -38,8 +41,14 @@ const Komunitas = () => {
           style={{ width: "35%", height: "40%", objectFit: "cover" }}
         />
       </header>
-      <KomunitasSection title="Cari Komunitas" data={komunitas} />
-      <KomunitasSection title="Cari Aktivitas" data={aktivitas} />
+      {!loading ? (
+        <>
+          <KomunitasSection title="Cari Komunitas" data={komunitas} />
+          <KomunitasSection title="Cari Aktivitas" data={aktivitas} />
+        </>
+      ) : (
+        <LoadingWithMessage />
+      )}
     </div>
   );
 };

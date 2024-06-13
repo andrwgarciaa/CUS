@@ -1,10 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useLayoutEffect } from "react";
 import { SessionContext } from "../../contexts/SessionContext";
 import { Link, useParams } from "react-router-dom";
 import { getUserByName } from "./utilities";
 import { IProfil, IStatistikType } from "./interfaces";
 import StatistikCard from "./components/StatistikCard";
 import { AVATAR_URL } from "../../constants";
+import LoadingWithMessage from "../../components/LoadingWithMessage";
 
 const Profil = () => {
   const { name } = useParams();
@@ -18,6 +19,7 @@ const Profil = () => {
     totalActivitiesJoined: 0,
   });
   const [user, setUser] = useState<IProfil | null>();
+  const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
     if (name) {
@@ -25,9 +27,10 @@ const Profil = () => {
       setUser(data);
       setStatistik(data.statistik);
     }
+    setLoading(false);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchUser();
   }, [session.user]);
 
@@ -37,8 +40,11 @@ const Profil = () => {
         <div className="flex justify-center items-center gap-16">
           <img
             className="w-56 h-56 border rounded-full object-cover"
-            src={AVATAR_URL + (user?.has_photo ? user?.id : "blank")}
+            src={`${
+              AVATAR_URL + (user?.has_photo ? user?.id : "blank")
+            }?${Date.now()}`}
             alt={user?.name}
+            onLoad={() => setLoading(false)}
           />
 
           <div className="flex flex-col w-full">
