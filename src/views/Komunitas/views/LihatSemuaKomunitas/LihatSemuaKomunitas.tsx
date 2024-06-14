@@ -8,7 +8,7 @@ import {
   getCommunityActivityCategoryById,
 } from "../../utilities";
 import { ICategory } from "../../../../interfaces";
-import { PLACE_CATEGORY_URL, PLACE_URL } from "../../../../constants";
+
 const LihatSemuaKomunitas = () => {
   const { id } = useParams<{ id: string }>();
   const [allCommunityActivity, setAllCommunityActivity] = useState<
@@ -36,7 +36,7 @@ const LihatSemuaKomunitas = () => {
         <div className="container mx-auto mt-10 px-4">
           <div className="relative w-full h-[512px] overflow-hidden">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcdrgVSK1utcJFdnLQOQjWR8hcS-mkscmStA&s"
+              src={id === "2" ? "/komunitas.webp" : "/aktivitas.jpg"}
               alt="Direktori Tempat"
               className="top-96 w-full h-full object-cover"
             />
@@ -44,10 +44,12 @@ const LihatSemuaKomunitas = () => {
           <header className="mb-20 flex items-center mt-9">
             <div className="flex-1">
               <h1 className="text-6xl font-bold mb-2 text-left">
-                Komunitas / aktivitas
+                {id === "2" ? "Komunitas" : "Aktivitas"}
               </h1>
               <p className="text-xl deskripsi max-w-3xl break-words">
-                Test dekripsi
+                {id === "2"
+                  ? "Tempat di mana orang-orang dengan minat yang sama berkumpul dan bersenang-senang bersama. Bergabung dengan komunitas berarti Anda bisa ikut dalam berbagai kegiatan seru, proyek kolaboratif, dan merasakan kebersamaan yang hangat."
+                  : "Cara seru untuk mengisi waktu dan mencoba hal-hal baru. Dari olahraga, seni, memasak, hingga jalan-jalan, ada banyak aktivitas yang bisa kamu pilih sesuai minatmu."}
               </p>
             </div>
           </header>

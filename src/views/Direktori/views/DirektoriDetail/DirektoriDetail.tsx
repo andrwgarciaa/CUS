@@ -27,6 +27,10 @@ const DirektoriDetail = () => {
   };
 
   const handleArchiveDirektori = async () => {
+    if (!session.user) {
+      alert("Anda harus login terlebih dahulu");
+      return;
+    }
     if (isArchived) {
       const data = await unarchiveDirektori(session.user?.id, placeData?.id);
       if (data.status === 204) {

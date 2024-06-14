@@ -1,4 +1,6 @@
 import { supabase } from "../../../utilities/supabaseClient";
+import { checkArchiveByUserId } from "../../Arsip/utilities";
+import { ICommunityActivity } from "../interfaces";
 
 export const getAllCommunityActivity = async () => {
   const komunitas = await supabase
@@ -15,13 +17,17 @@ export const getAllCommunityActivity = async () => {
 };
 
 export const getCommunityActivityById = async (id: string | undefined) => {
-  const data = await supabase
+  const response = await supabase
     .from("CommunityActivity")
     .select("*")
-    .eq("id", id)
-    .single();
+    .eq("id", id);
 
-  return data;
+  const data: ICommunityActivity | null = response.data
+    ? response.data[0]
+    : null;
+
+  const images = await getCommunityActivityImagesByPlaceId(id);
+  return { data, images };
 };
 
 export const getCommunityActivityByTypeId = async (
@@ -85,4 +91,40 @@ export const getCommunityActivityImagesByPlaceId = async (
       );
     return data;
   }
+};
+
+export const archiveKomunitas = async (
+  userId: string | undefined,
+  communityId: string | undefined
+) => {
+  const data = await supabase.from("Favorite").insert({
+    user_id: userId,
+    community_id: communityId,
+  });
+
+  return data;
+};
+
+export const unarchiveKomunitas = async (
+  userId: string | undefined,
+  communityId: string | undefined
+) => {
+  const data = await supabase
+    .from("Favorite")
+    .delete()
+    .eq("user_id", userId)
+    .eq("community_id", communityId);
+
+  return data;
+};
+
+export const checkKomunitasArchiveStatus = async (
+  userId: string | undefined,
+  communityId: string | undefined
+) => {
+  const data = await checkArchiveByUserId(userId);
+  const archived = data.data?.filter(
+    (item) => item.community_id === communityId
+  );
+  return archived ? archived?.length > 0 : false;
 };
