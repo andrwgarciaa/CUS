@@ -8,7 +8,7 @@ import AddDirektoriKomunitasAktivitas from "./components/AddDirektoriKomunitasAk
 
 const Admin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<IUser | null>();
+  const [, setUser] = useState<IUser | null>();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(false);
   const [openModal, setOpenModal] = useState<number>(-1);
   const session = useContext(SessionContext);

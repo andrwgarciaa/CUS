@@ -8,7 +8,7 @@ import PostCard from "../../Forum/components/PostCard";
 const ArsipSection = (props: any) => {
   const session = useContext(SessionContext);
   const [data, setData] = useState<any[] | null>([]);
-  const [refresh, setRefresh] = useState<boolean>(false);
+  const [, setRefresh] = useState<boolean>(false);
 
   const fetchData = async (userId: string | undefined, type: string) => {
     const forumData = await getArchiveByType(userId, type);

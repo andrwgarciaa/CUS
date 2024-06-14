@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { addPost, editPost, getPostById } from "../../utilities";
+import { editPost, getPostById } from "../../utilities";
 import { IPost } from "../../interfaces";
 import { SessionContext } from "../../../../contexts/SessionContext";
 import PageNotFound from "../../../PageNotFound/PageNotFound";

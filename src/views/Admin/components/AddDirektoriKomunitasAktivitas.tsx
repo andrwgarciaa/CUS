@@ -5,12 +5,9 @@ import { ICategory } from "../../../interfaces";
 import { addCommunityActivity } from "../utilities";
 import { ICommunityActivity } from "../../Komunitas/interfaces";
 import { SessionContext } from "../../../contexts/SessionContext";
-import { getDirektoriCategoryCount } from "../../Direktori/utilities";
 
 const AddDirektoriKomunitasAktivitas = (props: any) => {
   const session = useContext(SessionContext);
-  const [direktori, setDirektori] = useState("");
-  const [loading, setLoading] = useState(false);
   const [name, setName] = useState<string>("");
   const [motto, setMotto] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -18,7 +15,6 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
   const [slotCount, setSlotCount] = useState<number | null>(null);
   const [openCategory, setOpenCategory] = useState<boolean>(false);
   const [category, setCategory] = useState<number>(0);
-  const [categoryIndexStart, setCategoryIndexStart] = useState<number>(0);
   const [communityCategoryList, setCommunityCategoryList] = useState<
     { label: string; value: number }[]
   >([{ label: "Pilih kategori...", value: 0 }]);
@@ -45,11 +41,6 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
           value: category.id,
         })) || []),
       ]);
-    }
-    console.log(communityCategoryList, activityCategoryList);
-    const direktoriCategoryCount = await getDirektoriCategoryCount();
-    if (direktoriCategoryCount) {
-      setCategoryIndexStart(direktoriCategoryCount);
     }
   };
 
@@ -267,7 +258,7 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
               {openCategory ? (
                 <div className="option border border-t-0 rounded-lg mt-1 max-h-36 overflow-auto">
                   {type === 2
-                    ? communityCategoryList.map((category, i) => (
+                    ? communityCategoryList.map((category) => (
                         <p
                           key={category.value}
                           className="hover:cursor-pointer rounded-lg w-full p-2 bg-white hover:bg-gray-100"
@@ -279,7 +270,7 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
                           {category.label}
                         </p>
                       ))
-                    : activityCategoryList.map((category, i) => (
+                    : activityCategoryList.map((category) => (
                         <p
                           key={category.value}
                           className="hover:cursor-pointer rounded-lg w-full p-2 bg-white hover:bg-gray-100"

@@ -85,11 +85,11 @@ const getTotalVotesOnUser = async (userId: string) => {
   return { totalUpvote, totalDownvote };
 };
 
-const getActivitiesCreatedByUser = async (userId: string) => {
-  const data = await supabase
-    .from("Activity")
-    .select("id")
-    .eq("creator_id", userId);
+// const getActivitiesCreatedByUser = async (userId: string) => {
+//   const data = await supabase
+//     .from("Activity")
+//     .select("id")
+//     .eq("creator_id", userId);
 
-  return data.data?.length;
-};
+//   return data.data?.length;
+// };

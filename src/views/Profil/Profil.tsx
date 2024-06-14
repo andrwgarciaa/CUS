@@ -1,11 +1,10 @@
-import { useState, useEffect, useContext, useLayoutEffect } from "react";
+import { useState, useContext, useLayoutEffect } from "react";
 import { SessionContext } from "../../contexts/SessionContext";
 import { Link, useParams } from "react-router-dom";
 import { getUserByName } from "./utilities";
 import { IProfil, IStatistikType } from "./interfaces";
 import StatistikCard from "./components/StatistikCard";
 import { AVATAR_URL } from "../../constants";
-import LoadingWithMessage from "../../components/LoadingWithMessage";
 
 const Profil = () => {
   const { name } = useParams();
@@ -19,7 +18,7 @@ const Profil = () => {
     totalActivitiesJoined: 0,
   });
   const [user, setUser] = useState<IProfil | null>();
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   const fetchUser = async () => {
     if (name) {

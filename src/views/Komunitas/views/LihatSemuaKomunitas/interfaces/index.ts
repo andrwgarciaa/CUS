@@ -1,4 +1,3 @@
-import { extend } from "leaflet";
 import { IPlace, IStorageImage } from "../../../../../interfaces";
 
 export declare interface ILihatSemua extends IPlace {
