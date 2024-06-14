@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "../../../contexts/SessionContext";
 import { getArchiveByType } from "../utilities";
-import ForumArsipCard from "./ForumArsipCard";
-import DirektoriArsipCard from "./DirektoriArsipCard";
-import KomunitasArsipCard from "./KomunitasArsipCard";
 import DirektoriCard from "../../../components/DirektoriCard";
 import KomunitasCard from "../../Komunitas/components/KomunitasCard";
 import PostCard from "../../Forum/components/PostCard";
