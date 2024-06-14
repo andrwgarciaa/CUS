@@ -34,25 +34,22 @@ const LihatSemuaKomunitas = () => {
     <div>
       {!loading ? (
         <div className="container mx-auto mt-10 px-4">
-          <header className="mb-20 flex items-center">
+          <div className="relative w-full h-[512px] overflow-hidden">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcdrgVSK1utcJFdnLQOQjWR8hcS-mkscmStA&s"
+              alt="Direktori Tempat"
+              className="top-96 w-full h-full object-cover"
+            />
+          </div>
+          <header className="mb-20 flex items-center mt-9">
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">
-                {communityActivityType?.category}
+              <h1 className="text-6xl font-bold mb-2 text-left">
+                Komunitas / aktivitas
               </h1>
-              <p className="deskripsi max-w-3xl break-words text-justify">
-                {communityActivityType?.description}
+              <p className="text-xl deskripsi max-w-3xl break-words">
+                Test dekripsi
               </p>
             </div>
-            <img
-              src={
-                communityActivityType?.has_photo
-                  ? PLACE_CATEGORY_URL + communityActivityType?.id
-                  : PLACE_URL + "blank"
-              }
-              alt="Direktori Tempat"
-              className="rounded-lg shadow-md"
-              style={{ width: "35%", height: "40%", objectFit: "cover" }}
-            />
           </header>
           <div
             style={{
