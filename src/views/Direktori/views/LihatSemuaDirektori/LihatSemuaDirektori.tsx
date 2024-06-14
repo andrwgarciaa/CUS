@@ -32,15 +32,7 @@ const LihatSemuaDirektori = () => {
     <div>
       {!loading ? (
         <div className="container mx-auto mt-10 px-4">
-          <header className="mb-20 flex items-center">
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">
-                {placeCategory?.category}
-              </h1>
-              <p className="deskripsi max-w-3xl break-words text-justify">
-                {placeCategory?.description}
-              </p>
-            </div>
+          <div className="relative w-full h-[512px] overflow-hidden">
             <img
               src={
                 placeCategory?.has_photo
@@ -48,9 +40,18 @@ const LihatSemuaDirektori = () => {
                   : PLACE_URL + "blank"
               }
               alt="Direktori Tempat"
-              className="rounded-lg shadow-md"
-              style={{ width: "35%", height: "40%", objectFit: "cover" }}
+              className="w-full h-full object-cover"
             />
+          </div>
+          <header className="mb-20 flex items-center mt-9">
+            <div className="flex-1">
+              <h1 className="text-6xl font-bold mb-2 text-left">
+                {placeCategory?.category}
+              </h1>
+              <p className="text-xl deskripsi max-w-3xl break-words">
+                {placeCategory?.description}
+              </p>
+            </div>
           </header>
           <div
             style={{
