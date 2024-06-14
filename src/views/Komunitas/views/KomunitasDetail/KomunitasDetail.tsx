@@ -20,7 +20,7 @@ const KomunitasDetail = () => {
   const [categoryName, setCategoryName] = useState<string>();
   const [images, setImages] = useState<IStorageImage[] | null>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [isJoined, setIsJoined] = useState<boolean>(false);
+  const [isJoined] = useState<boolean>(false);
   const [isArchived, setIsArchived] = useState<boolean>(false);
 
   const fetchData = async () => {

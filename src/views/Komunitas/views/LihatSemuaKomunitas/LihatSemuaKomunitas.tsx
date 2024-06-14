@@ -14,8 +14,7 @@ const LihatSemuaKomunitas = () => {
   const [allCommunityActivity, setAllCommunityActivity] = useState<
     ICommunityActivity[] | null
   >([]);
-  const [communityActivityType, setCommunityActivityType] =
-    useState<ICategory | null>();
+  const [, setCommunityActivityType] = useState<ICategory | null>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchData = async () => {
