@@ -16,7 +16,7 @@ import {
   removeVote,
   swapVote,
 } from "../utilities";
-import { getUserDataById } from "../../../utilities";
+import { checkAdmin, getUserDataById } from "../../../utilities";
 import { SessionContext } from "../../../contexts/SessionContext";
 import { Link } from "react-router-dom";
 import { AVATAR_URL } from "../../../constants";
@@ -29,6 +29,7 @@ const CommentCard = ({
   setRefreshComment: Dispatch<SetStateAction<boolean>>;
 }) => {
   const session = useContext(SessionContext);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(false);
   const [author, setAuthor] = useState<IUser | null>(null);
   const [upvote, setUpvote] = useState<number>(comment.upvote);
   const [downvote, setDownvote] = useState<number>(comment.downvote);
@@ -158,6 +159,7 @@ const CommentCard = ({
   };
 
   useEffect(() => {
+    setIsAdmin(checkAdmin(session.user));
     fetchAuthor();
     checkVote();
     const { formattedDate, formattedTime } = getFormattedDateAndTime(date);
@@ -191,25 +193,26 @@ const CommentCard = ({
         </div>
         {showSettings && (
           <div className="absolute w-32 right-4 top-12 bg-white border rounded-lg p-4 flex flex-col gap-1 z-10 text-center">
-            {session.user && session.user?.id === comment.user_id && (
-              <>
-                <p
-                  className="hover:cursor-pointer"
-                  onClick={() => {
-                    setEditMode((prev) => !prev);
-                    handlePostSettings();
-                  }}
-                >
-                  Sunting
-                </p>
-                <p
-                  className="hover:cursor-pointer"
-                  onClick={handleDeleteComment}
-                >
-                  Hapus
-                </p>
-              </>
-            )}
+            {session.user &&
+              (session.user?.id === comment.user_id || isAdmin) && (
+                <>
+                  <p
+                    className="hover:cursor-pointer"
+                    onClick={() => {
+                      setEditMode((prev) => !prev);
+                      handlePostSettings();
+                    }}
+                  >
+                    Sunting
+                  </p>
+                  <p
+                    className="hover:cursor-pointer"
+                    onClick={handleDeleteComment}
+                  >
+                    Hapus
+                  </p>
+                </>
+              )}
             <p
               className="hover:cursor-pointer"
               onClick={() => {

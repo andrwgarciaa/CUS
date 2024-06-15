@@ -7,7 +7,7 @@ import {
 } from "react";
 import { IUser } from "../../../interfaces";
 import { IPost, IVote } from "../interfaces";
-import { getUserDataById } from "../../../utilities";
+import { checkAdmin, getUserDataById } from "../../../utilities";
 import { Link } from "react-router-dom";
 import {
   addVote,
@@ -33,6 +33,7 @@ const PostCard = ({
   setRefresh: Dispatch<SetStateAction<boolean>>;
 }) => {
   const session = useContext(SessionContext);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(false);
   const [author, setAuthor] = useState<IUser | null>();
   const [formattedDate, setFormattedDate] = useState<string>("");
   const [upvote, setUpvote] = useState<number>(post.upvote);
@@ -151,6 +152,7 @@ const PostCard = ({
   };
 
   useEffect(() => {
+    setIsAdmin(checkAdmin(session.user));
     fetchAuthor();
     checkVote();
     checkArchive();
@@ -173,7 +175,7 @@ const PostCard = ({
       </span>
       {showSettings && (
         <div className="absolute w-32 right-4 top-12 bg-white border rounded-lg p-4 flex flex-col gap-1 z-10 text-center">
-          {session.user && session.user?.id === post.user_id && (
+          {session.user && (session.user?.id === post.user_id || isAdmin) && (
             <>
               <Link className="" to={`/forum/edit/${post.id}`}>
                 Sunting

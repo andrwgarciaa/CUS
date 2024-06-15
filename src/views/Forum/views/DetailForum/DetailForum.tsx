@@ -16,7 +16,7 @@ import {
 import { useContext, useEffect, useRef, useState } from "react";
 import { IComment, IPost, IVote } from "../../interfaces";
 import { IUser } from "../../../../interfaces";
-import { getUserDataById } from "../../../../utilities";
+import { checkAdmin, getUserDataById } from "../../../../utilities";
 import CommentCard from "../../components/CommentCard";
 import { SessionContext } from "../../../../contexts/SessionContext";
 import { AVATAR_URL } from "../../../../constants";
@@ -25,6 +25,7 @@ import ArchiveIcon from "../../../../components/ArchiveIcon";
 const DetailForum = () => {
   const session = useContext(SessionContext);
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(false);
   const newCommentRef = useRef<HTMLTextAreaElement | null>(null);
   const { id } = useParams();
   const [post, setPost] = useState<IPost | null>();
@@ -185,6 +186,7 @@ const DetailForum = () => {
   };
 
   useEffect(() => {
+    setIsAdmin(checkAdmin(session.user));
     fetchPost();
     checkArchive();
   }, [post?.id]);
@@ -219,14 +221,18 @@ const DetailForum = () => {
         </div>
         {showSettings && (
           <div className="absolute w-32 right-4 top-12 bg-white border rounded-lg p-4 flex flex-col gap-1 z-10 text-center">
-            {session.user && session.user?.id === post?.user_id && (
-              <>
-                <Link to={`/forum/edit/${post?.id}`}>Sunting</Link>
-                <p className="hover:cursor-pointer" onClick={handleDeletePost}>
-                  Hapus
-                </p>
-              </>
-            )}
+            {session.user &&
+              (session.user?.id === post?.user_id || isAdmin) && (
+                <>
+                  <Link to={`/forum/edit/${post?.id}`}>Sunting</Link>
+                  <p
+                    className="hover:cursor-pointer"
+                    onClick={handleDeletePost}
+                  >
+                    Hapus
+                  </p>
+                </>
+              )}
             <p
               className="hover:cursor-pointer"
               onClick={() => {
