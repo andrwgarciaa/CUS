@@ -51,7 +51,6 @@ const CommentCard = ({
     if (comment.user_id) {
       const data = await getUserDataById(comment.user_id);
       setAuthor(data.data);
-      console.log(data.data);
     }
   };
 
@@ -176,7 +175,9 @@ const CommentCard = ({
           >
             <img
               className="w-8 h-8 border rounded-full object-cover"
-              src={AVATAR_URL + (author?.has_photo ? author?.id : "blank")}
+              src={`${
+                AVATAR_URL + (author?.has_photo ? author?.id : "blank")
+              }?${Date.now()}`}
               alt={author?.name}
             />
             <span>{author?.name}</span>

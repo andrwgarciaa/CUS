@@ -25,7 +25,7 @@ import ArchiveIcon from "../../../../components/ArchiveIcon";
 const DetailForum = () => {
   const session = useContext(SessionContext);
   const navigate = useNavigate();
-  const newCommentRef = useRef<HTMLInputElement | null>(null);
+  const newCommentRef = useRef<HTMLTextAreaElement | null>(null);
   const { id } = useParams();
   const [post, setPost] = useState<IPost | null>();
   const [author, setAuthor] = useState<IUser | null>();
@@ -82,7 +82,11 @@ const DetailForum = () => {
     const data = await addComment(dto);
     if (data.status === 201) {
       alert("Komen berhasil dibuat!");
-      if (newCommentRef.current) newCommentRef.current.value = "";
+      if (newCommentRef.current) {
+        newCommentRef.current.value = "";
+        console.log("test");
+      }
+
       setRefreshComment((prev) => !prev);
     } else {
       alert("Komen gagal dibuat.");
@@ -131,7 +135,6 @@ const DetailForum = () => {
       }
     } else {
       const data = await addVote(dto, "Post");
-      console.log(data);
       if (data.dataPost && data.dataVote) {
         if (type === "upvote") {
           setUpvote(upvote + 1);
@@ -200,7 +203,9 @@ const DetailForum = () => {
           >
             <img
               className="w-8 h-8 border rounded-full"
-              src={AVATAR_URL + (author?.has_photo ? author?.id : "blank")}
+              src={`${
+                AVATAR_URL + (author?.has_photo ? author?.id : "blank")
+              }?${Date.now()}`}
               alt={author?.name}
             />
             <span>{author?.name}</span>
@@ -266,6 +271,7 @@ const DetailForum = () => {
       </div>
       <form className="w-3/4 h-[100px] relative" onSubmit={handleAddComment}>
         <textarea
+          ref={newCommentRef}
           className="w-full h-full p-4 border rounded-lg mb-3 pr-32 word-wrap break-words resize-none"
           name="comment"
           id="comment"
