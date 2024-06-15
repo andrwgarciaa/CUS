@@ -211,3 +211,23 @@ export const getFormattedDateAndTime = (date: Date) => {
 
   return { formattedDate, formattedTime };
 };
+
+export const getAuthors = async (posts: IPost[] | null) => {
+  const authors: IUser[] = [];
+  if (posts) {
+    await Promise.all(
+      posts.map(async (post) => {
+        const data = await supabase
+          .from("User")
+          .select("*")
+          .eq("id", post.user_id)
+          .single();
+        if (!authors.includes(data.data)) {
+          authors.push(data.data);
+        }
+      })
+    );
+  }
+
+  return authors;
+};

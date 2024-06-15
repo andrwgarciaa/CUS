@@ -56,6 +56,7 @@ const PostCard = ({
   };
 
   const checkVote = async () => {
+    if (!session.user) return;
     const data = await checkVoteStatus(session.user, post.id, "Post");
     if (data.data && data.data?.length > 0) {
       const vote = data.data[0].type ?? 0;
@@ -147,6 +148,8 @@ const PostCard = ({
   };
 
   const checkArchive = async () => {
+    if (!session.user) return;
+
     const data = await checkPostArchiveStatus(session.user?.id, post.id);
     if (data) setIsArchived(true);
   };

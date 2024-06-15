@@ -10,10 +10,8 @@ const SearchBar = (props: ISearchBarProps) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value;
     if (!searchValue) return setFilteredPlaces([]);
-    const filtered = props.allPlaces?.filter(
-      (place) =>
-        place.name.toLowerCase().startsWith(searchValue.toLowerCase()) ||
-        place.name.toLowerCase().includes(` ${searchValue.toLowerCase()}`)
+    const filtered = props.allPlaces?.filter((place) =>
+      place.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setFilteredPlaces(filtered?.length ? filtered : []);
   };

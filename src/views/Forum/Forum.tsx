@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IPost } from "./interfaces";
-import { getAllPosts, getCommentsByPostId } from "./utilities";
+import { getAllPosts, getAuthors, getCommentsByPostId } from "./utilities";
 import PostCard from "./components/PostCard";
 import LoadingWithMessage from "../../components/LoadingWithMessage";
+import { IUser } from "../../interfaces";
 
 const Forum = () => {
   const [posts, setPosts] = useState<IPost[] | null>([]);
+  const [authors, setAuthors] = useState<IUser[] | null>([]);
   const [filter, setFilter] = useState<string>("1");
+  const [search, setSearch] = useState<string>("");
   const [refresh, setRefresh] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -59,29 +62,47 @@ const Forum = () => {
         });
       }
     }
+    const authorNames = await getAuthors(posts);
+    if (authorNames) {
+      setAuthors(authorNames);
+    }
+
     setPosts(filtered);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchPosts(filter);
-  }, [filter, refresh]);
+  }, [authors, filter, refresh]);
 
   return (
     <div className="p-4">
       <h1 className="text-3xl font-bold">Forum</h1>
       <div className="flex justify-between items-center">
-        <div>
-          <span>Urutkan dari: </span>
-          <select
-            className="hover:cursor-pointer border rounded-lg p-2 bg-white border-cus-orange"
-            defaultValue={1}
-            onChange={(e) => setFilter(e.target.value)}
-          >
-            <option value={1}>Terbaru</option>
-            <option value={2}>Terpopuler</option>
-            <option value={3}>Paling disukai</option>
-          </select>
+        <div className="flex gap-4">
+          <div>
+            <label htmlFor="filter">Urutkan dari: </label>
+            <select
+              className="hover:cursor-pointer border rounded-lg p-2 bg-white border-cus-orange"
+              defaultValue={1}
+              onChange={(e) => setFilter(e.target.value)}
+              id="filter"
+            >
+              <option value={1}>Terbaru</option>
+              <option value={2}>Terpopuler</option>
+              <option value={3}>Paling disukai</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="search">Cari: </label>
+            <input
+              type="text"
+              name="search"
+              id="search"
+              onInput={(e) => setSearch(e.currentTarget.value)}
+              className="w-[300px] border rounded-lg p-2 bg-white border-cus-orange"
+            />
+          </div>
         </div>
         <Link
           to={"/forum/add-post"}
@@ -92,9 +113,23 @@ const Forum = () => {
       </div>
       {!loading ? (
         <div className="flex flex-col gap-2 mt-4">
-          {posts?.map((post) => (
-            <PostCard key={post.id} post={post} setRefresh={setRefresh} />
-          ))}
+          {posts
+            ?.filter(
+              (post) =>
+                post.body.includes(search) ||
+                post.title.includes(search) ||
+                post.user_id ===
+                  (authors &&
+                  authors?.filter((author) => author.name?.includes(search))
+                    .length > 0
+                    ? authors?.filter((author) =>
+                        author.name?.includes(search)
+                      )[0].id
+                    : "")
+            )
+            .map((post) => (
+              <PostCard key={post.id} post={post} setRefresh={setRefresh} />
+            ))}
         </div>
       ) : (
         <LoadingWithMessage />
