@@ -15,7 +15,7 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
   const [posX, setPosX] = useState<number>(0);
   const [posY, setPosY] = useState<number>(0);
   const [openCategory, setOpenCategory] = useState<boolean>(false);
-  const [category, setCategory] = useState<number>(0);
+  const [category, setCategory] = useState<number>(2);
   const [communityCategoryList, setCommunityCategoryList] = useState<
     { label: string; value: number }[]
   >([{ label: "Pilih kategori...", value: 0 }]);
@@ -77,7 +77,7 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
       setDescription("");
       setMemberCount(0);
       setCategory(0);
-      setType(0);
+      setType(2);
       setImages(undefined);
       (document.querySelector("#formCommunity") as HTMLFormElement)?.reset();
       props.onClose();

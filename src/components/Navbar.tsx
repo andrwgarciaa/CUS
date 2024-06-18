@@ -45,7 +45,9 @@ const Navbar = () => {
 
   return (
     <nav className="z-[1000000] bg-cus-blue w-full h-[10vh] flex justify-between items-center px-8 text-white font-semibold">
-      <Link to={"/"}>CUS</Link>
+      <Link to={"/"} className="text-2xl font-bold">
+        CUS
+      </Link>
 
       <ul className="flex items-center gap-8">
         <Link to={"/direktori"}>Direktori</Link>
