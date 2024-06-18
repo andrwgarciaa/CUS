@@ -61,7 +61,9 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
         <p className="text-gray-600 truncate mb-1">
           {item.type_id === 2
             ? `${item.member_count?.toString()} orang telah bergabung`
-            : `Tersisa ${item.member_count?.toString()}/25 slot`}
+            : `Tersisa ${item.member_count?.toString()}/${
+                item.member_count ? item.member_count * 2 : 0
+              } slot`}
         </p>
         <div className="flex">
           <span className="text-white bg-gray-400 rounded-2xl flex w-fit items-center px-2 py-1 h-8">
