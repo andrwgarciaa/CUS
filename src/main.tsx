@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./index.css";
+import { SessionProvider } from "./contexts/SessionContext.tsx";
 import SignIn from "./views/SignIn/SignIn.tsx";
 import SignUp from "./views/SignUp/SignUp.tsx";
 import Navbar from "./components/Navbar.tsx";
@@ -10,7 +10,6 @@ import Direktori from "./views/Direktori/Direktori.tsx";
 import DirektoriDetail from "./views/Direktori/views/DirektoriDetail/DirektoriDetail.tsx";
 import LihatSemuaDirektori from "./views/Direktori/views/LihatSemuaDirektori/LihatSemuaDirektori.tsx";
 import Profil from "./views/Profil/Profil.tsx";
-import { SessionProvider } from "./contexts/SessionContext.tsx";
 import Forum from "./views/Forum/Forum.tsx";
 import AddPost from "./views/Forum/views/AddPost/AddPost.tsx";
 import DetailForum from "./views/Forum/views/DetailForum/DetailForum.tsx";
@@ -22,6 +21,7 @@ import Admin from "./views/Admin/Admin.tsx";
 import Arsip from "./views/Arsip/Arsip.tsx";
 import LihatSemuaKomunitas from "./views/Komunitas/views/LihatSemuaKomunitas/LihatSemuaKomunitas.tsx";
 import KomunitasDetail from "./views/Komunitas/views/KomunitasDetail/KomunitasDetail.tsx";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

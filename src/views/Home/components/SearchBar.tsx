@@ -16,6 +16,12 @@ const SearchBar = (props: ISearchBarProps) => {
     setFilteredPlaces(filtered?.length ? filtered : []);
   };
 
+  document.addEventListener("click", (e) => {
+    if (!(e.target as HTMLElement).closest(".search-result")) {
+      setFilteredPlaces([]);
+    }
+  });
+
   return (
     <div className="absolute left-12 top-0 m-4 z-[1000] w-2/3 flex gap-4">
       <input
@@ -23,7 +29,6 @@ const SearchBar = (props: ISearchBarProps) => {
         placeholder="Cari..."
         className="p-3 w-1/3 rounded-2xl shadow-lg"
         onInput={handleSearch}
-        onBlur={() => setFilteredPlaces([])}
       />
       {filteredPlaces?.length > 0 ? (
         <SearchResult places={filteredPlaces} />

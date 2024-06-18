@@ -5,7 +5,7 @@ const SearchResult = (props: ISearchResultProps) => {
   return (
     <ul
       className={
-        "absolute top-12 w-1/3 max-h-[280px] rounded-2xl bg-white overflow-y-auto"
+        "search-result absolute top-12 w-1/3 max-h-[280px] rounded-2xl bg-white overflow-y-auto"
       }
     >
       {props.places.map((place) => (

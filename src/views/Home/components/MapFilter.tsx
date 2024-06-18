@@ -45,19 +45,22 @@ const MapFilter = (props: IHomeProps) => {
       >
         &lt;
       </span>
-      <div ref={filterRef} className="flex items-center gap-2 overflow-x-auto">
+      <div
+        ref={filterRef}
+        className="flex w-3/4 items-center gap-2 overflow-x-scroll"
+      >
         {placeCategories?.map((place) => (
-          <span
+          <div
             key={place.id}
-            className={`px-5 py-3  rounded-2xl shadow-lg hover:cursor-pointer transition-all ${
+            className={`px-5 py-3 rounded-2xl shadow-lg hover:cursor-pointer transition-all ${
               selectedFilter === place.id
                 ? "bg-cus-blue text-white"
                 : "bg-white"
             }`}
             onClick={() => handleSelectCategory(place.id)}
           >
-            {place.category}
-          </span>
+            <p className="w-max">{place.category}</p>
+          </div>
         ))}
       </div>
       <span
