@@ -38,13 +38,8 @@ const Map = ({ selectedCategory }: { selectedCategory: number }) => {
     L.heatLayer(points, {
       minOpacity: 0,
       max: 200,
-      radius: 40,
-      blur: 10,
-      gradient: {
-        0.0: "green",
-        0.5: "orange",
-        1.0: "red",
-      },
+      radius: 50,
+      blur: 25,
     }).addTo(map);
   }, [heatmapData]);
 
