@@ -56,12 +56,12 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
           </h3>
         </div>
         <p className="text-gray-600 truncate mb-4 italic">
-          {truncateString(item.motto, 40)}
+          {item.motto ? truncateString(item.motto, 40) : ""}
         </p>
         <p className="text-gray-600 truncate mb-1">
-          {item.member_count
+          {item.type_id === 2
             ? `${item.member_count?.toString()} orang telah bergabung`
-            : `Tersisa ${item.slot_count?.toString()} slot`}
+            : `Tersisa ${item.member_count?.toString()}/25 slot`}
         </p>
         <div className="flex">
           <span className="text-white bg-gray-400 rounded-2xl flex w-fit items-center px-2 py-1 h-8">

@@ -6,6 +6,7 @@ export declare interface ICommunityActivity {
   type_id: number;
   category_id: number;
   member_count?: number | null;
-  slot_count?: number | null;
   has_photo?: boolean;
+  pos_x: number;
+  pos_y: number;
 }

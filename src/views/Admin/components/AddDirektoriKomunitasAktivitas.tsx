@@ -12,7 +12,8 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
   const [motto, setMotto] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [memberCount, setMemberCount] = useState<number | null>(null);
-  const [slotCount, setSlotCount] = useState<number | null>(null);
+  const [posX, setPosX] = useState<number>(0);
+  const [posY, setPosY] = useState<number>(0);
   const [openCategory, setOpenCategory] = useState<boolean>(false);
   const [category, setCategory] = useState<number>(0);
   const [communityCategoryList, setCommunityCategoryList] = useState<
@@ -50,7 +51,7 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
       return;
     }
 
-    if (!name || !motto || !description || !category || !type) {
+    if (!name || !category || !type) {
       alert("Data tidak boleh kosong");
       return;
     }
@@ -63,7 +64,8 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
       category_id: category,
       type_id: type,
       member_count: memberCount ?? null,
-      slot_count: slotCount ?? null,
+      pos_x: posX,
+      pos_y: posY,
       has_photo: images && images.length > 0,
     };
 
@@ -74,7 +76,6 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
       setMotto("");
       setDescription("");
       setMemberCount(0);
-      setSlotCount(0);
       setCategory(0);
       setType(0);
       setImages(undefined);
@@ -211,18 +212,14 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
                 placeholder=" "
                 className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
                 onInput={(e) =>
-                  type === 2
-                    ? setMemberCount(
-                        Number((e.target as HTMLInputElement).value)
-                      )
-                    : setSlotCount(Number((e.target as HTMLInputElement).value))
+                  setMemberCount(Number((e.target as HTMLInputElement).value))
                 }
               />
               <label
                 htmlFor="count"
                 className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
               >
-                {type === 2 ? "Max member" : "Available slot"} count
+                {type === 2 ? "Member" : "Available slot"} count
               </label>
             </div>
           </div>
@@ -284,6 +281,48 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
                       ))}
                 </div>
               ) : null}
+            </div>
+          </div>
+        </div>
+        <div className="mx-auto w-full flex gap-2">
+          <div>
+            <div className="relative">
+              <input
+                type="number"
+                id="pos-x"
+                placeholder=" "
+                step={0.00000000000001}
+                className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+                onInput={(e) =>
+                  setPosX(Number((e.target as HTMLInputElement).value))
+                }
+              />
+              <label
+                htmlFor="pos-x"
+                className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
+              >
+                Posisi X
+              </label>
+            </div>
+          </div>
+          <div>
+            <div className="relative">
+              <input
+                type="number"
+                id="pos-y"
+                placeholder=" "
+                step={0.00000000000001}
+                className="p-3 peer block w-full rounded-md border border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+                onInput={(e) =>
+                  setPosY(Number((e.target as HTMLInputElement).value))
+                }
+              />
+              <label
+                htmlFor="pos-y"
+                className="peer-focus:base absolute left-2 top-0.5 z-10 -translate-y-3 transform bg-white px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-focus:-translate-y-3 peer-focus:text-xs peer-disabled:bg-transparent"
+              >
+                Posisi Y
+              </label>
             </div>
           </div>
         </div>

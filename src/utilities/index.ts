@@ -24,3 +24,12 @@ export const truncateString = (str: string, num: number): string => {
   }
   return str.slice(0, num) + "...";
 };
+
+export const getHeatmapData = async () => {
+  const data = await supabase
+    .from("CommunityActivity")
+    .select("pos_x, pos_y, member_count")
+    .eq("type_id", 2);
+
+  return data;
+};

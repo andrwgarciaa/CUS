@@ -100,15 +100,15 @@ const KomunitasDetail = () => {
             <div className="flex flex-col gap-4 h-72">
               <h1 className="text-3xl font-bold">{data?.name}</h1>
               <p className="text-lg italic">
-                <strong>"{data?.motto}"</strong>
+                <strong>"{data?.motto ?? "Tidak ada motto"}"</strong>
               </p>
               <p className="text-lg">
-                <strong>Tentang kami:</strong> {data?.description}
+                <strong>Tentang kami:</strong> {data?.description ?? "-"}
               </p>
               <p className="text-lg">
                 {data?.type_id === 2
                   ? `${data?.member_count} orang telah bergabung!`
-                  : `Tersisa ${data?.slot_count} slot!`}
+                  : `Tersisa ${data?.member_count?.toString()}/25 slot`}
               </p>
               <span className="text-white bg-gray-400 rounded-2xl flex w-fit items-center px-2 py-1 h-8">
                 {categoryName}
