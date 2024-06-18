@@ -15,7 +15,7 @@ const AddDirektoriKomunitasAktivitas = (props: any) => {
   const [posX, setPosX] = useState<number>(0);
   const [posY, setPosY] = useState<number>(0);
   const [openCategory, setOpenCategory] = useState<boolean>(false);
-  const [category, setCategory] = useState<number>(2);
+  const [category, setCategory] = useState<number>(0);
   const [communityCategoryList, setCommunityCategoryList] = useState<
     { label: string; value: number }[]
   >([{ label: "Pilih kategori...", value: 0 }]);
