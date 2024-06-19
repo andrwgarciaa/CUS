@@ -50,7 +50,7 @@ const DirektoriCard = ({ props }: { props: IPlace }) => {
             Rp{props.price_min.toLocaleString("id-ID")} - Rp
             {props.price_max?.toLocaleString("id-ID")} per orang
           </p>
-        ) : null}
+        ) : '-'}
         <p className="text-gray-600 truncate mb-1">
           {truncateString(props.address, 40)}
         </p>

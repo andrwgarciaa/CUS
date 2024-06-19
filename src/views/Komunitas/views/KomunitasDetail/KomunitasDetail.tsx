@@ -154,14 +154,15 @@ const KomunitasDetail = () => {
               alt={data?.name}
             />
           </div>
-          <h2 className="font-bold text-2xl">Foto-foto</h2>
+          <h2 className="font-bold text-2xl mt-10 mb-2">Foto-foto</h2>
           <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              overflowX: "scroll",
-              marginBottom: "20px",
-            }}
+            // style={{
+            //   display: "flex",
+            //   gap: "10px",
+            //   overflowX: "scroll",
+            //   marginBottom: "20px",
+            // }}
+            className="flex overflow-x-auto space-x-4 mb-5 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400"
           >
             {data?.has_photo ? (
               images?.map((photo, index) => (
