@@ -55,10 +55,10 @@ const KomunitasCard = ({ item }: { item: ICommunityActivity }) => {
             {truncateString(item.name, 40)}
           </h3>
         </div>
-        <p className="text-gray-600 truncate mb-4 italic">
-          {item.motto ? truncateString(item.motto, 40) : ""}
+        <p className="text-gray-600 truncate mb-2 italic">
+          {item.motto ? truncateString(item.motto, 40) : "-"}
         </p>
-        <p className="text-gray-600 truncate mb-1">
+        <p className="text-gray-600 truncate mb-2">
           {item.type_id === 2
             ? `${item.member_count?.toString()} orang telah bergabung`
             : `Tersisa ${item.member_count?.toString()}/${

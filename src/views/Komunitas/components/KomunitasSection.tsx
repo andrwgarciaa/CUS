@@ -22,7 +22,7 @@ const KomunitasSection = ({
           Lihat semua
         </Link>
       </div>
-      <div className="flex overflow-x-auto space-x-4 hide-scrollbar">
+      <div className="flex overflow-x-auto space-x-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400">
         {data?.map((item) => (
           <KomunitasCard key={item?.id} item={item} />
         ))}

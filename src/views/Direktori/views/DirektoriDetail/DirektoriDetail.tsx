@@ -73,20 +73,20 @@ const DirektoriDetail = () => {
                   <strong>Lokasi:</strong> {placeData?.address}
                 </p>
                 {placeData?.price_min && placeData?.price_max && (
-                  <p className="text-lg">
+                  <p className="text-lg mt-2">
                     <strong>Price range:</strong> Rp
                     {placeData.price_min.toLocaleString("id-ID")} - Rp
                     {placeData.price_max.toLocaleString("id-ID")} / orang
                   </p>
                 )}
-                <p className="text-lg flex gap-2">
+                <p className="text-lg flex gap-2 mt-2">
                   <strong>Rating:</strong>{" "}
                   <span className="flex w-fit items-center bg-green-500 rounded-2xl px-2 py-1 h-8">
                     <span className="text-white">{placeData?.rating}★</span>
                   </span>
                 </p>
 
-                <p className="text-lg">
+                <p className="text-lg mt-2">
                   <strong>Phone:</strong> {placeData?.phone ?? "-"}
                 </p>
               </div>
@@ -113,14 +113,15 @@ const DirektoriDetail = () => {
             />
           </div>
 
-          <h2 className="font-bold text-2xl">Foto-foto</h2>
+          <h2 className="font-bold text-2xl mt-10 mb-2">Foto-foto</h2>
           <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              overflowX: "scroll",
-              marginBottom: "20px",
-            }}
+            // style={{
+            //   display: "flex",
+            //   gap: "10px",
+            //   overflowX: "scroll",
+            //   marginBottom: "20px",
+            // }}
+              className="flex space-x-4 overflow-x-auto mb-5 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400"
           >
             {placeData?.has_photo ? (
               images?.map((photo, index) => (

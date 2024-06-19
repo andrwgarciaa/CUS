@@ -38,7 +38,7 @@ const MapFilter = (props: IHomeProps) => {
   }, []);
 
   return (
-    <div className="w-2/3 flex gap-4">
+    <div className="w-2/3 flex gap-4 scrollbar-none">
       <span
         onClick={handleArrow("LEFT")}
         className="py-3 px-5 rounded-full bg-white hover:cursor-pointer font-bold"
